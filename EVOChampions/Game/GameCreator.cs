@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace EVOChampions.Game
 {
-    internal class StreetFighter
+    public abstract class GameCreator
     {
+        public abstract Game Cteate(Player player1, Player player2);
     }
 }

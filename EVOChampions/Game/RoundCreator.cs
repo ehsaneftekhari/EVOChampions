@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace EVOChampions.Game
 {
-    internal class MortalCombat
+    public abstract class RoundCreator
     {
+        public abstract Round Cteate(Player player1, Player player2);
     }
 }
