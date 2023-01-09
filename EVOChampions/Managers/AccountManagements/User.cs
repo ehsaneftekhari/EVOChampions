@@ -1,20 +1,17 @@
-﻿using EVOChampions.Error;
+﻿using EVOChampions.Games;
 
 namespace EVOChampions.Managers.AccountManagements
 {
     public class User : Person
     {
         char gamesSeparator;
-        MessageGenerator messageGenerator;
 
         protected User(User user) : this(user, user.Id, user.Balance) { }
 
         public User(Person person, int Id, long Balance = 0) : base(person)
         {
-            messageGenerator = new MessageGenerator();
-
             if (person == null)
-                throw new ArgumentNullException(messageGenerator.ArgumentNull("person", nameof(person)));
+                throw new ArgumentNullException(nameof(person));
 
             this.Id = Id;
             this.Balance = Balance;

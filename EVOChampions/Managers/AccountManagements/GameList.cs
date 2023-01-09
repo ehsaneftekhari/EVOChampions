@@ -1,16 +1,12 @@
-﻿using EVOChampions.Error;
-
-namespace EVOChampions.Managers.AccountManagements
+﻿namespace EVOChampions.Managers.AccountManagements
 {
     internal class GameList
     {
         string[] GamesNames;
         long[] GamesPrices;
-        MessageGenerator messageGenerator;
 
         public GameList(string[] GamesNames, long[] GamesPrices)
         {
-            messageGenerator = new MessageGenerator();
             if (GamesNames.Length != GamesPrices.Length)
                 throw new ArgumentException();
 
@@ -46,7 +42,7 @@ namespace EVOChampions.Managers.AccountManagements
         public long GetGamePrice(int index)
         {
             if (index < 0 || index > GamesPrices.Length)
-                throw new IndexOutOfRangeException(messageGenerator.IndexOutOfRange("index", nameof(index)));
+                throw new IndexOutOfRangeException(nameof(index));
 
             return GamesPrices[index];
         }
@@ -54,7 +50,7 @@ namespace EVOChampions.Managers.AccountManagements
         public string GetGameName(int index)
         {
             if (index < 0 || index >= GamesNames.Length)
-                throw new IndexOutOfRangeException(messageGenerator.IndexOutOfRange("index", nameof(index)));
+                throw new IndexOutOfRangeException(nameof(index));
 
             return GamesNames[index];
         }
@@ -62,7 +58,7 @@ namespace EVOChampions.Managers.AccountManagements
         public string[] GetSubList(params int[] indexes)
         {
             if (indexes == null)
-                throw new ArgumentNullException(messageGenerator.ArgumentNull("indexes", nameof(indexes)));
+                throw new ArgumentNullException(nameof(indexes));
             string[] subList = new string[indexes.Length];
 
             for (int i = 0; i < indexes.Length; i++)

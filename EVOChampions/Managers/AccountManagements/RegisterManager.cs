@@ -1,6 +1,4 @@
-﻿using EVOChampions.Error;
-
-namespace EVOChampions.Managers.AccountManagements
+﻿namespace EVOChampions.Managers.AccountManagements
 {
     internal class RegisterManager
     {
@@ -8,11 +6,9 @@ namespace EVOChampions.Managers.AccountManagements
         int UserIdStart;
         protected User[] Users;
         GameList gameList;
-        MessageGenerator messageGenerator;
 
         public RegisterManager(int mountOfUsers, GameList gameList, int UserIdStart = 1)
         {
-            messageGenerator = new MessageGenerator();
             userIndex = -1;
             this.UserIdStart = UserIdStart;
             Users = new User[mountOfUsers];
@@ -61,10 +57,10 @@ namespace EVOChampions.Managers.AccountManagements
         private bool AddGameForUser(User users, string gameName)
         {
             if (users == null)
-                throw new ArgumentNullException(messageGenerator.ArgumentNull("users", nameof(users)));
+                throw new ArgumentNullException(nameof(users));
 
             if (gameName == null)
-                throw new ArgumentNullException(messageGenerator.ArgumentNull("gameName", nameof(gameName)));
+                throw new ArgumentNullException(nameof(gameName));
 
             try
             {
