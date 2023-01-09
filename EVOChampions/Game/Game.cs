@@ -11,10 +11,10 @@ namespace EVOChampions.Game
 {
     public abstract class Game
     {
-        RoundCreator roundCreator;
+        Creator creator;
         MessageGenerator messageGenerator;
         int winnerRounds;
-        public Game(Player player1, Player player2, RoundCreator roundCreator, int winnerRounds)
+        public Game(Player player1, Player player2, Creator creator, int winnerRounds)
         {
             messageGenerator = new MessageGenerator();
 
@@ -24,8 +24,8 @@ namespace EVOChampions.Game
             if (player2 == null)
                 throw new ArgumentNullException(messageGenerator.ArgumentNull("player2", nameof(player2)));
 
-            if (roundCreator == null)
-                throw new ArgumentNullException(messageGenerator.ArgumentNull("roundCreator", nameof(roundCreator)));
+            if (creator == null)
+                throw new ArgumentNullException(messageGenerator.ArgumentNull("creator", nameof(creator)));
 
             if(winnerRounds < 1)
                 throw new ArgumentOutOfRangeException(messageGenerator.ArgumentOutOfRange("roundCreator"));
@@ -34,7 +34,7 @@ namespace EVOChampions.Game
             Rounds = new Round[winnerRounds * 2 - 1];
             this.player1 = player1;
             this.player2 = player2;
-            this.roundCreator = roundCreator;
+            this.creator = creator;
         }
 
         public Player player1 { get; private set; }
@@ -52,7 +52,7 @@ namespace EVOChampions.Game
 
             for (int i = 0; i < Rounds.Length; i++)
             {
-                Rounds[i] = roundCreator.Cteate(player1, player2);
+                Rounds[i] = creator.CteateRound(player1, player2);
                 Rounds[i].Start();
 
                 if (Rounds[i].Winner.Id == player1.Id)
