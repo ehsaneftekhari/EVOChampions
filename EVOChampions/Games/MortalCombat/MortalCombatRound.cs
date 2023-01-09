@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EVOChampions.Game.MortalCombat
+﻿namespace EVOChampions.Games.MortalCombat
 {
     internal class MortalCombatRound : Round
     {

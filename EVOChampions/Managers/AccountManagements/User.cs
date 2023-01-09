@@ -1,12 +1,6 @@
 ﻿using EVOChampions.Error;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace EVOChampions.Manager.AccountManagement
+namespace EVOChampions.Managers.AccountManagements
 {
     public class User : Person
     {
@@ -37,7 +31,7 @@ namespace EVOChampions.Manager.AccountManagement
         {
             string sprator = "";
 
-            if(Games != null)
+            if (Games != null)
                 sprator = "$";
 
             foreach (string gameName in games)
@@ -49,7 +43,7 @@ namespace EVOChampions.Manager.AccountManagement
 
         public string[] GetGames()
         {
-            if(Games == null)
+            if (Games == null)
                 return new string[0];
 
             string[] result = Games.Split(gamesSeparator);
@@ -64,7 +58,7 @@ namespace EVOChampions.Manager.AccountManagement
 
         public long ReduceBalance(long ReduceingBalance)
         {
-            if(ReduceingBalance > Balance)
+            if (ReduceingBalance > Balance)
                 throw new InvalidOperationException(nameof(ReduceingBalance) + "is more than this User’s Balance");
 
             Balance -= ReduceingBalance;

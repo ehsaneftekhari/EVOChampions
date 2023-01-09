@@ -1,12 +1,6 @@
 ﻿using EVOChampions.Error;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace EVOChampions.Manager.AccountManagement
+namespace EVOChampions.Managers.AccountManagements
 {
     internal class RegisterManager
     {
@@ -33,9 +27,9 @@ namespace EVOChampions.Manager.AccountManagement
 
         private bool CheckNationalId(long nationalId)
         {
-            foreach(User user in Users)
+            foreach (User user in Users)
             {
-                if(user == null)
+                if (user == null)
                     return false;
 
                 if (user.NationalId == nationalId)
@@ -56,7 +50,7 @@ namespace EVOChampions.Manager.AccountManagement
                 {
                     return Games.Length - i;
                 }
-                catch 
+                catch
                 {
                     return Games.Length - i;
                 }
@@ -131,8 +125,8 @@ namespace EVOChampions.Manager.AccountManagement
             catch { throw; }
         }
 
-        public User[] GetUsers() 
-        { 
+        public User[] GetUsers()
+        {
             return Users;
         }
     }

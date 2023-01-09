@@ -1,13 +1,6 @@
 ﻿using EVOChampions.Error;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.SymbolStore;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace EVOChampions.Game
+namespace EVOChampions.Games
 {
     public abstract class Game
     {
@@ -27,7 +20,7 @@ namespace EVOChampions.Game
             if (creator == null)
                 throw new ArgumentNullException(messageGenerator.ArgumentNull("creator", nameof(creator)));
 
-            if(winnerRounds < 1)
+            if (winnerRounds < 1)
                 throw new ArgumentOutOfRangeException(messageGenerator.ArgumentOutOfRange("roundCreator"));
 
             this.winnerRounds = winnerRounds;
@@ -60,7 +53,7 @@ namespace EVOChampions.Game
                 else
                     player2WinsCount++;
 
-                if(player1WinsCount == winnerRounds)
+                if (player1WinsCount == winnerRounds)
                 {
                     Winner = player1;
                     break;

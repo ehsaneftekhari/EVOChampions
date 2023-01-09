@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EVOChampions.Game
+﻿namespace EVOChampions.Games
 {
     public abstract class Round
     {
@@ -13,9 +7,9 @@ namespace EVOChampions.Game
 
         public Round(Player player1, Player player2)
         {
-            if (player1 == null) 
+            if (player1 == null)
                 throw new ArgumentNullException(nameof(player1));
-            if(player2 == null)
+            if (player2 == null)
                 throw new ArgumentNullException(nameof(player2));
 
             this.player1 = player1;

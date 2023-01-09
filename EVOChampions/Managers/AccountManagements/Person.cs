@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EVOChampions.Manager.AccountManagement
+﻿namespace EVOChampions.Managers.AccountManagements
 {
     public class Person
     {

@@ -1,13 +1,6 @@
 ﻿using EVOChampions.Error;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace EVOChampions.Manager.AccountManagement
+namespace EVOChampions.Managers.AccountManagements
 {
     internal class GameList
     {
@@ -68,11 +61,11 @@ namespace EVOChampions.Manager.AccountManagement
 
         public string[] GetSubList(params int[] indexes)
         {
-            if(indexes == null)
+            if (indexes == null)
                 throw new ArgumentNullException(messageGenerator.ArgumentNull("indexes", nameof(indexes)));
             string[] subList = new string[indexes.Length];
 
-            for(int i = 0; i < indexes.Length; i++)
+            for (int i = 0; i < indexes.Length; i++)
             {
                 if (indexes[i] < 0 || indexes[i] >= length)
                     throw new IndexOutOfRangeException(nameof(indexes));
