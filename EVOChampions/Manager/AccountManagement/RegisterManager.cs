@@ -67,10 +67,10 @@ namespace EVOChampions.Manager.AccountManagement
         private bool AddGameForUser(User users, string gameName)
         {
             if (users == null)
-                throw new ArgumentNullException(messageGenerator.GetArgumentNullMessage("users", nameof(users)));
+                throw new ArgumentNullException(messageGenerator.ArgumentNull("users", nameof(users)));
 
             if (gameName == null)
-                throw new ArgumentNullException(messageGenerator.GetArgumentNullMessage("gameName", nameof(gameName)));
+                throw new ArgumentNullException(messageGenerator.ArgumentNull("gameName", nameof(gameName)));
 
             try
             {

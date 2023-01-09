@@ -8,15 +8,19 @@ using System.Threading.Tasks;
 
 namespace EVOChampions.Manager.AccountManagement
 {
-    internal class User : Person
+    public class User : Person
     {
         char gamesSeparator;
         MessageGenerator messageGenerator;
-        public User(Person person, int Id, long Balance = 0, params string[] RegisteredGames) : base(person)
+
+        protected User(User user) : this(user, user.Id, user.Balance) { }
+
+        public User(Person person, int Id, long Balance = 0) : base(person)
         {
             messageGenerator = new MessageGenerator();
+
             if (person == null)
-                throw new ArgumentNullException(messageGenerator.GetArgumentNullMessage("person", nameof(person)));
+                throw new ArgumentNullException(messageGenerator.ArgumentNull("person", nameof(person)));
 
             this.Id = Id;
             this.Balance = Balance;
@@ -38,7 +42,7 @@ namespace EVOChampions.Manager.AccountManagement
 
             foreach (string gameName in games)
             {
-                Games += String.Format("{0}{1}", sprator, gameName);
+                Games += string.Format("{0}{1}", sprator, gameName);
                 sprator = "$";
             }
         }

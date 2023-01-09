@@ -69,7 +69,7 @@ namespace EVOChampions.Manager.AccountManagement
         public string[] GetSubList(params int[] indexes)
         {
             if(indexes == null)
-                throw new ArgumentNullException(messageGenerator.GetArgumentNullMessage("indexes", nameof(indexes)));
+                throw new ArgumentNullException(messageGenerator.ArgumentNull("indexes", nameof(indexes)));
             string[] subList = new string[indexes.Length];
 
             for(int i = 0; i < indexes.Length; i++)
