@@ -10,7 +10,7 @@ namespace EVOChampions.Game.Taken
     {
         public override Taken Cteate(Player player1, Player player2)
         {
-            throw new NotImplementedException();
+            return new Taken(player1, player2);
         }
     }
 }

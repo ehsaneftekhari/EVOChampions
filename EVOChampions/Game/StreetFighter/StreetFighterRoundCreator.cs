@@ -10,7 +10,7 @@ namespace EVOChampions.Game.StreetFighter
     {
         public override Round Cteate(Player player1, Player player2)
         {
-            throw new NotImplementedException();
+            return new StreetFighterRound(player1, player2);
         }
     }
 }

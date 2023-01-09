@@ -10,7 +10,7 @@ namespace EVOChampions.Game.MortalCombat
     {
         public override MortalCombat Cteate(Player player1, Player player2)
         {
-            throw new NotImplementedException();
+            return new MortalCombat(player1, player2);
         }
     }
 }
