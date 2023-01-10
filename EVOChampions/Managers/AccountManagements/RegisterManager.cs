@@ -5,14 +5,12 @@
         int userIndex;
         int UserIdStart;
         protected User[] Users;
-        GameList gameList;
 
-        public RegisterManager(int mountOfUsers, GameList gameList, int UserIdStart = 1)
+        public RegisterManager(int mountOfUsers, int UserIdStart = 1)
         {
             userIndex = -1;
             this.UserIdStart = UserIdStart;
             Users = new User[mountOfUsers];
-            this.gameList = gameList;
         }
 
         public bool IsFull => NextUserIndex >= Users.Length || Users.Length == 0;

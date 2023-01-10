@@ -4,7 +4,7 @@ namespace EVOChampions.Games.Taken
 {
     internal class TakenCreator : Creator
     {
-        public override Taken CteateGame(User user1, User user2)
+        public override Taken CteateGame(TournamentUser user1, TournamentUser user2)
         {
             Player player1 = new Player(user1);
             Player player2 = new Player(user2);
