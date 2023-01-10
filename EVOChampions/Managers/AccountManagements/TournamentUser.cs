@@ -20,7 +20,7 @@ namespace EVOChampions.Managers.AccountManagements
             if (tournamentUser == null)
                 throw new ArgumentNullException(nameof(tournamentUser));
 
-            return (User)tournamentUser.Parent;
+            return (User)tournamentUser;
         }
     }
 }
