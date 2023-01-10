@@ -2,11 +2,11 @@
 {
     internal class TakenRound : Round
     {
-        public TakenRound(Player player1, Player player2) : base(player1, player2) { }
+        public TakenRound(Character character1, Character character2) : base(character1, character2) { }
 
         public override void Start()
         {
-            Winner = player1;
+            Winner = Character1;
         }
     }
 }

@@ -2,22 +2,22 @@
 {
     public abstract class Round
     {
-        public Player player1 { get; private set; }
-        public Player player2 { get; private set; }
+        public Character Character1 { get; private set; }
+        public Character Character2 { get; private set; }
 
-        public Round(Player player1, Player player2)
+        protected Round(Character character1, Character character2)
         {
-            if (player1 == null)
-                throw new ArgumentNullException(nameof(player1));
-            if (player2 == null)
-                throw new ArgumentNullException(nameof(player2));
+            if (character1 == null)
+                throw new ArgumentNullException(nameof(character1));
+            if (character2 == null)
+                throw new ArgumentNullException(nameof(character2));
 
-            this.player1 = player1;
-            this.player2 = player2;
+            Character1 = character1;
+            Character2 = character2;
         }
 
         public abstract void Start();
 
-        public Player Winner { get; protected set; }
+        public Character Winner { get; protected set; }
     }
 }

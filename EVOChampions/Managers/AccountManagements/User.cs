@@ -6,19 +6,22 @@ namespace EVOChampions.Managers.AccountManagements
     {
         char gamesSeparator;
 
-        protected User(User user) : this(user, user.Id, user.Balance) { }
+        //protected User(User user) : base(user ,user) { }
 
-        public User(Person person, int Id, long Balance = 0) : base(person)
+        public User(Person person, string userName, int id, long balance = 0) : base(person)
         {
             if (person == null)
                 throw new ArgumentNullException(nameof(person));
 
-            this.Id = Id;
-            this.Balance = Balance;
+            Id = id;
+            Balance = balance;
+            UserName = userName;
             gamesSeparator = '$';
         }
 
         public int Id { get; private set; }
+
+        public string UserName { get; private set; }
 
         string? Games { get; set; }
 

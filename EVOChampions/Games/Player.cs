@@ -1,13 +1,22 @@
 ﻿using EVOChampions.Managers.AccountManagements;
+using System.Numerics;
+using System.Security.Principal;
 
 namespace EVOChampions.Games
 {
-    public class Player : User
+    public class Player : Account
     {
-        public int health { get; private set; }
-        public Player(User user) : base(user)
+        public string UserName => ConvertToUser(Parent).UserName;
+
+        protected Player(Player Player) : this(ConvertToUser(Player)) { }
+        public Player(User user) : base(CheckNull(user)) { }
+
+        private static User ConvertToUser(Account player)
         {
-            health = 100;
+            if (player == null)
+                throw new ArgumentNullException(nameof(player));
+
+            return (User)player.Parent;
         }
     }
 }

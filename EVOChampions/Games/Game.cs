@@ -4,6 +4,7 @@
     {
         Creator creator;
         int winnerRounds;
+
         public Game(Player player1, Player player2, Creator creator, int winnerRounds)
         {
             if (player1 == null)
@@ -33,7 +34,7 @@
 
         public Round[] Rounds { get; protected set; }
 
-        protected Player Start()
+        public Player Start()
         {
             int player1WinsCount = 0;
             int player2WinsCount = 0;
@@ -43,7 +44,7 @@
                 Rounds[i] = creator.CteateRound(player1, player2);
                 Rounds[i].Start();
 
-                if (Rounds[i].Winner.Id == player1.Id)
+                if (Rounds[i].Winner.UserName == player1.UserName)
                     player1WinsCount++;
                 else
                     player2WinsCount++;
@@ -60,6 +61,11 @@
                     break;
                 }
             }
+
+            //For test
+            if (Winner is null)
+                throw new Exception();
+            //
             return Winner;
         }
     }

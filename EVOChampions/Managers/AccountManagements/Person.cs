@@ -1,9 +1,11 @@
-﻿namespace EVOChampions.Managers.AccountManagements
+﻿using System.Security.Principal;
+
+namespace EVOChampions.Managers.AccountManagements
 {
-    public class Person
+    public class Person : Account
     {
-        protected Person(Person person) : this(person.NationalId, person.FirstName, person.LastName, person.ZIPCode) { }
-        public Person(long NationalId, string FirstName, string LastName, int ZIPCode)
+        protected Person(Person person, Account? account = null) : this(person.NationalId, person.FirstName, person.LastName, person.ZIPCode, account) { }
+        public Person(long NationalId, string FirstName, string LastName, int ZIPCode, Account? account = null) : base(account)
         {
             this.NationalId = NationalId;
             this.FirstName = FirstName;
