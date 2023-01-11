@@ -5,7 +5,7 @@
         Creator creator;
         int winnerRounds;
 
-        public Game(Player player1, Player player2, Creator creator, int winnerRounds)
+        public Game(GamePlayer player1, GamePlayer player2, Creator creator, int winnerRounds)
         {
             if (player1 == null)
                 throw new ArgumentNullException(nameof(player1));
@@ -26,15 +26,15 @@
             this.creator = creator;
         }
 
-        public Player player1 { get; private set; }
+        public GamePlayer player1 { get; private set; }
 
-        public Player player2 { get; private set; }
+        public GamePlayer player2 { get; private set; }
 
-        public Player? Winner { get; protected set; }
+        public GamePlayer? Winner { get; protected set; }
 
         public Round[] Rounds { get; protected set; }
 
-        public Player Start()
+        public GamePlayer Start()
         {
             int player1WinsCount = 0;
             int player2WinsCount = 0;

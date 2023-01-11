@@ -2,10 +2,10 @@
 {
     public abstract class Round
     {
-        public Character Character1 { get; private set; }
-        public Character Character2 { get; private set; }
+        public RoundPlayer Character1 { get; private set; }
+        public RoundPlayer Character2 { get; private set; }
 
-        protected Round(Character character1, Character character2)
+        protected Round(RoundPlayer character1, RoundPlayer character2)
         {
             if (character1 == null)
                 throw new ArgumentNullException(nameof(character1));
@@ -18,6 +18,6 @@
 
         public abstract void Start();
 
-        public Character Winner { get; protected set; }
+        public RoundPlayer Winner { get; protected set; }
     }
 }

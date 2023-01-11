@@ -2,7 +2,7 @@
 {
     internal class TakenRound : Round
     {
-        public TakenRound(Character character1, Character character2) : base(character1, character2) { }
+        public TakenRound(RoundPlayer character1, RoundPlayer character2) : base(character1, character2) { }
 
         public override void Start()
         {

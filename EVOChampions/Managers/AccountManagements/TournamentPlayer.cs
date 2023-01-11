@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace EVOChampions.Managers.AccountManagements
 {
-    public class TournamentUser : Account
+    public class TournamentPlayer : Account
     {
         public string UserName => ConvertToUser(Parent).UserName;
 
-        protected TournamentUser(TournamentUser Player) : this(ConvertToUser(Player)) { }
+        protected TournamentPlayer(TournamentPlayer Player) : this(ConvertToUser(Player)) { }
 
-        public TournamentUser(User user) : base(CheckNull(user)) { }
+        public TournamentPlayer(User user) : base(CheckNull(user)) { }
 
         protected static User ConvertToUser(Account tournamentUser)
         {

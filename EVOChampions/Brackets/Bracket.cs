@@ -1,16 +1,14 @@
 ﻿using EVOChampions.Games;
 using EVOChampions.Managers.AccountManagements;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks.Dataflow;
 
-namespace EVOChampions.Bracket
+namespace EVOChampions.Brackets
 {
     public class Bracket
     {
         Block[]? blocks;
         Block? fianl;
 
-        public Bracket(TournamentUser[] tournamentUsers, Creator gameCreator)
+        public Bracket(TournamentPlayer[] tournamentUsers, Creator gameCreator)
         {
             if (tournamentUsers is null)
                 throw new ArgumentNullException(nameof(tournamentUsers));
@@ -22,7 +20,7 @@ namespace EVOChampions.Bracket
             InitialUsers(tournamentUsers, fianl!);
         }
 
-        private void InitialBlocks (int UsersCount, out Block[] blocks, out Block? fianl, Creator gameCreator)
+        private void InitialBlocks(int UsersCount, out Block[] blocks, out Block? fianl, Creator gameCreator)
         {
             if (UsersCount == 0)
                 throw new ArgumentOutOfRangeException(nameof(UsersCount));
@@ -31,7 +29,7 @@ namespace EVOChampions.Bracket
             creator.Create(out fianl);
         }
 
-        private void InitialUsers(TournamentUser[] tournamentUsers, Block fianl)
+        private void InitialUsers(TournamentPlayer[] tournamentUsers, Block fianl)
         {
             if (tournamentUsers is null)
                 throw new ArgumentNullException(nameof(tournamentUsers));
@@ -39,7 +37,7 @@ namespace EVOChampions.Bracket
             if (fianl is null)
                 throw new ArgumentNullException(nameof(fianl));
 
-            for(int i = 0; i < tournamentUsers.Length; i++)
+            for (int i = 0; i < tournamentUsers.Length; i++)
             {
                 fianl.Navigate(tournamentUsers[i]);
             }

@@ -2,6 +2,6 @@
 {
     internal class StreetFighter : Game
     {
-        public StreetFighter(Player player1, Player player2) : base(player1, player2, new StreetFighterCreator(), 4) { }
+        public StreetFighter(GamePlayer player1, GamePlayer player2) : base(player1, player2, new StreetFighterCreator(), 4) { }
     }
 }

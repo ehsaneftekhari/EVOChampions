@@ -4,7 +4,7 @@ namespace EVOChampions.Games
 {
     public abstract class Creator
     {
-        public abstract Game CteateGame(TournamentUser user1, TournamentUser user2);
-        public abstract Round CteateRound(Player player1, Player player2);
+        public abstract Game CteateGame(TournamentPlayer user1, TournamentPlayer user2);
+        public abstract Round CteateRound(GamePlayer player1, GamePlayer player2);
     }
 }

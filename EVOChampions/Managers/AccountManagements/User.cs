@@ -2,7 +2,7 @@
 
 namespace EVOChampions.Managers.AccountManagements
 {
-    public class User : Person
+    public sealed class User : Person
     {
         char gamesSeparator;
 

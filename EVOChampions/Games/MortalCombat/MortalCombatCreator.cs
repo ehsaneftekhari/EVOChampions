@@ -10,17 +10,17 @@ namespace EVOChampions.Games.MortalCombat
 {
     internal class MortalCombatCreator : Creator
     {
-        public override MortalCombat CteateGame(TournamentUser user1, TournamentUser user2)
+        public override MortalCombat CteateGame(TournamentPlayer user1, TournamentPlayer user2)
         {
-            Player player1 = new Player(user1);
-            Player player2 = new Player(user2);
+            GamePlayer player1 = new GamePlayer(user1);
+            GamePlayer player2 = new GamePlayer(user2);
             return new MortalCombat(player1, player2);
         }
 
-        public override MortalCombatRound CteateRound(Player player1, Player player2)
+        public override MortalCombatRound CteateRound(GamePlayer player1, GamePlayer player2)
         {
-            Character character1 = new Character(player1);
-            Character character2 = new Character(player1);
+            RoundPlayer character1 = new RoundPlayer(player1);
+            RoundPlayer character2 = new RoundPlayer(player1);
             return new MortalCombatRound(character1, character2);
         }
     }

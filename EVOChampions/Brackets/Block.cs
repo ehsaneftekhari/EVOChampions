@@ -2,11 +2,11 @@
 using EVOChampions.Managers.AccountManagements;
 using System.Threading.Tasks.Dataflow;
 
-namespace EVOChampions.Bracket
+namespace EVOChampions.Brackets
 {
     internal class Block
     {
-        private TournamentUser? startPlayer;
+        private TournamentPlayer? startPlayer;
         private Game? game;
         private Creator GameCreator;
         private int navigatedCount;
@@ -58,7 +58,7 @@ namespace EVOChampions.Bracket
 
         public Block? NextBlock { get; private set; }
 
-        public TournamentUser? Player
+        public TournamentPlayer? Player
         {
             get
             {
@@ -66,9 +66,9 @@ namespace EVOChampions.Bracket
                     return startPlayer;
                 else
                 {
-                    Player? tempWinner = Game.Winner;
+                    GamePlayer? tempWinner = Game.Winner;
                     if (tempWinner != null && tempWinner.Parent != null)
-                        return (TournamentUser)tempWinner.Parent!;
+                        return (TournamentPlayer)tempWinner.Parent!;
                     else
                         return null;
                 }
@@ -93,7 +93,7 @@ namespace EVOChampions.Bracket
             return GameCreator.CteateGame(UpBlock!.Player!, DownBlock!.Player!);
         }
 
-        public void Navigate(TournamentUser tournamentUser)
+        public void Navigate(TournamentPlayer tournamentUser)
         {
             if (RoundNumber == 1)
             {
@@ -107,7 +107,7 @@ namespace EVOChampions.Bracket
             navigatedCount++;
         }
 
-        private void NavigateBack(TournamentUser tournamentUser)
+        private void NavigateBack(TournamentPlayer tournamentUser)
         {
             int upNavigated = UpBlock.navigatedCount;
             int downNavigated = DownBlock.navigatedCount;
@@ -125,7 +125,7 @@ namespace EVOChampions.Bracket
             }
         }
 
-        private void RandomNavigateBack(TournamentUser tournamentUser)
+        private void RandomNavigateBack(TournamentPlayer tournamentUser)
         {
             Random random = new Random();
             int randNumber = random.Next(1, 3);
@@ -135,7 +135,7 @@ namespace EVOChampions.Bracket
                 NavigateUpBlock(tournamentUser);
         }
 
-        private void NavigateDownBlock(TournamentUser tournamentUser)
+        private void NavigateDownBlock(TournamentPlayer tournamentUser)
         {
             if (DownBlock is null)
                 throw new Exception();
@@ -143,7 +143,7 @@ namespace EVOChampions.Bracket
             DownBlock.Navigate(tournamentUser);
         }
 
-        private void NavigateUpBlock(TournamentUser tournamentUser)
+        private void NavigateUpBlock(TournamentPlayer tournamentUser)
         {
             if (UpBlock is null)
                 throw new Exception();
@@ -151,7 +151,7 @@ namespace EVOChampions.Bracket
             UpBlock.Navigate(tournamentUser);
         }
 
-        private void MakeStarterBlock(TournamentUser tournamentUser)
+        private void MakeStarterBlock(TournamentPlayer tournamentUser)
         {
             if (startPlayer is null && UpBlock is null && DownBlock is null)
             {

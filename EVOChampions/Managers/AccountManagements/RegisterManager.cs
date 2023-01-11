@@ -62,8 +62,8 @@
 
             try
             {
-                long gamePrice = gameList.GetGamePrice(gameName);
-                users.ReduceBalance(gamePrice);
+                //long gamePrice = gameList.GetGamePrice(gameName);
+                //users.ReduceBalance(gamePrice);
                 users.AddGames(gameName);
                 return true;
             }
@@ -88,11 +88,11 @@
 
             int id = NextId;
 
-            User newUser = new User(persons, id, Balance);
+            //User newUser = new User(persons, id, Balance);
 
-            Users[++userIndex] = newUser;
+            //Users[++userIndex] = newUser;
 
-            return newUser;
+            return /*newUser*/ null;
         }
 
         public User GetUserById(int Id)
