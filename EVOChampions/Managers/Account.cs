@@ -1,4 +1,4 @@
-﻿namespace EVOChampions.Managers.AccountManagements
+﻿namespace EVOChampions.Managers
 {
     public abstract class Account
     {

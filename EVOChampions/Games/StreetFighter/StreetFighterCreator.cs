@@ -1,4 +1,4 @@
-﻿using EVOChampions.Managers.AccountManagements;
+﻿using EVOChampions.Managers;
 
 namespace EVOChampions.Games.StreetFighter
 {

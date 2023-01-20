@@ -2,7 +2,7 @@
 using EVOChampions.Brackets;
 using EVOChampions.Games;
 using EVOChampions.Games.Taken;
-using EVOChampions.Managers.AccountManagements;
+using EVOChampions.Managers;
 
 class Program
 {

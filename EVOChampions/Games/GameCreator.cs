@@ -1,4 +1,4 @@
-﻿using EVOChampions.Managers.AccountManagements;
+﻿using EVOChampions.Managers;
 using System.Runtime.Intrinsics.X86;
 
 namespace EVOChampions.Games

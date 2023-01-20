@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EVOChampions.Managers.AccountManagements
+namespace EVOChampions.Managers
 {
     public sealed class TournamentPlayer : Account
     {

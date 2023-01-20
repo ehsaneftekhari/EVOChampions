@@ -1,5 +1,5 @@
 ﻿using EVOChampions.Games;
-using EVOChampions.Managers.AccountManagements;
+using EVOChampions.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

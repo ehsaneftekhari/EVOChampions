@@ -1,7 +1,7 @@
 ﻿using EVOChampions.Games;
 using System.Diagnostics.SymbolStore;
 
-namespace EVOChampions.Managers.AccountManagements
+namespace EVOChampions.Managers
 {
     public sealed class User : UserRegisterInfo
     {
@@ -50,7 +50,7 @@ namespace EVOChampions.Managers.AccountManagements
         public bool HasGame(string game)
         {
             string[] games = GetGames();
-            foreach(string name in games)
+            foreach (string name in games)
             {
                 if (name == game) return true;
             }

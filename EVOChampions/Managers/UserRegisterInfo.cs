@@ -1,6 +1,6 @@
 ﻿using System.Security.Principal;
 
-namespace EVOChampions.Managers.AccountManagements
+namespace EVOChampions.Managers
 {
     public class UserRegisterInfo : Account
     {
@@ -11,7 +11,7 @@ namespace EVOChampions.Managers.AccountManagements
             this.FirstName = FirstName;
             this.LastName = LastName;
             this.ZIPCode = ZIPCode;
-            this.UserName = userName;
+            UserName = userName;
         }
 
         public long NationalId { get; set; }

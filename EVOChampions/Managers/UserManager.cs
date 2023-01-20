@@ -1,4 +1,4 @@
-﻿namespace EVOChampions.Managers.AccountManagements
+﻿namespace EVOChampions.Managers
 {
     internal class UserManager
     {
