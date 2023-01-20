@@ -3,7 +3,7 @@ using EVOChampions.Games;
 using EVOChampions.Managers.AccountManagements;
 using System.Xml.Linq;
 
-namespace EVOChampions.Managers
+namespace EVOChampions
 {
     internal class TournamentDirector
     {

@@ -1,4 +1,4 @@
-﻿namespace EVOChampions.Managers
+﻿namespace EVOChampions
 {
     internal class TournamentOfficial
     {

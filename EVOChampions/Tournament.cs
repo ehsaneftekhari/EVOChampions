@@ -1,6 +1,5 @@
 ﻿using EVOChampions.Brackets;
 using EVOChampions.Games;
-using EVOChampions.Managers;
 using EVOChampions.Managers.AccountManagements;
 
 namespace EVOChampions
