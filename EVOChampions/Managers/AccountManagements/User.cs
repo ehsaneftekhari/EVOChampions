@@ -1,31 +1,28 @@
 ﻿using EVOChampions.Games;
+using System.Diagnostics.SymbolStore;
 
 namespace EVOChampions.Managers.AccountManagements
 {
-    public sealed class User : Person
+    public sealed class User : UserRegisterInfo
     {
         char gamesSeparator;
-
         //protected User(User user) : base(user ,user) { }
 
-        public User(Person person, string userName, int id, long balance = 0) : base(person)
+        public User(UserRegisterInfo person, int id, long balance = 0, params string[] games) : base(person)
         {
             if (person == null)
                 throw new ArgumentNullException(nameof(person));
 
             Id = id;
             Balance = balance;
-            UserName = userName;
             gamesSeparator = '$';
+            AddGames(games);
         }
-
-        public int Id { get; private set; }
-
-        public string UserName { get; private set; }
-
         string? Games { get; set; }
 
         public long Balance { private set; get; }
+
+        public int Id { get; private set; }
 
         public void AddGames(params string[] games)
         {
@@ -48,6 +45,16 @@ namespace EVOChampions.Managers.AccountManagements
 
             string[] result = Games.Split(gamesSeparator);
             return result;
+        }
+
+        public bool HasGame(string game)
+        {
+            string[] games = GetGames();
+            foreach(string name in games)
+            {
+                if (name == game) return true;
+            }
+            return false;
         }
 
         public long AddBalance(long additionalBalance)

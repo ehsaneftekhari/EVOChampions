@@ -4,66 +4,84 @@ using System.Threading.Tasks.Dataflow;
 
 namespace EVOChampions.Brackets
 {
-    internal class Block
+    public class Node
     {
-        private TournamentPlayer? startPlayer;
+        private TournamentPlayer? starterPlayer;
         private Game? game;
-        private Creator GameCreator;
+        bool UpNodeGivsLoser;
+        bool DownNodeGivsLoser;
         private int navigatedCount;
 
-        public Block(Creator GameCreator)
+        public Node(bool upBlockGivsLoser = false, bool downBlockGivsLoser = false)
         {
-            if (GameCreator is null)
-                throw new ArgumentNullException(nameof(GameCreator));
+            this.DownNodeGivsLoser = downBlockGivsLoser;
+            this.UpNodeGivsLoser = upBlockGivsLoser;
         }
 
-        public Block(Creator GameCreator, Block upBlock, Block downBlock) : this(GameCreator)
+        public Node(Node upNode, Node downNode, bool upBlockGivsLoser = false, bool downBlockGivsLoser = false) : this(upBlockGivsLoser, downBlockGivsLoser)
         {
             try
             {
-                SetUpBlock(upBlock);
-                SetDownBlock(downBlock);
+                SetUpBlock(upNode);
+                SetDownBlock(downNode);
             }
             catch { throw; }
         }
 
-
-        public int RoundNumber
+        public int LevelNumber
         {
             get
             {
-                if (UpBlock is null)
+                if (UpNode is null)
                     return 1;
                 else
-                    return UpBlock.RoundNumber + 1;
+                    return UpNode.LevelNumber + 1;
             }
         }
 
         public Game? Game
         {
             get => game;
-            private set
+            set
             {
                 if (value != null)
                 {
-                    startPlayer = null;
+                    starterPlayer = null;
                     game = value;
                 }
             }
         }
 
-        public Block? UpBlock { get; private set; }
+        public Node? UpNode { get; private set; }
 
-        public Block? DownBlock { get; private set; }
+        public Node? DownNode { get; private set; }
 
-        public Block? NextBlock { get; private set; }
+        public Node? NextNode { get; private set; }
+
+        public TournamentPlayer? Winner
+        {
+            get => Player;
+        }
+
+        public TournamentPlayer? Loser
+        {
+            get
+            {
+                if (Player is null)
+                    return null;
+                if (Player1 != null && Player.UserName == Player1.UserName)
+                    return Player2;
+                else
+                    return Player1;
+            }
+        }
 
         public TournamentPlayer? Player
         {
             get
             {
                 if (Game == null)
-                    return startPlayer;
+                    return starterPlayer;
                 else
                 {
                     GamePlayer? tempWinner = Game.Winner;
@@ -78,24 +96,40 @@ namespace EVOChampions.Brackets
                 if (value != null)
                 {
                     game = null;
-                    startPlayer = value;
-                    CkearBlocks();
+                    starterPlayer = value;
                 }
             }
         }
 
-
-        public Game? CreateGame()
+        public TournamentPlayer? Player1
         {
-            if (UpBlock is null || DownBlock is null)
-                return null;
+            get
+            {
+                if (UpNode is null)
+                    return null;
+                if (UpNodeGivsLoser)
+                    return UpNode.Loser;
+                else
+                    return UpNode.Winner;
+            }
+        }
 
-            return GameCreator.CteateGame(UpBlock!.Player!, DownBlock!.Player!);
+        public TournamentPlayer? Player2
+        {
+            get
+            {
+                if (DownNode is null)
+                    return null;
+                if (DownNodeGivsLoser)
+                    return DownNode.Loser;
+                else
+                    return DownNode.Winner;
+            }
         }
 
         public void Navigate(TournamentPlayer tournamentUser)
         {
-            if (RoundNumber == 1)
+            if (LevelNumber == 1)
             {
                 MakeStarterBlock(tournamentUser);
             }
@@ -109,8 +143,8 @@ namespace EVOChampions.Brackets
 
         private void NavigateBack(TournamentPlayer tournamentUser)
         {
-            int upNavigated = UpBlock.navigatedCount;
-            int downNavigated = DownBlock.navigatedCount;
+            int upNavigated = UpNode.navigatedCount;
+            int downNavigated = DownNode.navigatedCount;
             switch ((upNavigated > downNavigated, upNavigated == downNavigated))
             {
                 case (true, false):
@@ -137,23 +171,23 @@ namespace EVOChampions.Brackets
 
         private void NavigateDownBlock(TournamentPlayer tournamentUser)
         {
-            if (DownBlock is null)
+            if (DownNode is null)
                 throw new Exception();
 
-            DownBlock.Navigate(tournamentUser);
+            DownNode.Navigate(tournamentUser);
         }
 
         private void NavigateUpBlock(TournamentPlayer tournamentUser)
         {
-            if (UpBlock is null)
+            if (UpNode is null)
                 throw new Exception();
 
-            UpBlock.Navigate(tournamentUser);
+            UpNode.Navigate(tournamentUser);
         }
 
         private void MakeStarterBlock(TournamentPlayer tournamentUser)
         {
-            if (startPlayer is null && UpBlock is null && DownBlock is null)
+            if (starterPlayer is null && UpNode is null && DownNode is null)
             {
                 Player = tournamentUser;
                 navigatedCount = 1;
@@ -164,28 +198,22 @@ namespace EVOChampions.Brackets
             }
         }
 
-        public void SetUpBlock(Block upBlock)
+        public void SetUpBlock(Node upBlock)
         {
             if (upBlock is null)
                 throw new ArgumentNullException($"Argument {nameof(upBlock)} can not be null");
 
-            UpBlock = upBlock;
-            upBlock.NextBlock = this;
+            UpNode = upBlock;
+            upBlock.NextNode = this;
         }
 
-        public void SetDownBlock(Block downBlock)
+        public void SetDownBlock(Node downBlock)
         {
             if (downBlock is null)
                 throw new ArgumentNullException($"Argument {nameof(downBlock)} can not be null");
 
-            DownBlock = downBlock;
-            downBlock.NextBlock = this;
-        }
-
-        private void CkearBlocks()
-        {
-            UpBlock = null;
-            DownBlock = null;
+            DownNode = downBlock;
+            downBlock.NextNode = this;
         }
     }
 }

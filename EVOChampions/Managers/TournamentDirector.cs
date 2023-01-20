@@ -1,6 +1,86 @@
-﻿namespace EVOChampions.Managers
+﻿using EVOChampions.Brackets;
+using EVOChampions.Games;
+using EVOChampions.Managers.AccountManagements;
+using System.Xml.Linq;
+
+namespace EVOChampions.Managers
 {
     internal class TournamentDirector
     {
+        Bracket bracket;
+        GameCreator gameCreator;
+        public TournamentDirector(Bracket bracket, GameCreator gameCreator)
+        {
+            if (bracket is null)
+                throw new ArgumentNullException(nameof(bracket));
+
+            if (gameCreator is null)
+                throw new ArgumentNullException(nameof(gameCreator));
+
+            this.bracket = bracket;
+            this.gameCreator = gameCreator;
+        }
+
+
+        public void start()
+        {
+            int numberOfRounds = bracket.NumberOfRounds;
+            for (int i = 1; i <= numberOfRounds; i++)
+            {
+                Node[] nodes = bracket.GetNodesOf(i);
+                CreateGames(nodes);
+                StrartGames(nodes);
+            }
+        }
+
+        private void CreateGames(Node[] nodes)
+        {
+            if (nodes == null) throw new ArgumentNullException(nameof(nodes));
+
+            for (int j = 0; j < nodes.Length; j++)
+            {
+                Node node = nodes[j];
+
+                if (node.Player1 is not null && node.Player2 is not null)
+                {
+                    Game game = gameCreator.CteateGameFor(node.Player1!, node.Player2!);
+                    nodes[j].Game = game;
+                }
+            }
+
+        }
+
+        private void StrartGames(Node[] nodes)
+        {
+            if (nodes == null) throw new ArgumentNullException(nameof(nodes));
+
+            for (int j = 0; j < nodes.Length; j++)
+            {
+                Node node = nodes[j];
+
+                if (node is null)
+                    throw new Exception();
+
+                if (node.Player1 is not null && node.Player2 is not null)
+                    nodes[j].Game!.Start();
+                else
+                    ByPassPlayer(nodes[j]);
+            }
+        }
+
+        private void ByPassPlayer(Node node)
+        {
+            switch (node.Player1 is null, node.Player2 is null)
+            {
+                case (true, false):
+                    node.Player = node.Player2;
+                    break;
+                case (false, true):
+                    node.Player = node.Player1;
+                    break;
+                default:
+                    throw new Exception();
+            }
+        }
     }
 }

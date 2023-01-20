@@ -2,10 +2,10 @@
 {
     public abstract class Game
     {
-        Creator creator;
+        GameCreator creator;
         int winnerRounds;
 
-        public Game(GamePlayer player1, GamePlayer player2, Creator creator, int winnerRounds)
+        public Game(GamePlayer player1, GamePlayer player2, GameCreator creator, int winnerRounds)
         {
             if (player1 == null)
                 throw new ArgumentNullException(nameof(player1));
@@ -26,22 +26,42 @@
             this.creator = creator;
         }
 
+        public abstract string Name{ get;}
+
         public GamePlayer player1 { get; private set; }
 
         public GamePlayer player2 { get; private set; }
 
         public GamePlayer? Winner { get; protected set; }
 
+        public GamePlayer? Loser
+        { 
+            get
+            {
+                if (Winner == null)
+                    return null;
+
+                if (Winner.UserName == player1.UserName)
+                    return player2;
+                else
+                    return player1;
+            }
+        }
+
         public Round[] Rounds { get; protected set; }
 
         public GamePlayer Start()
         {
+            //for test 
+            string user1Username = player1.UserName;
+            string user2Username = player2.UserName;
+
             int player1WinsCount = 0;
             int player2WinsCount = 0;
 
             for (int i = 0; i < Rounds.Length; i++)
             {
-                Rounds[i] = creator.CteateRound(player1, player2);
+                Rounds[i] = creator.CteateRoundFor(player1, player2);
                 Rounds[i].Start();
 
                 if (Rounds[i].Winner.UserName == player1.UserName)

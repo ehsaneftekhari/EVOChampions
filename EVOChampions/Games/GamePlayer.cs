@@ -4,9 +4,10 @@ using System.Security.Principal;
 
 namespace EVOChampions.Games
 {
-    public class GamePlayer : TournamentPlayer
+    public sealed class GamePlayer : Account
     {
-        protected GamePlayer(GamePlayer Player) : this(user:Player) { }
+        public string UserName => ((TournamentPlayer)Parent!).UserName;
+
         public GamePlayer(TournamentPlayer user) : base(user) { }
     }
 }

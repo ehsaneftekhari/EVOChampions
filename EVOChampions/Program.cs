@@ -1,33 +1,71 @@
-﻿using EVOChampions.Manager.AccountManagement;
+﻿using EVOChampions;
+using EVOChampions.Brackets;
+using EVOChampions.Games;
+using EVOChampions.Games.Taken;
+using EVOChampions.Managers.AccountManagements;
 
 class Program
 {
     static void Main()
     {
-        GameList gameList = new GameList(new string[] { "MortalCombat", "Taken", "StreetFighter" }, new long[] { 100, 200, 300 });
-        RegisterManager registerManager = new RegisterManager(9, gameList);
+        //TestBracket();
+        //TestTournament();
 
-        Person Ehsan = new Person(1, "Ehsan", "Eftekhari", 1000);
-        Person Mohamad = new Person(2, "Mohamad", "Eftekhari", 1000);
-        Person Javad = new Person(21665990, "Javad", "Eftekhari", 1000);
-        Person Reza = new Person(3, "Reza", "Eftekhari", 1000);
-        Person Ariyan = new Person(4, "Ariyan", "Eftekhari", 1000);
-        Person Mohsen = new Person(5, "Mohsen", "Eftekhari", 1000);
-        Person Hasan = new Person(6, "Hasan", "Eftekhari", 1000);
-        Person Hadi = new Person(8, "Hasan", "Eftekhari", 1000);
-        Person Ali = new Person(9, "Hasan", "Eftekhari", 1000);
+    }
 
-        registerManager.Register(Ehsan, 500, gameList.GetSubList(1, 2));
-        registerManager.Register(Mohamad, 500, gameList.GetSubList(1));
-        registerManager.Register(Javad, 500, gameList.GetSubList(1, 2));
-        (int id, int gamesErrors) test1 = registerManager.Register(Reza, 700, "MortalCombat", "Taken", "StreetFighter", "tset");
-        (int id, int gamesErrors) test = registerManager.Register(Ariyan, 600, "MortalCombat", "Taken", "StreetFighter");
-        registerManager.Register(Mohsen, 500, gameList.GetSubList(1, 2));
-        registerManager.Register(Hasan, 500, gameList.GetSubList(1, 2));
-        registerManager.Register(Hadi, 500, gameList.GetSubList(1, 2));
-        registerManager.Register(Ali, 500, gameList.GetSubList(1, 2));
+    public static UserRegisterInfo[] GenerateURE()
+    {
+        UserRegisterInfo[] array = new UserRegisterInfo[9];
+        array[0] = new UserRegisterInfo(1, "Ehsan", "Eftekhari", 1000, "Ehsan");
+        array[1] = new UserRegisterInfo(2, "Mohamad", "Eftekhari", 1000, "Mohamad");
+        array[2] = new UserRegisterInfo(21665990, "Javad", "Eftekhari", 1000, "Javad");
+        array[3] = new UserRegisterInfo(3, "Reza", "Eftekhari", 1000, "Reza");
+        array[4] = new UserRegisterInfo(4, "Ariyan", "Eftekhari", 1000, "Ariyan");
+        array[5] = new UserRegisterInfo(5, "Mohsen", "Eftekhari", 1000, "Mohsen");
+        array[6] = new UserRegisterInfo(6, "Hasan", "Eftekhari", 1000, "Hasan");
+        array[7] = new UserRegisterInfo(8, "Hasan", "Eftekhari", 1000, "Hasan2");
+        array[8] = new UserRegisterInfo(9, "Hasan", "Eftekhari", 1000, "Hasan3");
 
-        string[] g = registerManager.GetUserById(3).GetGames();
-        Console.WriteLine(g);
+        return array;
+    }
+
+    private static User[] CreateUser(UserRegisterInfo[] array)
+    {
+        User[] users = new User[array.Length];
+        for (int i = 0; i < users.Length; i++)
+        {
+            users[i] = new User(array[i], i);
+        }
+        return users;
+    }
+
+    private static TournamentPlayer[] CreateTP(UserRegisterInfo[] array)
+    {
+        TournamentPlayer[] tournamentUsers = new TournamentPlayer[array.Length];
+        for (int i = 0; i < tournamentUsers.Length; i++)
+        {
+            User user = new User(array[i], i);
+            tournamentUsers[i] = new TournamentPlayer(user);
+        }
+        return tournamentUsers;
+    }
+
+    public static void TestTournament()
+    {
+        UserRegisterInfo[] array = GenerateURE();
+        User[] users = CreateUser(array);
+        TakenCreator takenCreator = new TakenCreator();
+        Tournament TestTaken = new Tournament("TestTaken", users, takenCreator);
+        TestTaken.Start();
+        int x = 0;
+    }
+
+    public static void TestBracket()
+    {
+        UserRegisterInfo[] array = GenerateURE();
+        TournamentPlayer[] tournamentUsers = CreateTP(array);
+
+        Bracket bracket = new Bracket(tournamentUsers);
+        int x = 0;
     }
 }

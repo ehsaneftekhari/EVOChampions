@@ -22,6 +22,7 @@
 
             return account;
         }
+
         protected void AddChild(Account account)
         {
             if (Children == null)
@@ -31,19 +32,19 @@
             }
             else
             {
-                ExtendArray(Children);
-                Children[Children.Length] = account;
+                Children = ExtendArray(Children);
+                Children[Children.Length - 1] = account;
             }
         }
 
-        private void ExtendArray(Account[] array)
+        private Account[] ExtendArray(Account[] array)
         {
             Account[] NeArray = new Account[array.Length + 1];
             for (int i = 0; i < array.Length; i++)
             {
                 NeArray[i] = array[i];
             }
-            array = NeArray;
+            return NeArray;
         }
 
     }

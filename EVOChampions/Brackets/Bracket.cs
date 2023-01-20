@@ -1,35 +1,71 @@
 ﻿using EVOChampions.Games;
 using EVOChampions.Managers.AccountManagements;
+using System.Xml.Linq;
 
 namespace EVOChampions.Brackets
 {
     public class Bracket
     {
-        Block[]? blocks;
-        Block? fianl;
+        Node[]? nodes;
+        Node winnersFinalsNode;
+        Node losersFinalsNode;
 
-        public Bracket(TournamentPlayer[] tournamentUsers, Creator gameCreator)
+        public Bracket(TournamentPlayer[] tournamentUsers)
         {
             if (tournamentUsers is null)
                 throw new ArgumentNullException(nameof(tournamentUsers));
 
-            if (gameCreator is null)
-                throw new ArgumentNullException(nameof(gameCreator));
-
-            InitialBlocks(tournamentUsers.Length, out blocks!, out fianl, gameCreator);
-            InitialUsers(tournamentUsers, fianl!);
+            InitialNodes(tournamentUsers.Length, out nodes!, out winnersFinalsNode, out losersFinalsNode);
+            InitialUsers(tournamentUsers, winnersFinalsNode!);
         }
 
-        private void InitialBlocks(int UsersCount, out Block[] blocks, out Block? fianl, Creator gameCreator)
+        public int NumberOfRounds => winnersFinalsNode.LevelNumber - 1;
+        public TournamentPlayer? Podium1 => winnersFinalsNode.Winner;
+        public TournamentPlayer? Podium2 => winnersFinalsNode.Loser;
+        public TournamentPlayer? Podium3 => losersFinalsNode.Winner;
+
+        public Node[] GetNodesOf(int rundNumber)
+        {
+            if(rundNumber < 0 || rundNumber > NumberOfRounds)
+                throw new ArgumentOutOfRangeException(nameof(rundNumber));
+
+            Node[] result = new Node[CountNodeOfRound(rundNumber)];
+            int index = 0;
+            foreach(Node node in nodes)
+            {
+                if(node.LevelNumber - 1 == rundNumber)
+                    result[index++] = node;
+            }
+            return result;
+        }
+
+        private int CountNodeOfRound(int rundNumber)
+        {
+            if (rundNumber < 0 || rundNumber > NumberOfRounds)
+                throw new ArgumentOutOfRangeException(nameof(rundNumber));
+
+            if (nodes is null)
+                return 0;
+
+            int count = 0;
+            foreach(Node node in nodes)
+            {
+                if(node.LevelNumber - 1 == rundNumber)
+                    count++;
+            }
+            return count;
+        }
+
+        private void InitialNodes(int UsersCount, out Node[] nodes, out Node? fianlNode, out Node? losersFinalsNode)
         {
             if (UsersCount == 0)
                 throw new ArgumentOutOfRangeException(nameof(UsersCount));
 
-            BracketCreator creator = new BracketCreator(UsersCount, out blocks, gameCreator);
-            creator.Create(out fianl);
+            BracketCreator creator = new BracketCreator(UsersCount);
+            creator.Create(out nodes, out fianlNode, out losersFinalsNode);
         }
 
-        private void InitialUsers(TournamentPlayer[] tournamentUsers, Block fianl)
+        private void InitialUsers(TournamentPlayer[] tournamentUsers, Node fianl)
         {
             if (tournamentUsers is null)
                 throw new ArgumentNullException(nameof(tournamentUsers));
@@ -46,62 +82,54 @@ namespace EVOChampions.Brackets
 
     internal class BracketCreator
     {
-        private Creator gameCreator;
-        private Block[] blocks;
+        private Node[] Nodes;
         int lastIndex;
         int NumberOFReounds;
 
-        public BracketCreator(int UsersCount, out Block[] blocks, Creator gameCreator)
+        public BracketCreator(int UsersCount)
         {
-            var numbers = CalculateNubers(UsersCount);
+            var numbers = CalculateNumbers(UsersCount);
             NumberOFReounds = numbers.NumberOFReounds;
-            blocks = new Block[numbers.NuberOfBlocks];
-
-            this.blocks = blocks;
-
+            Nodes = new Node[numbers.NuberOfBlocks + 1];
             lastIndex = -1;
-
-            this.gameCreator = gameCreator;
         }
 
-        public void Create(out Block? block)
+        public void Create(out Node[] Nodes, out Node winnersFinalsNode, out Node? losersFinalsNode)
         {
-            CreateBackward(out block, NumberOFReounds);
+            CreateBackward(out winnersFinalsNode, NumberOFReounds);
+            Nodes = this.Nodes;
+            losersFinalsNode = new Node(winnersFinalsNode.UpNode!, winnersFinalsNode.DownNode!, true, true);
+            AddToNodes(losersFinalsNode);
         }
 
-        private void CreateBackward(out Block block, int roundNumber)
+        private void CreateBackward(out Node node, int roundNumber)
         {
-            block = null;
+            node = null;
             if (roundNumber > 0)
             {
-                block = new Block(gameCreator);
-                blocks[++lastIndex] = block;
+                node = new Node();
+                AddToNodes(node);
 
-                Block? newUpBlock = null;
+                Node? newUpBlock = null;
                 CreateBackward(out newUpBlock, roundNumber - 1);
 
-                Block? newDownBlock = null;
+                Node? newDownBlock = null;
                 CreateBackward(out newDownBlock, roundNumber - 1);
 
                 if (newUpBlock != null && newDownBlock != null)
                 {
-                    block.SetUpBlock(newUpBlock);
-                    block.SetDownBlock(newDownBlock);
+                    node.SetUpBlock(newUpBlock);
+                    node.SetDownBlock(newDownBlock);
                 }
             }
         }
 
-        private int GetNextPowerOf2(int number)
+        private void AddToNodes(Node node)
         {
-            for (int i = 1; ; i++)
-            {
-                int powerOf2 = (int)Math.Pow(2, i);
-                if (powerOf2 >= number)
-                    return powerOf2;
-            }
+            Nodes[++lastIndex] = node;
         }
 
-        private (int NumberOFReounds, int NuberOfBlocks) CalculateNubers(int Count)
+        private (int NumberOFReounds, int NuberOfBlocks) CalculateNumbers(int Count)
         {
             (int NumberOFReounds, int NuberOfBlocks) result;
 
@@ -115,6 +143,16 @@ namespace EVOChampions.Brackets
                 result.NumberOFReounds++;
             }
             return result;
+        }
+
+        private int GetNextPowerOf2(int number)
+        {
+            for (int i = 1; ; i++)
+            {
+                int powerOf2 = (int)Math.Pow(2, i);
+                if (powerOf2 >= number)
+                    return powerOf2;
+            }
         }
     }
 }

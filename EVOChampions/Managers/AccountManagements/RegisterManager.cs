@@ -78,7 +78,7 @@
             }
         }
 
-        private User AddUser(Person persons, long Balance)
+        private User AddUser(UserRegisterInfo persons, long Balance)
         {
             if (IsFull)
                 throw new StackOverflowException("no empty space for new User");
@@ -88,11 +88,11 @@
 
             int id = NextId;
 
-            //User newUser = new User(persons, id, Balance);
+            User newUser = new User(persons, id, Balance);
 
-            //Users[++userIndex] = newUser;
+            Users[++userIndex] = newUser;
 
-            return /*newUser*/ null;
+            return newUser;
         }
 
         public User GetUserById(int Id)
@@ -103,7 +103,7 @@
             return Users[Id - UserIdStart];
         }
 
-        public (int id, int gamesErrors) Register(Person persons, long Balance, params string[] Games)
+        public (int id, int gamesErrors) Register(UserRegisterInfo persons, long Balance, params string[] Games)
         {
             try
             {
