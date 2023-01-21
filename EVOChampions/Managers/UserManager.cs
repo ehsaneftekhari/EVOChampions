@@ -4,9 +4,9 @@
     {
         protected User[] Users;
 
-        public UserManager(RegisterManager registerManager)
-        {
-            Users = registerManager.GetUsers();
-        }
+        //public UserManager(RegisterManager registerManager)
+        //{
+        //    Users = registerManager.GetUsers();
+        //}
     }
 }

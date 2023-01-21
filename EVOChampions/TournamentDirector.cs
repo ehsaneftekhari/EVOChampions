@@ -1,7 +1,5 @@
 ﻿using EVOChampions.Brackets;
 using EVOChampions.Games;
-using EVOChampions.Managers.AccountManagements;
-using System.Xml.Linq;
 
 namespace EVOChampions
 {
