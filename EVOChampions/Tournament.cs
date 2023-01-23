@@ -12,13 +12,13 @@ namespace EVOChampions
 
         public Tournament(string name, long salary, GameCreator gameCreator)
         {
-            if(name== null)
+            if (name == null)
                 throw new ArgumentNullException(nameof(name));
 
             if (salary < 0)
                 throw new ArgumentOutOfRangeException(nameof(salary));
 
-            if(gameCreator == null)
+            if (gameCreator == null)
                 throw new ArgumentNullException(nameof(gameCreator));
 
             Name = name;
