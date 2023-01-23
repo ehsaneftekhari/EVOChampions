@@ -12,9 +12,6 @@ namespace EVOChampions
 
         public GeneralManager(int mountOfUsers, params Tournament[] tournaments) 
         {
-            
-
-
             Tournaments = tournaments;
 
             RegisterManager = new RegisterManager(mountOfUsers, 1, Tournaments);
