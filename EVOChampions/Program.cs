@@ -18,65 +18,53 @@ class Program
     public static void Run()
     {
         Tournament takenTournament = new("Taken", 20, new TakenCreator());
-
         Tournament mortalCombatTournament = new("Mortal Combat", 30, new MortalCombatCreator());
-
         Tournament streetFighter = new("Street Fighter", 20, new StreetFighterCreator());
 
         GeneralManager generalManager = new GeneralManager(16, takenTournament, mortalCombatTournament, streetFighter);
 
-        UserRegisterInfo[] array = GenerateURE();
-
         RegisterManager registerManager = generalManager.RegisterManager;
 
-        var user1 = registerManager.Register(array[0]);
-        generalManager.RegisterManager.AddGamesForUser(user1, 10, "Taken");
-
-        var user2 = registerManager.Register(array[1]);
-        generalManager.RegisterManager.AddGamesForUser(user2, 20, "Taken");
-
-        var user3 = registerManager.Register(array[2]);
-        generalManager.RegisterManager.AddGamesForUser(user3, 20, "Taken");
-
-        var user4 = registerManager.Register(array[3]);
-        generalManager.RegisterManager.AddGamesForUser(user4, 20, "Taken");
-
-        var user5 = registerManager.Register(array[4]);
-        generalManager.RegisterManager.AddGamesForUser(user5, 20, "Taken");
-
-        var user6 = registerManager.Register(array[5]);
-        generalManager.RegisterManager.AddGamesForUser(user6, 20, "Taken");
-
-        var user7 = registerManager.Register(array[6]);
-        generalManager.RegisterManager.AddGamesForUser(user7, 20, "Taken");
-
-        var user8 = registerManager.Register(array[7]);
-        generalManager.RegisterManager.AddGamesForUser(user8, 20, "Taken");
-
-        var user9 = registerManager.Register(array[8]);
-        generalManager.RegisterManager.AddGamesForUser(user9, 20, "Taken");
+        UserRegisterInfo[] array = GenerateURE();
+        foreach (UserRegisterInfo userRegisterInfo in array)
+        {
+            User newUser;
+            if (registerManager.RegisterUser(userRegisterInfo, out newUser))
+            {
+                registerManager.RegisterTournament(newUser, "Taken", 20);
+                registerManager.RegisterTournament(newUser, "Mortal Combat", 20);
+                registerManager.RegisterTournament(newUser, "Street Fighter", 20);
+            }
+        }
 
         generalManager.FinishRegisteration();
+
         generalManager.Start();
 
-        Console.WriteLine(generalManager.Tournaments[0].Podium1.UserName);
-        Console.WriteLine(generalManager.Tournaments[0].Podium2.UserName);
-        Console.WriteLine(generalManager.Tournaments[0].Podium3.UserName);
+        Console.WriteLine(generalManager.Tournaments[0].Podium1!.UserName);
+        Console.WriteLine(generalManager.Tournaments[0].Podium2!.UserName);
+        Console.WriteLine(generalManager.Tournaments[0].Podium3!.UserName);
     }
 
     public static UserRegisterInfo[] GenerateURE()
     {
-        UserRegisterInfo[] array = new UserRegisterInfo[9];
-        array[0] = new UserRegisterInfo(1, "Ehsan", "Eftekhari", 1000, "Ehsan");
-        array[1] = new UserRegisterInfo(2, "Mohamad", "Eftekhari", 1000, "Mohamad");
-        array[2] = new UserRegisterInfo(21665990, "Javad", "Eftekhari", 1000, "Javad");
-        array[3] = new UserRegisterInfo(3, "Reza", "Eftekhari", 1000, "Reza");
-        array[4] = new UserRegisterInfo(4, "Ariyan", "Eftekhari", 1000, "Ariyan");
-        array[5] = new UserRegisterInfo(5, "Mohsen", "Eftekhari", 1000, "Mohsen");
-        array[6] = new UserRegisterInfo(6, "Hasan", "Eftekhari", 1000, "Hasan");
-        array[7] = new UserRegisterInfo(8, "Hasan", "Eftekhari", 1000, "Hasan2");
-        array[8] = new UserRegisterInfo(9, "Hasan", "Eftekhari", 1000, "Hasan3");
-
+        UserRegisterInfo[] array = new UserRegisterInfo[16];
+        array[0] = new UserRegisterInfo(1000000000, "Ehsan", "Eftekhari", 1000, "Ehsan");
+        array[1] = new UserRegisterInfo(1000000001, "Mohamad", "Eftekhari", 1000, "Mohamad");
+        array[2] = new UserRegisterInfo(1000000002, "Javad", "Eftekhari", 1000, "Javad");
+        array[3] = new UserRegisterInfo(1000000003, "Reza", "Eftekhari", 1000, "Reza");
+        array[4] = new UserRegisterInfo(1000000004, "Ariyan", "Eftekhari", 1000, "Ariyan");
+        array[5] = new UserRegisterInfo(1000000005, "Mohsen", "Eftekhari", 1000, "Mohsen");
+        array[6] = new UserRegisterInfo(1000000006, "Hasan", "Eftekhari", 1000, "Hasan");
+        array[7] = new UserRegisterInfo(1000000007, "Hasan", "Shahbazi", 1000, "Shahbazi");
+        array[8] = new UserRegisterInfo(1000000008, "Hesam", "Eftekhari", 1000, "Hasan2");
+        array[9] = new UserRegisterInfo(1000000009, "Hesam", "Eftekhari", 1000, "Hasan3");
+        array[10] = new UserRegisterInfo(10000000010, "Hesam", "Eftekhari", 1000, "Hasan4");
+        array[11] = new UserRegisterInfo(10000000011, "Hesam", "Eftekhari", 1000, "Hasan5");
+        array[12] = new UserRegisterInfo(10000000012, "Hesam", "Eftekhari", 1000, "Hasan6");
+        array[13] = new UserRegisterInfo(10000000013, "Hesam", "Eftekhari", 1000, "Hasan7");
+        array[14] = new UserRegisterInfo(10000000014, "Hesam", "Eftekhari", 1000, "Hasan8");
+        array[15] = new UserRegisterInfo(10000000015, "Hesam", "Eftekhari", 1000, "Hasan9");
         return array;
     }
 
