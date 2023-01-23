@@ -5,71 +5,53 @@ namespace EVOChampions.Managers
 {
     public sealed class User : UserRegisterInfo
     {
-        char gamesSeparator;
+        char tournamentSeparator;
         //protected User(User user) : base(user ,user) { }
 
-        public User(UserRegisterInfo person, int id, long balance = 0, params string[] games) : base(person)
+        public User(UserRegisterInfo person, int id, params string[] tournaments) : base(person)
         {
             if (person == null)
                 throw new ArgumentNullException(nameof(person));
 
             Id = id;
-            Balance = balance;
-            gamesSeparator = '$';
-            AddGames(games);
+            tournamentSeparator = '$';
+            AddTournament(tournaments);
         }
-        string? Games { get; set; }
-
-        public long Balance { private set; get; }
+        string? Tournaments { get; set; }
 
         public int Id { get; private set; }
 
-        public void AddGames(params string[] games)
+        public void AddTournament(params string[] games)
         {
             string sprator = "";
 
-            if (Games != null)
+            if (Tournaments != null)
                 sprator = "$";
 
             foreach (string gameName in games)
             {
-                Games += string.Format("{0}{1}", sprator, gameName);
+                Tournaments += string.Format("{0}{1}", sprator, gameName);
                 sprator = "$";
             }
         }
 
-        public string[] GetGames()
+        public string[] GetTournaments()
         {
-            if (Games == null)
+            if (Tournaments == null)
                 return new string[0];
 
-            string[] result = Games.Split(gamesSeparator);
+            string[] result = Tournaments.Split(tournamentSeparator);
             return result;
         }
 
-        public bool HasGame(string game)
+        public bool HasTournament(string game)
         {
-            string[] games = GetGames();
+            string[] games = GetTournaments();
             foreach (string name in games)
             {
                 if (name == game) return true;
             }
             return false;
-        }
-
-        public long AddBalance(long additionalBalance)
-        {
-            Balance += additionalBalance;
-            return Balance;
-        }
-
-        public long ReduceBalance(long ReduceingBalance)
-        {
-            if (ReduceingBalance > Balance)
-                throw new InvalidOperationException(nameof(ReduceingBalance) + "is more than this User’s Balance");
-
-            Balance -= ReduceingBalance;
-            return Balance;
         }
     }
 }

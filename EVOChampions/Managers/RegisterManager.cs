@@ -1,9 +1,12 @@
-﻿namespace EVOChampions.Managers
+﻿using EVOChampions.ErrorManagements;
+
+namespace EVOChampions.Managers
 {
     public class RegisterManager
     {
         int userIndex;
         int UserIdStart;
+        TournamentOfficial tournamentOfficial;
 
         public RegisterManager(int mountOfUsers, int UserIdStart = 1, params Tournament[] tournaments)
         {
@@ -11,6 +14,7 @@
             this.UserIdStart = UserIdStart;
             Users = new User[mountOfUsers];
             this.tournaments = tournaments;
+            tournamentOfficial = new TournamentOfficial(this);
         }
 
         private int NextUserIndex => userIndex + 1;
@@ -31,21 +35,45 @@
             return Users[Id - UserIdStart];
         }
 
-        public User Register(UserRegisterInfo info)
+        public bool RegisterUser(UserRegisterInfo info, out User newUser)
         {
+            newUser = CreateNextUser(info);
             try
             {
-                if (CheckNationalId(info.NationalId))
-                    throw new Exception(string.Format("The nationalId of persons ({0}) has registered before", nameof(info)));
-
-                if (CheckUserName(info.UserName))
-                    throw new Exception(string.Format("The username of persons ({0}) is in use", nameof(info)));
-
-                User newUser = AddUser(info);
-
-                return newUser;
+                if (tournamentOfficial.DitectRegisterError(newUser))
+                {
+                    tournamentOfficial.PrintErrors();
+                    tournamentOfficial.ResetOccurredErrors();
+                    newUser = null;
+                    return false;
+                }
+                else
+                {
+                    AddUser(newUser);
+                    return true;
+                }
             }
-            catch { throw; }
+            catch 
+            {
+                newUser = null;
+                return false;
+            }
+        }
+
+        public bool RegisterTournament(User user, string tournamentName, long payed)
+        {
+            if (tournamentOfficial.DitectTournamentRegisterError(tournamentName, payed))
+            {
+                tournamentOfficial.PrintErrors();
+                tournamentOfficial.ResetOccurredErrors();
+                return false;
+            }
+            else
+            {
+                Tournament tournament = GetTournament(tournamentName);
+                user.AddTournament(tournament.Name);
+                return true;
+            }
         }
 
         public User[] GetUsers(string gameName)
@@ -58,12 +86,55 @@
                 if (user is null)
                     break;
 
-                if (user.HasGame(gameName))
+                if (user.HasTournament(gameName))
                 {
                     result[index++] = user;
                 }
             }
             return result;
+        }
+
+        internal bool ContainsTournament(string tournamentName)
+        {
+            if (tournamentName is null)
+                throw new ArgumentNullException(nameof(tournamentName));
+
+            if (tournamentName.Length == 0)
+                throw new ArgumentException(nameof(tournamentName));
+
+            foreach (Tournament tournament in tournaments)
+            {
+                if (tournament.Name == tournamentName)
+                    return true;
+            }
+            return false;
+        }
+
+        internal long GetTournamentSalary(string tournamentName)
+        {
+            if (tournamentName is null)
+                throw new ArgumentNullException(nameof(tournamentName));
+
+            if (tournamentName.Length == 0)
+                throw new ArgumentException(nameof(tournamentName));
+
+            foreach (Tournament tournament in tournaments)
+            {
+                if (tournament.Name == tournamentName)
+                    return tournament.Salary;
+            }
+
+            return 0;
+        }
+
+        internal Tournament GetTournament(string tournamentName)
+        {
+            foreach (Tournament tournament in tournaments)
+            {
+                if (tournament.Name == tournamentName)
+                    return tournament;
+            }
+            throw new Exception();
         }
 
         private int CountUsers(string gameName)
@@ -74,77 +145,25 @@
                 if (user is null)
                     break;
 
-                if (user.HasGame(gameName))
+                if (user.HasTournament(gameName))
                     count++;
             }
             return count;
         }
 
-        private bool CheckNationalId(long nationalId)
-        {
-            foreach (User user in Users)
-            {
-                if (user == null)
-                    return false;
-
-                if (user.NationalId == nationalId)
-                    return true;
-            }
-            return false;
-        }
-
-        private bool CheckUserName(string username)
-        {
-            foreach (User user in Users)
-            {
-                if (user == null)
-                    return false;
-
-                if (user.UserName == username)
-                    return true;
-            }
-            return false;
-        }
-
-        public void AddGamesForUser(User User, long payed, params string[] Games)
-        {
-            int i = 0;
-            try
-            {
-                for (; i < Games.Length; i++)
-                {
-                    payed = AddGameForUser(User, Games[i], payed);
-                }
-            }
-            catch (ArithmeticException ex)
-            {
-                throw ex;
-            }
-        }
-
-        private long AddGameForUser(User user, string gameName, long payed)
-        {
-            foreach (Tournament tournament in tournaments)
-            {
-                if (tournament.Name == gameName && payed >= tournament.Salary)
-                {
-                    payed -= tournament.Salary;
-                    user.AddGames(tournament.Name);
-                }
-            }
-            return payed;
-        }
-
-        private User AddUser(UserRegisterInfo info)
+        private void AddUser(User user)
         {
             if (IsFull)
                 throw new StackOverflowException("no empty space for new User");
 
+            Users[++userIndex] = user;
+        }
+
+        private User CreateNextUser(UserRegisterInfo info)
+        {
             int id = NextId;
 
             User newUser = new User(info, id);
-
-            Users[++userIndex] = newUser;
 
             return newUser;
         }
