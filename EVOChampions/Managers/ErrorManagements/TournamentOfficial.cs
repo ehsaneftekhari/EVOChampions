@@ -1,9 +1,9 @@
-﻿using EVOChampions.ErrorManagements.ErrorDetectors;
-using EVOChampions.ErrorManagements.ErrorDetectors.TournamentRegisterErrorDetectors;
-using EVOChampions.ErrorManagements.ErrorDetectors.UserRegisterErrorDetectors;
-using EVOChampions.Managers;
+﻿using EVOChampions.Managers;
+using EVOChampions.Managers.ErrorManagements.ErrorDetectors;
+using EVOChampions.Managers.ErrorManagements.ErrorDetectors.TournamentRegisterErrorDetectors;
+using EVOChampions.Managers.ErrorManagements.ErrorDetectors.UserRegisterErrorDetectors;
 
-namespace EVOChampions.ErrorManagements
+namespace EVOChampions.Managers.ErrorManagements
 {
     public class TournamentOfficial
     {

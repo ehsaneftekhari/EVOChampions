@@ -1,4 +1,4 @@
-﻿namespace EVOChampions.ErrorManagements.ErrorDetectors
+﻿namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors
 {
     internal static class ErrorsList
     {

@@ -1,6 +1,6 @@
 ﻿using EVOChampions.Managers;
 
-namespace EVOChampions.ErrorManagements.ErrorDetectors
+namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors
 {
     public abstract class ErrorDetector
     {

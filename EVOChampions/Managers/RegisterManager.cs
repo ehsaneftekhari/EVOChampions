@@ -1,4 +1,4 @@
-﻿using EVOChampions.ErrorManagements;
+﻿using EVOChampions.Managers.ErrorManagements;
 
 namespace EVOChampions.Managers
 {

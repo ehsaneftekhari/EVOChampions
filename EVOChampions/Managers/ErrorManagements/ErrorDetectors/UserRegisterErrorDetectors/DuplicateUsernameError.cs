@@ -1,6 +1,6 @@
 ﻿using EVOChampions.Managers;
 
-namespace EVOChampions.ErrorManagements.ErrorDetectors.UserRegisterErrorDetectors
+namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.UserRegisterErrorDetectors
 {
     public sealed class DuplicateUsernameError : UserRegisterErrorDetector
     {
