@@ -57,6 +57,7 @@ namespace EVOChampions.Brackets
         public Node? DownNode { get; private set; }
 
         public Node? WinnersNextNode { get; private set; }
+        public Node? LoserNextNode { get; private set; }
 
         public TournamentPlayer? Winner
         {
@@ -236,7 +237,11 @@ namespace EVOChampions.Brackets
                 throw new ArgumentNullException($"Argument {nameof(upBlock)} can not be null");
 
             UpNode = upBlock;
-            upBlock.WinnersNextNode = this;
+
+            if (UpNodeGivsLoser)
+                upBlock.LoserNextNode = this;
+            else
+                upBlock.WinnersNextNode = this;
         }
 
         public void SetDownBlock(Node downBlock)
@@ -245,7 +250,10 @@ namespace EVOChampions.Brackets
                 throw new ArgumentNullException($"Argument {nameof(downBlock)} can not be null");
 
             DownNode = downBlock;
-            downBlock.WinnersNextNode = this;
+            if (DownNodeGivsLoser)
+                downBlock.LoserNextNode = this;
+            else
+                downBlock.WinnersNextNode = this;
         }
     }
 }
