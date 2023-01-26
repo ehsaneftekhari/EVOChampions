@@ -6,7 +6,7 @@
 
         public override void Start()
         {
-            Winner = Character1;
+            Winner = RoundPlayer1;
         }
     }
 }

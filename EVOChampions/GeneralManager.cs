@@ -37,5 +37,15 @@ namespace EVOChampions
                 }catch(Exception e) { }
             }
         }
+
+        public override string ToString()
+        {
+            string result = "";
+            foreach(Tournament tournament in Tournaments)
+            {
+                result += string.Format("\n{0}\n", tournament.ToString());
+            }
+            return result;
+        }
     }
 }

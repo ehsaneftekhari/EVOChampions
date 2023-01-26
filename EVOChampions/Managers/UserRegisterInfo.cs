@@ -23,5 +23,10 @@ namespace EVOChampions.Managers
         public int ZIPCode { get; set; }
 
         public string UserName { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("Firstname: {0}\tLastname: {1}\tUsername: {2}", FirstName, LastName, UserName);
+        }
     }
 }

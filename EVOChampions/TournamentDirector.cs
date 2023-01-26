@@ -25,7 +25,7 @@ namespace EVOChampions
             int numberOfRounds = bracket.NumberOfRounds;
             for (int i = 1; i <= numberOfRounds; i++)
             {
-                Node[] nodes = bracket.GetNodesOf(i);
+                Node[] nodes = bracket.GetNodesOfRound(i);
                 CreateGames(nodes);
                 StrartGames(nodes);
             }

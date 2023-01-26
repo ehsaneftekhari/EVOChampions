@@ -26,7 +26,7 @@
             this.creator = creator;
         }
 
-        public abstract string Name{ get;}
+        public abstract string Name { get; }
 
         public GamePlayer player1 { get; private set; }
 
@@ -35,7 +35,7 @@
         public GamePlayer? Winner { get; protected set; }
 
         public GamePlayer? Loser
-        { 
+        {
             get
             {
                 if (Winner == null)
@@ -45,6 +45,19 @@
                     return player2;
                 else
                     return player1;
+            }
+        }
+
+        public int RoundsCount
+        {
+            get
+            {
+                for(int i = 0; i < Rounds.Length; i++)
+                {
+                    if (Rounds[i] == null)
+                        return i;
+                }
+                return 0;
             }
         }
 
@@ -87,6 +100,50 @@
                 throw new Exception();
             //
             return Winner;
+        }
+
+        public override string ToString()
+        {
+            string result = "Game:++++++++++++++++++++++++++++++++++++++++\n";
+            if (Winner == null)
+                result += "Game didn`t started";
+            else
+            {
+                result += SummaryToString();
+                result += "\n";
+                result += RoundsDetailsToString();
+            }
+            result += "++++++++++++++++++++++++++++++++++++++++/Game";
+            return result;
+        }
+
+        private string RoundsDetailsToString()
+        {
+            string result = "";
+            if (Rounds == null || Rounds.Length == 0)
+                return result;
+
+            result += "Rounds:\n";
+            for (int i = 0; i < Rounds.Length; i++)
+            {
+                if (Rounds[i] == null)
+                    break;
+                result += string.Format("Round {0}:\n{1}\n", i, Rounds[i].ToString());
+            }
+
+            return result;
+        }
+
+        private string SummaryToString()
+        {
+            if (Winner == null)
+                return "";
+
+            return string.Format("Winner -> {0} Winned Rounds:{1}\nLoser -> {2} Winned Rounds:{3}",
+                             Winner.ToString(),
+                             winnerRounds,
+                             Loser.ToString(),
+                             RoundsCount - winnerRounds);
         }
     }
 }

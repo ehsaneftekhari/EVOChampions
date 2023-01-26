@@ -9,5 +9,10 @@ namespace EVOChampions.Games
         public string UserName => ((TournamentPlayer)Parent!).UserName;
 
         public GamePlayer(TournamentPlayer user) : base(user) { }
+
+        public override string ToString()
+        {
+            return UserName;
+        }
     }
 }

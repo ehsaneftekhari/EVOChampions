@@ -19,27 +19,33 @@ namespace EVOChampions.Brackets
             InitialUsers(tournamentUsers, winnersFinalsNode!);
         }
 
-        public int NumberOfRounds => winnersFinalsNode.LevelNumber - 1;
+        public int NumberOfLevels => winnersFinalsNode.LevelNumber;
+        public int NumberOfRounds => NumberOfLevels - 1;
         public TournamentPlayer? Podium1 => winnersFinalsNode.Winner;
         public TournamentPlayer? Podium2 => winnersFinalsNode.Loser;
         public TournamentPlayer? Podium3 => losersFinalsNode.Winner;
 
-        public Node[] GetNodesOf(int rundNumber)
+        public Node[] GetNodesOfRound(int rundNumber)
         {
-            if(rundNumber < 0 || rundNumber > NumberOfRounds)
+            if (rundNumber < 0 || rundNumber > NumberOfRounds)
                 throw new ArgumentOutOfRangeException(nameof(rundNumber));
 
             Node[] result = new Node[CountNodeOfRound(rundNumber)];
             int index = 0;
-            foreach(Node node in nodes)
+            foreach (Node node in nodes)
             {
-                if(node.LevelNumber - 1 == rundNumber)
+                if (node.LevelNumber - 1 == rundNumber)
                     result[index++] = node;
             }
             return result;
         }
 
-        private int CountNodeOfRound(int rundNumber)
+        public Node[] GetNodesOfLevel(int level)
+        {
+            return GetNodesOfRound(level - 1);
+        }
+
+        internal int CountNodeOfRound(int rundNumber)
         {
             if (rundNumber < 0 || rundNumber > NumberOfRounds)
                 throw new ArgumentOutOfRangeException(nameof(rundNumber));
@@ -48,9 +54,9 @@ namespace EVOChampions.Brackets
                 return 0;
 
             int count = 0;
-            foreach(Node node in nodes)
+            foreach (Node node in nodes)
             {
-                if(node.LevelNumber - 1 == rundNumber)
+                if (node.LevelNumber - 1 == rundNumber)
                     count++;
             }
             return count;
@@ -77,6 +83,34 @@ namespace EVOChampions.Brackets
             {
                 fianl.Navigate(tournamentUsers[i]);
             }
+        }
+        public override string ToString()
+        {
+            string result = "Tournament:=====================================\n";
+            for (int i = 1; i <= NumberOfLevels; i++)
+            {
+                result += string.Format("Round {0} Games:\n{1}\n", i - 1, LevelToString(i));
+            }
+            result += "=====================================/Bracket";
+            return result;
+        }
+        private string LevelToString(int LevelNumber)
+        {
+            string result = "";
+            foreach (Node node in nodes)
+            {
+                if (node.LevelNumber == LevelNumber)
+                {
+                    result += string.Format("\n{0}\n", node.ToString());
+                }
+            }
+            return result;
+        }
+
+        public void PrintA()
+        {
+            BracketPrinter bracketPrinter = new BracketPrinter(this);
+            bracketPrinter.Print();
         }
     }
 

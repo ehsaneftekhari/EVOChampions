@@ -141,6 +141,38 @@ namespace EVOChampions.Brackets
             navigatedCount++;
         }
 
+        public override string ToString()
+        {
+            string result = "Node:----------------------------------------";
+
+            if (Player1 != null || Player2 != null)
+            {
+                result += string.Format("\nPlayer1: {0}", GetPlayerInString(Player1));
+                result += string.Format("\nPlayer2: {0}", GetPlayerInString(Player2));
+
+                result += string.Format("\n{0} Winns\n", Player);
+            }
+            else
+                result += string.Format("\n{0}\n", Player);
+
+            if (Game is not null)
+            {
+                result += "Ditails:\n";
+                result += Game.ToString();
+                result += "\n";
+            }
+            result += "----------------------------------------/Node";
+            return result;
+
+            string GetPlayerInString(TournamentPlayer? Player1)
+            {
+                if (Player1 is null)
+                    return "_";
+                return Player1.ToString();
+            }
+        }
+
+
         private void NavigateBack(TournamentPlayer tournamentUser)
         {
             int upNavigated = UpNode.navigatedCount;

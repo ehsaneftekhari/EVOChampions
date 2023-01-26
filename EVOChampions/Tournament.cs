@@ -6,7 +6,7 @@ namespace EVOChampions
 {
     public class Tournament
     {
-        Bracket bracket;
+        public Bracket bracket;
         GameCreator gameCreator;
         TournamentPlayer[] players;
 
@@ -30,11 +30,35 @@ namespace EVOChampions
 
         public long Salary { get; set; }
 
-        public User? Podium1 => GetParent(bracket.Podium1);
+        public User? Gold
+        {
+            get
+            {
+                if (bracket is not null)
+                   return GetParent(bracket.Podium1);
+                return null;
+            }
+        } 
 
-        public User? Podium2 => GetParent(bracket.Podium2);
+        public User? Silver
+        {
+            get
+            {
+                if (bracket is not null)
+                    return GetParent(bracket.Podium2);
+                return null;
+            }
+        }
 
-        public User? Podium3 => GetParent(bracket.Podium3);
+        public User? Bronze
+        {
+            get
+            {
+                if (bracket is not null)
+                    return GetParent(bracket.Podium3);
+                return null;
+            }
+        }
 
         public void Start()
         {
@@ -53,6 +77,18 @@ namespace EVOChampions
             {
                 players[i] = new TournamentPlayer(registeredUsers[i]);
             }
+        }
+
+        public override string ToString()
+        {
+            string result = "Tournament:----------------------------------\n";
+            if (Gold != null)
+            {
+                result += string.Format("TournamentName: {0}\nPodiums:\n1.Gold: {1}\n2.Silver: {2}\n3.Bronze: {3}\n", Name, Gold, Silver, Bronze);
+                result += string.Format("Bracket:\n{0}\n", bracket.ToString());
+            }
+            result += "----------------------------------/Tournament\n";
+            return result;
         }
 
         private User? GetParent(TournamentPlayer? player)
