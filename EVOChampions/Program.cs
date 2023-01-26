@@ -1,6 +1,5 @@
 ﻿using EVOChampions;
 using EVOChampions.Brackets;
-using EVOChampions.Games;
 using EVOChampions.Games.MortalCombat;
 using EVOChampions.Games.StreetFighter;
 using EVOChampions.Games.Taken;

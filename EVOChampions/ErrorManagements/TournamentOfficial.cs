@@ -1,5 +1,4 @@
-﻿
-using EVOChampions.ErrorManagements.ErrorDetectors;
+﻿using EVOChampions.ErrorManagements.ErrorDetectors;
 using EVOChampions.ErrorManagements.ErrorDetectors.TournamentRegisterErrorDetectors;
 using EVOChampions.ErrorManagements.ErrorDetectors.UserRegisterErrorDetectors;
 using EVOChampions.Managers;
@@ -20,7 +19,7 @@ namespace EVOChampions.ErrorManagements
                 new DuplicateNationalIdError(registerManager),
                 new DuplicateUsernameError(registerManager),
                 new UsernameFormatError(registerManager),
-                
+
                 new NationalIdFormatError(registerManager)
             };
 
@@ -65,7 +64,7 @@ namespace EVOChampions.ErrorManagements
         public override string ToString()
         {
             string result = "";
-            for(int i = 0; i < index; i+=2)
+            for (int i = 0; i < index; i += 2)
             {
                 result += string.Format("Error code: {0} _ Error Message: {1}\n", occurredErrorsMessages[i], occurredErrorsMessages[i + 1]);
             }

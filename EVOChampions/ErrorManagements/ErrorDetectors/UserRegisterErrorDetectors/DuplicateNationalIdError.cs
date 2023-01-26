@@ -1,5 +1,4 @@
 ﻿using EVOChampions.Managers;
-using System.Runtime.InteropServices;
 
 namespace EVOChampions.ErrorManagements.ErrorDetectors.UserRegisterErrorDetectors
 {

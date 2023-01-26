@@ -1,6 +1,5 @@
 ﻿using EVOChampions.Games;
 using EVOChampions.Managers;
-using System.Threading.Tasks.Dataflow;
 
 namespace EVOChampions.Brackets
 {

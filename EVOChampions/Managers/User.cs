@@ -1,7 +1,4 @@
-﻿using EVOChampions.Games;
-using System.Diagnostics.SymbolStore;
-
-namespace EVOChampions.Managers
+﻿namespace EVOChampions.Managers
 {
     public sealed class User : UserRegisterInfo
     {

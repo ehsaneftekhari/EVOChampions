@@ -1,6 +1,4 @@
 ﻿using EVOChampions.Managers;
-using System.Numerics;
-using System.Security.Principal;
 
 namespace EVOChampions.Games
 {

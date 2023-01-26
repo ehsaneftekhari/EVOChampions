@@ -35,10 +35,10 @@ namespace EVOChampions
             get
             {
                 if (bracket is not null)
-                   return GetParent(bracket.Podium1);
+                    return GetParent(bracket.Podium1);
                 return null;
             }
-        } 
+        }
 
         public User? Silver
         {

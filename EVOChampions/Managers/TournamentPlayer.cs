@@ -1,11 +1,4 @@
-﻿using EVOChampions.Games;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EVOChampions.Managers
+﻿namespace EVOChampions.Managers
 {
     public sealed class TournamentPlayer : Account
     {

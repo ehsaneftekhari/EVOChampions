@@ -1,5 +1,4 @@
 ﻿using EVOChampions.Managers;
-using System.Runtime.Intrinsics.X86;
 
 namespace EVOChampions.Games
 {
@@ -7,7 +6,7 @@ namespace EVOChampions.Games
     {
         public Game CteateGameFor(TournamentPlayer user1, TournamentPlayer user2)
         {
-            if(user1 is null)
+            if (user1 is null)
                 throw new ArgumentNullException(nameof(user1));
 
             if (user1 is null)
