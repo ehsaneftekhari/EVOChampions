@@ -29,8 +29,6 @@ namespace EVOChampions.Brackets
 
         public Node[] GetNodesOfLevel(int levelNumber)
         {
-            //return GetNodesOfRound(level - 1);
-
             if (levelNumber < 1 || levelNumber > NumberOfLevels)
                 throw new ArgumentOutOfRangeException(nameof(levelNumber));
 
