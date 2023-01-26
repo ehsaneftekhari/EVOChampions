@@ -84,7 +84,8 @@ namespace EVOChampions
             string result = "Tournament:----------------------------------\n";
             if (Gold != null)
             {
-                result += string.Format("TournamentName: {0}\nPodiums:\n1.Gold: {1}\n2.Silver: {2}\n3.Bronze: {3}\n", Name, Gold, Silver, Bronze);
+                result += string.Format("TournamentName: {0}\nPodiums:\n1.Gold:   {1}\n2.Silver: {2}\n3.Bronze: {3}\n", Name, Gold, Silver, Bronze);
+                result += bracket.GraphToString();
                 result += string.Format("Bracket:\n{0}\n", bracket.ToString());
             }
             result += "----------------------------------/Tournament\n";

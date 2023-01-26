@@ -11,7 +11,7 @@ namespace EVOChampions
         {
             Tournaments = tournaments;
 
-            RegisterManager = new RegisterManager(mountOfUsers, 1, Tournaments);
+            RegisterManager = new RegisterManager(mountOfUsers, Tournaments);
         }
 
         public void FinishRegisteration()

@@ -8,10 +8,10 @@ namespace EVOChampions.Managers
         int UserIdStart;
         TournamentOfficial tournamentOfficial;
 
-        public RegisterManager(int mountOfUsers, int UserIdStart = 1, params Tournament[] tournaments)
+        public RegisterManager(int mountOfUsers, params Tournament[] tournaments)
         {
             userIndex = -1;
-            this.UserIdStart = UserIdStart;
+            UserIdStart = 1;
             Users = new User[mountOfUsers];
             this.tournaments = tournaments;
             tournamentOfficial = new TournamentOfficial(this);
@@ -35,28 +35,19 @@ namespace EVOChampions.Managers
             return Users[Id - UserIdStart];
         }
 
-        public bool RegisterUser(UserRegisterInfo info, out User newUser)
+        public User RegisterUser(UserRegisterInfo info, out User newUser)
         {
             newUser = CreateNextUser(info);
-            try
+
+            if (tournamentOfficial.DitectRegisterError(newUser))
             {
-                if (tournamentOfficial.DitectRegisterError(newUser))
-                {
-                    tournamentOfficial.PrintErrors();
-                    tournamentOfficial.ResetOccurredErrors();
-                    newUser = null;
-                    return false;
-                }
-                else
-                {
-                    AddUser(newUser);
-                    return true;
-                }
+                tournamentOfficial.ResetOccurredErrors();
+                throw new Exception(tournamentOfficial.ToString());
             }
-            catch 
+            else
             {
-                newUser = null;
-                return false;
+                AddUser(newUser);
+                return newUser;
             }
         }
 

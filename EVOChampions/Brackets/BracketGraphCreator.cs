@@ -19,7 +19,7 @@ namespace EVOChampions.Brackets
             result += GetWinnersGraph();
             result += "\n\n========== Loser Graph ==============\n\n";
             result += GetLoserGraph();
-
+            result += "\n\n=====================================\n\n";
             return result;
         }
 

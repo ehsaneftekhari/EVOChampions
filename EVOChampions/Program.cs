@@ -27,20 +27,32 @@ class Program
         UserRegisterInfo[] array = GenerateURE();
         foreach (UserRegisterInfo userRegisterInfo in array)
         {
-            User newUser;
-            if (registerManager.RegisterUser(userRegisterInfo, out newUser))
+            try
             {
+                User newUser = registerManager.RegisterUser(userRegisterInfo, out newUser);
                 registerManager.RegisterTournament(newUser, "Taken", 20);
-                registerManager.RegisterTournament(newUser, "Mortal Combat", 20);
+                registerManager.RegisterTournament(newUser, "Mortal Combat", 30);
                 registerManager.RegisterTournament(newUser, "Street Fighter", 20);
+            }
+            catch(Exception ex)
+            {
+                PrintError(ex.Message);
             }
         }
 
         generalManager.FinishRegisteration();
 
         generalManager.Start();
-        Console.WriteLine(generalManager.Tournaments[0].bracket.GraphToString());
+
         Console.WriteLine(generalManager.ToString());
+    }
+
+    public static void PrintError(string rrrorMessage)
+    {
+        ConsoleColor lastColor = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(rrrorMessage);
+        Console.ForegroundColor = lastColor;
     }
 
     public static UserRegisterInfo[] GenerateURE()
