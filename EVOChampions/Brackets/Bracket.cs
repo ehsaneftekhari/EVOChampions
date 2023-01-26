@@ -6,7 +6,7 @@ namespace EVOChampions.Brackets
 {
     public class Bracket
     {
-        Node[]? nodes;
+        internal Node[]? nodes;
         Node winnersFinalsNode;
         Node losersFinalsNode;
 
@@ -55,7 +55,7 @@ namespace EVOChampions.Brackets
             return result;
         }
 
-        internal int CountNodeOfRound(int rundNumber)
+        public string GraphToString()
         {
             BracketGraphCreator bracketPrinter = new BracketGraphCreator(this);
             return bracketPrinter.GetGraph();
@@ -195,6 +195,145 @@ namespace EVOChampions.Brackets
                 int powerOf2 = (int)Math.Pow(2, i);
                 if (powerOf2 >= number)
                     return powerOf2;
+            }
+        }
+    }
+
+    internal class BracketGraphCreator
+    {
+        Bracket bracket;
+        string[] whiteboard;
+        int numberOfLevels;
+        public BracketGraphCreator(Bracket bracket)
+        {
+            if (bracket is null)
+                throw new ArgumentException();
+
+            this.bracket = bracket;
+            whiteboard = new string[bracket.CountNodeOfRound(0) * 2 - 1];
+            numberOfLevels = bracket.NumberOfLevels;
+        }
+
+        public string GetGraph()
+        {
+            string result = "";
+            FillWhiteboard();
+            for (int i = 0; i < whiteboard.Length; i++)
+            {
+                result += whiteboard[i] + "\n";
+            }
+            return result;
+        }
+
+        private void FillWhiteboard()
+        {
+            for (int level = 1; level <= numberOfLevels; level++)
+            {
+                Node[] nodes = bracket.GetNodesOfLevel(level);
+                if(level < numberOfLevels)
+                    AddNodesToWhiteboard(nodes, level);
+                else
+                    AddNodesToWhiteboard(nodes, level, true);
+
+            }
+        }
+
+        private void AddNodesToWhiteboard(Node[] nodes, int level, bool last = false)
+        {
+            int passSteps = CalculatePass(level);
+            int passedCount = passSteps;
+            bool pipeFlag = false;
+            int nodesIindex = 0;
+            int longestLength = FindLongestLength(nodes);
+
+
+            for (int i = CalculatePass(level - 1); i < whiteboard.Length; i++)
+            {
+                if (passedCount == passSteps)
+                {
+                    string value = GetNextUserName();
+                    AddInWhiteboard(i, value, longestLength);
+
+                    if (last)
+                        break;
+
+                    passedCount = 0;
+                    pipeFlag = !pipeFlag;
+                }
+                else
+                {
+                    if (pipeFlag)
+                        AddInWhiteboard(i, "  |", longestLength);
+                    else
+                        AddInWhiteboard(i, " ", longestLength);
+
+                    passedCount++;
+                }
+
+            }
+
+            void AddInWhiteboard(int index, string str, int longestLength)
+            {
+                if (index < 0 || index >= whiteboard.Length)
+                    return;
+
+                if (str == null)
+                    whiteboard[index] += createString("<BayPass>", longestLength);
+                else
+                    whiteboard[index] += createString(str, longestLength);
+            }
+
+            string createString(string str, int longestLength)
+            {
+                for (int i = longestLength - str.Length; i >= 0; i--)
+                    str += " ";
+
+                str += "   ";
+                return str;
+            }
+
+            int FindLongestLength(Node[] nodes)
+            {
+                int length = 0;
+                try
+                {
+                    while (true)
+                    {
+
+                        int nextLength = GetNextUserName().Length;
+                        if (nextLength > length)
+                            length = nextLength;
+                    }
+
+                }
+                catch
+                {
+                    nodesIindex = 0;
+                    return length;
+                }
+            }
+
+            string GetNextUserName()
+            {
+                if (nodesIindex >= nodes.Length)
+                    throw new IndexOutOfRangeException();
+
+                TournamentPlayer player = nodes[nodesIindex++].Player;
+                if (player == null)
+                    return "_";
+                else
+                    return player.UserName;
+            }
+
+            int CalculatePass(int level)
+            {
+                if (level < 1)
+                    return 0;
+
+                if (level == 1)
+                    return 1;
+
+                return 2 * CalculatePass(level - 1) + 1;
             }
         }
     }
