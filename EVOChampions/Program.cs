@@ -41,7 +41,7 @@ class Program
 
         generalManager.Start();
 
-        Console.WriteLine(generalManager.Tournaments[0].Podium1!.UserName);
+        Console.WriteLine(generalManager.ToString());
         Console.WriteLine(generalManager.Tournaments[0].Podium2!.UserName);
         Console.WriteLine(generalManager.Tournaments[0].Podium3!.UserName);
     }
