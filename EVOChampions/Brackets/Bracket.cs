@@ -25,30 +25,42 @@ namespace EVOChampions.Brackets
         public TournamentPlayer? Podium2 => winnersFinalsNode.Loser;
         public TournamentPlayer? Podium3 => losersFinalsNode.Winner;
 
-        public Node[] GetNodesOfRound(int rundNumber)
-        {
-            if (rundNumber < 0 || rundNumber > NumberOfRounds)
-                throw new ArgumentOutOfRangeException(nameof(rundNumber));
+        public Node[] GetNodesOfRound(int rundNumber) => GetNodesOfLevel(rundNumber + 1);
 
-            Node[] result = new Node[CountNodeOfRound(rundNumber)];
+        public Node[] GetNodesOfLevel(int levelNumber)
+        {
+            //return GetNodesOfRound(level - 1);
+
+            if (levelNumber < 1 || levelNumber > NumberOfLevels)
+                throw new ArgumentOutOfRangeException(nameof(levelNumber));
+
+            Node[] result = new Node[CountNodeOfLevel(levelNumber)];
             int index = 0;
             foreach (Node node in nodes)
             {
-                if (node.LevelNumber - 1 == rundNumber)
+                if (node.LevelNumber == levelNumber)
                     result[index++] = node;
             }
             return result;
         }
 
-        public Node[] GetNodesOfLevel(int level)
+        public override string ToString()
         {
             return GetNodesOfRound(level - 1);
         }
 
         internal int CountNodeOfRound(int rundNumber)
         {
-            if (rundNumber < 0 || rundNumber > NumberOfRounds)
-                throw new ArgumentOutOfRangeException(nameof(rundNumber));
+            BracketGraphCreator bracketPrinter = new BracketGraphCreator(this);
+            return bracketPrinter.GetGraph();
+        }
+
+        internal int CountNodeOfRound(int rundNumber) => CountNodeOfLevel(rundNumber + 1);
+
+        internal int CountNodeOfLevel(int leveNumber)
+        {
+            if (leveNumber < 1 || leveNumber > NumberOfLevels)
+                throw new ArgumentOutOfRangeException(nameof(leveNumber));
 
             if (nodes is null)
                 return 0;
@@ -56,7 +68,7 @@ namespace EVOChampions.Brackets
             int count = 0;
             foreach (Node node in nodes)
             {
-                if (node.LevelNumber - 1 == rundNumber)
+                if (node.LevelNumber == leveNumber)
                     count++;
             }
             return count;
@@ -84,16 +96,7 @@ namespace EVOChampions.Brackets
                 fianl.Navigate(tournamentUsers[i]);
             }
         }
-        public override string ToString()
-        {
-            string result = "Tournament:=====================================\n";
-            for (int i = 1; i <= NumberOfLevels; i++)
-            {
-                result += string.Format("Round {0} Games:\n{1}\n", i - 1, LevelToString(i));
-            }
-            result += "=====================================/Bracket";
-            return result;
-        }
+
         private string LevelToString(int LevelNumber)
         {
             string result = "";
