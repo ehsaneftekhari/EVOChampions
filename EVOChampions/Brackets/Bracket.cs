@@ -46,7 +46,13 @@ namespace EVOChampions.Brackets
 
         public override string ToString()
         {
-            return GetNodesOfRound(level - 1);
+            string result = "Tournament:=====================================\n";
+            for (int i = 1; i <= NumberOfLevels; i++)
+            {
+                result += string.Format("Round {0} Games:\n{1}\n", i - 1, LevelToString(i));
+            }
+            result += "=====================================/Bracket";
+            return result;
         }
 
         internal int CountNodeOfRound(int rundNumber)
