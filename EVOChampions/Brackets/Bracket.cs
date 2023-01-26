@@ -1,5 +1,6 @@
 ﻿using EVOChampions.Games;
 using EVOChampions.Managers;
+using System;
 using System.Xml.Linq;
 
 namespace EVOChampions.Brackets
@@ -7,8 +8,8 @@ namespace EVOChampions.Brackets
     public class Bracket
     {
         internal Node[]? nodes;
-        Node winnersFinalsNode;
-        Node losersFinalsNode;
+        internal Node winnersFinalsNode;
+        internal Node losersFinalsNode;
 
         public Bracket(TournamentPlayer[] tournamentUsers)
         {
@@ -194,49 +195,73 @@ namespace EVOChampions.Brackets
     internal class BracketGraphCreator
     {
         Bracket bracket;
-        string[] whiteboard;
-        int numberOfLevels;
         public BracketGraphCreator(Bracket bracket)
         {
             if (bracket is null)
                 throw new ArgumentException();
 
             this.bracket = bracket;
-            whiteboard = new string[bracket.CountNodeOfRound(0) * 2 - 1];
-            numberOfLevels = bracket.NumberOfLevels;
         }
 
         public string GetGraph()
         {
-            string result = "";
-            FillWhiteboard();
-            for (int i = 0; i < whiteboard.Length; i++)
+            string result = "========== Winners Graph ==============\n\n";
+            result += GetWinnersGraph();
+            result += "\n\n========== Loser Graph ==============\n\n";
+            result += GetLoserGraph();
+
+            return result;
+        }
+
+        public string GetLoserGraph()
+        {
+            Node losersFinalsNode = bracket.losersFinalsNode;
+            string Player1UserName = losersFinalsNode.Player1!.UserName;
+            string Player2UserName = losersFinalsNode.Player2!.UserName;
+            string Winner = losersFinalsNode.Winner!.UserName;
+
+            int longestUsename = Player1UserName.Length;
+            if (Player2UserName.Length > Player1UserName.Length)
+                longestUsename = Player2UserName.Length;
+
+            string result = createString(Player1UserName, longestUsename);
+            result += "\n";
+            result += createString("  |", longestUsename);
+            result += createString(Winner, longestUsename);
+            result += "\n";
+            result += createString(Player2UserName, longestUsename);
+            return result;
+        }
+
+        private string GetWinnersGraph()
+        {
+            string[] whiteboard = new string[bracket.CountNodeOfRound(0) * 2 - 1];
+            for (int level = 1; level <= bracket.NumberOfLevels; level++)
             {
-                result += whiteboard[i] + "\n";
+                Node[] nodes = bracket.GetNodesOfLevel(level);
+                AddNodesToWhiteboard(whiteboard, nodes, level == bracket.NumberOfLevels);
+            }
+            return CombineArray(whiteboard);
+        }
+
+        private string CombineArray(string[] array)
+        {
+            string result = "";
+            for (int i = 0; i < array.Length; i++)
+            {
+                result += array[i] + "\n";
             }
             return result;
         }
 
-        private void FillWhiteboard()
+        private void AddNodesToWhiteboard(string[] whiteboard, Node[] nodes, bool last = false)
         {
-            for (int level = 1; level <= numberOfLevels; level++)
-            {
-                Node[] nodes = bracket.GetNodesOfLevel(level);
-                if(level < numberOfLevels)
-                    AddNodesToWhiteboard(nodes, level);
-                else
-                    AddNodesToWhiteboard(nodes, level, true);
-
-            }
-        }
-
-        private void AddNodesToWhiteboard(Node[] nodes, int level, bool last = false)
-        {
+            int level = nodes[0].LevelNumber;
             int passSteps = CalculatePass(level);
             int passedCount = passSteps;
             bool pipeFlag = false;
             int nodesIindex = 0;
-            int longestLength = FindLongestLength(nodes);
+            int longestLength = FindLongestUsername(nodes);
 
 
             for (int i = CalculatePass(level - 1); i < whiteboard.Length; i++)
@@ -275,16 +300,7 @@ namespace EVOChampions.Brackets
                     whiteboard[index] += createString(str, longestLength);
             }
 
-            string createString(string str, int longestLength)
-            {
-                for (int i = longestLength - str.Length; i >= 0; i--)
-                    str += " ";
-
-                str += "   ";
-                return str;
-            }
-
-            int FindLongestLength(Node[] nodes)
+            int FindLongestUsername(Node[] nodes)
             {
                 int length = 0;
                 try
@@ -327,6 +343,14 @@ namespace EVOChampions.Brackets
 
                 return 2 * CalculatePass(level - 1) + 1;
             }
+        }
+        string createString(string str, int longestLength)
+        {
+            for (int i = longestLength - str.Length; i >= 0; i--)
+                str += " ";
+
+            str += "   ";
+            return str;
         }
     }
 }
