@@ -115,12 +115,6 @@ namespace EVOChampions.Brackets
             }
             return result;
         }
-
-        public void PrintA()
-        {
-            BracketPrinter bracketPrinter = new BracketPrinter(this);
-            bracketPrinter.Print();
-        }
     }
 
     internal class BracketCreator
