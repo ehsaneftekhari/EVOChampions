@@ -19,16 +19,15 @@ namespace EVOChampions.Managers.ErrorManagements
                 new DuplicateNationalIdError(registerManager),
                 new DuplicateUsernameError(registerManager),
                 new UsernameFormatError(registerManager),
-
                 new NationalIdFormatError(registerManager)
             };
 
             tournamentRegisterError = new TournamentRegisterErrorDetector[]{
                 new InvalidTournamentError(registerManager),
-                new LowBalanceError(registerManager)
+                new LowBalanceError(registerManager),
+                new TournamentCapacityIsFullError(registerManager)
             };
-
-            ResetOccurredErrors();
+            InitialOccurredErrorsArray();
         }
 
         public bool DitectRegisterError(User newUser)
@@ -71,6 +70,13 @@ namespace EVOChampions.Managers.ErrorManagements
             return result;
         }
 
+        public string ReadAndCleanErrorsMessages()
+        {
+            string result = ToString();
+            InitialOccurredErrorsArray();
+            return result;
+        }
+
         public void PrintErrors()
         {
             ConsoleColor lastColor = Console.ForegroundColor;
@@ -79,7 +85,7 @@ namespace EVOChampions.Managers.ErrorManagements
             Console.ForegroundColor = lastColor;
         }
 
-        public void ResetOccurredErrors()
+        public void InitialOccurredErrorsArray()
         {
             occurredErrorsMessages = new string[(userRegisterError.Length + tournamentRegisterError.Length) * 2];
             index = 0;
