@@ -104,9 +104,7 @@ namespace EVOChampions.Brackets
                 if (index < 0 || index >= whiteboard.Length)
                     return;
 
-                if (str == null)
-                    whiteboard[index] += createString("<BayPass>", longestLength);
-                else
+                if (str != null)
                     whiteboard[index] += createString(str, longestLength);
             }
 
@@ -138,7 +136,7 @@ namespace EVOChampions.Brackets
 
                 TournamentPlayer player = nodes[nodesIindex++].Player;
                 if (player == null)
-                    return "_";
+                    return "_baypass";
                 else
                     return player.UserName;
             }
