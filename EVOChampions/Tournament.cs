@@ -6,11 +6,9 @@ namespace EVOChampions
 {
     public class Tournament
     {
-        public Bracket bracket;
         GameCreator gameCreator;
         TournamentPlayer[] players;
-
-        public Tournament(string name, long salary, GameCreator gameCreator)
+        public Tournament(string name, long salary, int playersCapacity, GameCreator gameCreator)
         {
             if (name == null)
                 throw new ArgumentNullException(nameof(name));
@@ -23,19 +21,24 @@ namespace EVOChampions
 
             Name = name;
             Salary = salary;
+            this.PlayersCapacity = playersCapacity;
             this.gameCreator = gameCreator;
         }
 
         public string Name { get; set; }
 
-        public long Salary { get; set; }
+        public long Salary { get; private set; }
+
+        public int PlayersCapacity { get; private set; }
+
+        public Bracket Bracket { get; private set; }
 
         public User? Gold
         {
             get
             {
-                if (bracket is not null)
-                    return GetParent(bracket.Podium1);
+                if (Bracket is not null)
+                    return GetParentOfPlayer(Bracket.Podium1);
                 return null;
             }
         }
@@ -44,8 +47,8 @@ namespace EVOChampions
         {
             get
             {
-                if (bracket is not null)
-                    return GetParent(bracket.Podium2);
+                if (Bracket is not null)
+                    return GetParentOfPlayer(Bracket.Podium2);
                 return null;
             }
         }
@@ -54,8 +57,8 @@ namespace EVOChampions
         {
             get
             {
-                if (bracket is not null)
-                    return GetParent(bracket.Podium3);
+                if (Bracket is not null)
+                    return GetParentOfPlayer(Bracket.Podium3);
                 return null;
             }
         }
@@ -65,16 +68,19 @@ namespace EVOChampions
             if (players is null || players.Length == 0)
                 throw new Exception("There is no players to start the Tournament");
 
-            bracket = new Bracket(players);
-            TournamentDirector director = new TournamentDirector(bracket, gameCreator);
+            Bracket = new Bracket(players);
+            TournamentDirector director = new TournamentDirector(Bracket, gameCreator);
             director.start();
         }
 
         public void SetUsers(User[] registeredUsers)
         {
-            this.players = new TournamentPlayer[registeredUsers.Length];
+            players = new TournamentPlayer[registeredUsers.Length];
             for (int i = 0; i < registeredUsers.Length; i++)
             {
+                if (i >= PlayersCapacity)
+                    throw new StackOverflowException("there is no enough space to add rest of the users in " + Name + "Tournament");
+
                 players[i] = new TournamentPlayer(registeredUsers[i]);
             }
         }
@@ -85,14 +91,14 @@ namespace EVOChampions
             if (Gold != null)
             {
                 result += string.Format("TournamentName: {0}\nPodiums:\n1.Gold:   {1}\n2.Silver: {2}\n3.Bronze: {3}\n", Name, Gold, Silver, Bronze);
-                result += bracket.GraphToString();
-                result += string.Format("Bracket:\n{0}\n", bracket.ToString());
+                result += Bracket.GraphToString();
+                result += string.Format("Bracket:\n{0}\n", Bracket.ToString());
             }
             result += "----------------------------------/Tournament\n";
             return result;
         }
 
-        private User? GetParent(TournamentPlayer? player)
+        private User? GetParentOfPlayer(TournamentPlayer? player)
         {
             if (player == null)
                 return null;
