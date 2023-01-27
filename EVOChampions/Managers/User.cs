@@ -25,11 +25,12 @@
             if (Tournaments != null)
                 sprator = "$";
 
-            foreach (string gameName in games)
-            {
-                Tournaments += string.Format("{0}{1}", sprator, gameName);
-                sprator = "$";
-            }
+            if (games != null)
+                foreach (string gameName in games)
+                {
+                    Tournaments += string.Format("{0}{1}", sprator, gameName);
+                    sprator = "$";
+                }
         }
 
         public string[] GetTournaments()
