@@ -16,11 +16,11 @@ class Program
 
     public static void Run()
     {
-        Tournament takenTournament = new("Taken", 20, new TakenCreator());
-        Tournament mortalCombatTournament = new("Mortal Combat", 30, new MortalCombatCreator());
-        Tournament streetFighter = new("Street Fighter", 20, new StreetFighterCreator());
+        Tournament takenTournament = new("Taken", 20, 15, new TakenCreator());
+        Tournament mortalCombatTournament = new("Mortal Combat", 30, 15, new MortalCombatCreator());
+        Tournament streetFighter = new("Street Fighter", 20, 15, new StreetFighterCreator());
 
-        GeneralManager generalManager = new GeneralManager(16, takenTournament, mortalCombatTournament, streetFighter);
+        GeneralManager generalManager = new GeneralManager(takenTournament, mortalCombatTournament, streetFighter);
 
         RegisterManager registerManager = generalManager.RegisterManager;
 
@@ -103,7 +103,7 @@ class Program
         UserRegisterInfo[] array = GenerateURE();
         User[] users = CreateUser(array);
         TakenCreator takenCreator = new TakenCreator();
-        Tournament TestTaken = new Tournament("TestTaken", 1000, takenCreator);
+        Tournament TestTaken = new Tournament("TestTaken", 1000, 16, takenCreator);
         TestTaken.SetUsers(users);
         TestTaken.Start();
         int x = 0;
