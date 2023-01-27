@@ -7,11 +7,10 @@ namespace EVOChampions
         public RegisterManager RegisterManager { get; private set; }
         public Tournament[] Tournaments { get; private set; }
 
-        public GeneralManager(int mountOfUsers, params Tournament[] tournaments)
+        public GeneralManager(params Tournament[] tournaments)
         {
             Tournaments = tournaments;
-
-            RegisterManager = new RegisterManager(mountOfUsers, Tournaments);
+            RegisterManager = new RegisterManager(Tournaments);
         }
 
         public void FinishRegisteration()
@@ -19,7 +18,7 @@ namespace EVOChampions
             foreach (Tournament tournament in Tournaments)
             {
                 string Name = tournament.Name;
-                User[] users = RegisterManager.GetUsers(Name);
+                User[] users = RegisterManager.GetUsersByTournamentName(Name);
                 tournament.SetUsers(users);
             }
         }
@@ -32,7 +31,10 @@ namespace EVOChampions
                 {
                     tournament.Start();
                 }
-                catch (Exception e) { }
+                catch (Exception ex)
+                {
+                    Program.PrintError(ex.Message);
+                }
             }
         }
 

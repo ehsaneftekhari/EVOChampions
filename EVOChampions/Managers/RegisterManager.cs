@@ -7,14 +7,14 @@ namespace EVOChampions.Managers
         int userIndex;
         int UserIdStart;
         TournamentOfficial tournamentOfficial;
+        int[] tournamentsRemainingCapacitys;
 
-        public RegisterManager(int mountOfUsers, params Tournament[] tournaments)
+        public RegisterManager(params Tournament[] tournaments)
         {
-            userIndex = -1;
-            UserIdStart = 1;
-            Users = new User[mountOfUsers];
-            this.tournaments = tournaments;
-            tournamentOfficial = new TournamentOfficial(this);
+            InitialIndexAndId(-1,1);
+            InitialTournament(tournaments);
+            Initialcapacities(tournaments);
+            InitialTournamentOfficial(this);
         }
 
         private int NextUserIndex => userIndex + 1;
@@ -24,6 +24,8 @@ namespace EVOChampions.Managers
         public bool IsFull => NextUserIndex >= Users.Length || Users.Length == 0;
 
         public User[] Users { get; private set; }
+
+        public int PlayersCapacity { get; private set; }
 
         public Tournament[] tournaments { get; private set; }
 
@@ -35,14 +37,31 @@ namespace EVOChampions.Managers
             return Users[Id - UserIdStart];
         }
 
+        public bool IsTournamentFull(string tournamentName)
+        {
+            int Capacity = GetTournamentRemainingCapacity(tournamentName);
+            return Capacity <= 0;
+        }
+
+        private int GetTournamentRemainingCapacity(string tournamentName)
+        {
+            int index = GetIndexOfTournament(tournamentName);
+            return tournamentsRemainingCapacitys[index];
+        }
+
+        private void DecreaseTournamentRemainingCapacity(string tournamentName)
+        {
+            int index = GetIndexOfTournament(tournamentName);
+            tournamentsRemainingCapacitys[index] -= 1;
+        }
+
         public User RegisterUser(UserRegisterInfo info, out User newUser)
         {
             newUser = CreateNextUser(info);
 
             if (tournamentOfficial.DitectRegisterError(newUser))
             {
-                tournamentOfficial.ResetOccurredErrors();
-                throw new Exception(tournamentOfficial.ToString());
+                throw new Exception(tournamentOfficial.ReadAndCleanErrorsMessages());
             }
             else
             {
@@ -56,18 +75,19 @@ namespace EVOChampions.Managers
             if (tournamentOfficial.DitectTournamentRegisterError(tournamentName, payed))
             {
                 tournamentOfficial.PrintErrors();
-                tournamentOfficial.ResetOccurredErrors();
+                tournamentOfficial.InitialOccurredErrorsArray();
                 return false;
             }
             else
             {
+                DecreaseTournamentRemainingCapacity(tournamentName);
                 Tournament tournament = GetTournament(tournamentName);
                 user.AddTournament(tournament.Name);
                 return true;
             }
         }
 
-        public User[] GetUsers(string gameName)
+        public User[] GetUsersByTournamentName(string gameName)
         {
             int count = CountUsers(gameName);
             User[] result = new User[count];
@@ -120,10 +140,16 @@ namespace EVOChampions.Managers
 
         internal Tournament GetTournament(string tournamentName)
         {
-            foreach (Tournament tournament in tournaments)
+            int index = GetIndexOfTournament(tournamentName);
+            return tournaments[index];
+        }
+
+        private int GetIndexOfTournament(string tournamentName)
+        {
+            for(int i = 0; i < tournaments.Length; i++)
             {
-                if (tournament.Name == tournamentName)
-                    return tournament;
+                if (tournaments[i].Name == tournamentName)
+                    return i;
             }
             throw new Exception();
         }
@@ -157,6 +183,35 @@ namespace EVOChampions.Managers
             User newUser = new User(info, id);
 
             return newUser;
+        }
+
+        private void InitialIndexAndId(int userIndex = -1, int UserIdStart = 1)
+        {
+            this.userIndex = userIndex;
+            this.UserIdStart = UserIdStart;
+        }
+
+        private void Initialcapacities(Tournament[] tournaments)
+        {
+            var capacities = CalculateCapacities(tournaments);
+            Users = new User[capacities.capacity];
+            tournamentsRemainingCapacitys = capacities.tournamentsCapacitys;
+        }
+
+        private void InitialTournamentOfficial(RegisterManager registerManager) => tournamentOfficial = new TournamentOfficial(registerManager);
+
+        private void InitialTournament(Tournament[] tournaments) => this.tournaments = tournaments;
+
+        private (int capacity, int[] tournamentsCapacitys) CalculateCapacities(Tournament[] tournaments)
+        {
+            int capacity = 0;
+            tournamentsRemainingCapacitys = new int[tournaments.Length];
+            for (int i = 0; i < tournaments.Length; i++)
+            {
+                tournamentsRemainingCapacitys[i] = tournaments[i].PlayersCapacity;
+                capacity += tournaments[i].PlayersCapacity;
+            }
+            return (capacity, tournamentsRemainingCapacitys);
         }
     }
 }
