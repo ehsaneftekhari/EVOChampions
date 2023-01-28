@@ -42,7 +42,7 @@ namespace EVOChampions.Brackets
 
         public override string ToString()
         {
-            string result = "Tournament:=====================================\n";
+            string result = "Bracket:=====================================\n";
             for (int i = 2; i <= NumberOfLevels; i++)
             {
                 result += string.Format("Round {0} Games:\n{1}\n", i - 1, LevelToString(i));

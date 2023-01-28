@@ -15,7 +15,7 @@ namespace EVOChampions.Brackets
 
         public string GetGraph()
         {
-            string result = "========== Winners Graph ==============\n\n";
+            string result = "\n========== Winners Graph ==============\n\n";
             result += GetWinnersGraph();
             result += "\n\n========== Loser Graph ==============\n\n";
             result += GetLoserGraph();
