@@ -1,4 +1,4 @@
-﻿namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors
+﻿namespace EVOChampions.Managers.ErrorManagements
 {
     internal static class ErrorsList
     {
@@ -9,15 +9,15 @@
         "DuplicateUsernameError","the Username you entered is in use",
         "UsernameFormatError","the Username you entered is in the wrong format",
         "LowBalanceError","The Amount of your payment is more or less than value it should be",
-        "InvalidGameError","the Game Name you entered is invalid",
-        "GameCapacityIsFullError", "the Capacity of Game Is FullError"
+        "InvalidGameError","the game name you entered is invalid",
+        "GameCapacityIsFullError", "The capacity of game is full"
         };
         public static int GetIndexByName(string name)
         {
             for (int i = 0; i < List.Length; i += 2)
             {
                 if ((string)List[i] == name)
-                    return i;
+                    return i / 2;
             }
             throw new Exception();
         }

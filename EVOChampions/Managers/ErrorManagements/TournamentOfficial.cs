@@ -64,7 +64,7 @@ namespace EVOChampions.Managers.ErrorManagements
             string result = "";
             for (int i = 0; i < index; i += 2)
             {
-                result += string.Format("Error code: {0} _ Error Message: {1}\n", occurredErrorsMessages[i], occurredErrorsMessages[i + 1]);
+                result += string.Format("Error: code: {0} Message: {1}\n", occurredErrorsMessages[i], occurredErrorsMessages[i + 1]);
             }
             return result;
         }
