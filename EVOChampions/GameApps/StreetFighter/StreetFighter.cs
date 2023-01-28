@@ -1,6 +1,6 @@
 ﻿namespace EVOChampions.GameApps.StreetFighter
 {
-    internal class StreetFighter : Game
+    internal class StreetFighter : GameApp
     {
         public StreetFighter(GamePlayer player1, GamePlayer player2) : base(player1, player2, new StreetFighterCreator(), 4) { }
 

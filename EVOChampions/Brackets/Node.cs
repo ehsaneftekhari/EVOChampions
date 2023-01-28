@@ -6,7 +6,7 @@ namespace EVOChampions.Brackets
     public class Node
     {
         private TournamentPlayer? starterPlayer;
-        private Game? game;
+        private GameApp? game;
         bool UpNodeGivsLoser;
         bool DownNodeGivsLoser;
         private int navigatedCount;
@@ -38,7 +38,7 @@ namespace EVOChampions.Brackets
             }
         }
 
-        public Game? Game
+        public GameApp? Game
         {
             get => game;
             set

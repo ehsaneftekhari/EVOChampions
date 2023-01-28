@@ -1,11 +1,11 @@
 ﻿namespace EVOChampions.GameApps
 {
-    public abstract class Game
+    public abstract class GameApp
     {
         GameCreator creator;
         int winnerRounds;
 
-        public Game(GamePlayer player1, GamePlayer player2, GameCreator creator, int winnerRounds)
+        public GameApp(GamePlayer player1, GamePlayer player2, GameCreator creator, int winnerRounds)
         {
             if (player1 == null)
                 throw new ArgumentNullException(nameof(player1));

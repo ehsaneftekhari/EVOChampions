@@ -41,7 +41,7 @@ namespace EVOChampions
 
                 if (node.Player1 is not null && node.Player2 is not null)
                 {
-                    Game game = gameCreator.CteateGameFor(node.Player1!, node.Player2!);
+                    GameApp game = gameCreator.CteateGameFor(node.Player1!, node.Player2!);
                     nodes[j].Game = game;
                 }
             }

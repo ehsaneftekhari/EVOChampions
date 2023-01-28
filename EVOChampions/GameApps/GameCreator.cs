@@ -4,7 +4,7 @@ namespace EVOChampions.GameApps
 {
     public abstract class GameCreator
     {
-        public Game CteateGameFor(TournamentPlayer user1, TournamentPlayer user2)
+        public GameApp CteateGameFor(TournamentPlayer user1, TournamentPlayer user2)
         {
             if (user1 is null)
                 throw new ArgumentNullException(nameof(user1));
@@ -25,7 +25,7 @@ namespace EVOChampions.GameApps
             return CteateRound(player1, player2);
         }
 
-        protected abstract Game CteateGame(TournamentPlayer user1, TournamentPlayer user2);
+        protected abstract GameApp CteateGame(TournamentPlayer user1, TournamentPlayer user2);
         protected abstract Round CteateRound(GamePlayer player1, GamePlayer player2);
     }
 }

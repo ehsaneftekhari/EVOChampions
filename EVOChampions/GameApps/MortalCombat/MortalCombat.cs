@@ -1,6 +1,6 @@
 ﻿namespace EVOChampions.GameApps.MortalCombat
 {
-    internal class MortalCombat : Game
+    internal class MortalCombat : GameApp
     {
         public MortalCombat(GamePlayer player1, GamePlayer player2) : base(player1, player2, new MortalCombatCreator(), 3) { }
 
