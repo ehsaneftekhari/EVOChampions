@@ -6,9 +6,9 @@ namespace EVOChampions
 {
     public class Tournament
     {
-        GameCreator gameCreator;
+        GameAppCreator gameCreator;
         TournamentPlayer[] players;
-        public Tournament(string name, long salary, int playersCapacity, GameCreator gameCreator)
+        public Tournament(string name, long salary, int playersCapacity, GameAppCreator gameCreator)
         {
             if (name == null)
                 throw new ArgumentNullException(nameof(name));

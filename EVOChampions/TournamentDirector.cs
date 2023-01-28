@@ -6,8 +6,8 @@ namespace EVOChampions
     internal class TournamentDirector
     {
         Bracket bracket;
-        GameCreator gameCreator;
-        public TournamentDirector(Bracket bracket, GameCreator gameCreator)
+        GameAppCreator gameCreator;
+        public TournamentDirector(Bracket bracket, GameAppCreator gameCreator)
         {
             if (bracket is null)
                 throw new ArgumentNullException(nameof(bracket));

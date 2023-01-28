@@ -2,10 +2,10 @@
 {
     public abstract class GameApp
     {
-        GameCreator creator;
+        GameAppCreator creator;
         int winnerRounds;
 
-        public GameApp(GamePlayer player1, GamePlayer player2, GameCreator creator, int winnerRounds)
+        public GameApp(GamePlayer player1, GamePlayer player2, GameAppCreator creator, int winnerRounds)
         {
             if (player1 == null)
                 throw new ArgumentNullException(nameof(player1));

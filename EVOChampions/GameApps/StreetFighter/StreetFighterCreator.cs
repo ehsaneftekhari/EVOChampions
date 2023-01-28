@@ -2,7 +2,7 @@
 
 namespace EVOChampions.GameApps.StreetFighter
 {
-    internal class StreetFighterCreator : GameCreator
+    internal class StreetFighterCreator : GameAppCreator
     {
         protected override StreetFighter CteateGame(TournamentPlayer user1, TournamentPlayer user2)
         {

@@ -2,7 +2,7 @@
 
 namespace EVOChampions.GameApps.Taken
 {
-    internal class TakenCreator : GameCreator
+    internal class TakenCreator : GameAppCreator
     {
         protected override Taken CteateGame(TournamentPlayer user1, TournamentPlayer user2)
         {

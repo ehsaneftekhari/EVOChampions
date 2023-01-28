@@ -2,7 +2,7 @@
 
 namespace EVOChampions.GameApps
 {
-    public abstract class GameCreator
+    public abstract class GameAppCreator
     {
         public GameApp CteateGameFor(TournamentPlayer user1, TournamentPlayer user2)
         {
