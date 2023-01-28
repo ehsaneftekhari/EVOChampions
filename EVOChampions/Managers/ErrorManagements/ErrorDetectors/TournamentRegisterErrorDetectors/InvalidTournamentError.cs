@@ -10,9 +10,9 @@ namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.TournamentRegist
 
         protected override string Name => "InvalidTournamentError";
 
-        protected override bool DoDetection(string tournamentNAME, long payed)
+        protected override bool DoDetection(string gameNAME, long payed)
         {
-            if (!registerManager.ContainsTournament(tournamentNAME))
+            if (!registerManager.ContainsTournament(gameNAME))
                 return true;
             else
                 return false;

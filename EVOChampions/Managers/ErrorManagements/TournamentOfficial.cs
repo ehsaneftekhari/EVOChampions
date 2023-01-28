@@ -8,7 +8,7 @@ namespace EVOChampions.Managers.ErrorManagements
     public class TournamentOfficial
     {
         UserRegisterErrorDetector[] userRegisterError;
-        TournamentRegisterErrorDetector[] tournamentRegisterError;
+        TournamentRegisterErrorDetector[] gameRegisterError;
 
         string[] occurredErrorsMessages;
         int index;
@@ -22,7 +22,7 @@ namespace EVOChampions.Managers.ErrorManagements
                 new NationalIdFormatError(registerManager)
             };
 
-            tournamentRegisterError = new TournamentRegisterErrorDetector[]{
+            gameRegisterError = new TournamentRegisterErrorDetector[]{
                 new InvalidTournamentError(registerManager),
                 new LowBalanceError(registerManager),
                 new TournamentCapacityIsFullError(registerManager)
@@ -45,12 +45,12 @@ namespace EVOChampions.Managers.ErrorManagements
             return result;
         }
 
-        public bool DitectTournamentRegisterError(string tournamentNAME, long payed)
+        public bool DitectTournamentRegisterError(string gameNAME, long payed)
         {
             bool result = false;
-            foreach (TournamentRegisterErrorDetector errorDetector in tournamentRegisterError)
+            foreach (TournamentRegisterErrorDetector errorDetector in gameRegisterError)
             {
-                bool tempResult = errorDetector.Detect(tournamentNAME, payed);
+                bool tempResult = errorDetector.Detect(gameNAME, payed);
                 if (tempResult)
                 {
                     AddToOccurredErrors(errorDetector);
@@ -87,7 +87,7 @@ namespace EVOChampions.Managers.ErrorManagements
 
         public void InitialOccurredErrorsArray()
         {
-            occurredErrorsMessages = new string[(userRegisterError.Length + tournamentRegisterError.Length) * 2];
+            occurredErrorsMessages = new string[(userRegisterError.Length + gameRegisterError.Length) * 2];
             index = 0;
         }
 

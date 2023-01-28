@@ -7,29 +7,29 @@ namespace EVOChampions
         public RegisterManager RegisterManager { get; private set; }
         public Game[] Tournaments { get; private set; }
 
-        public GeneralManager(params Game[] tournaments)
+        public GeneralManager(params Game[] games)
         {
-            Tournaments = tournaments;
+            Tournaments = games;
             RegisterManager = new RegisterManager(Tournaments);
         }
 
         public void FinishRegisteration()
         {
-            foreach (Game tournament in Tournaments)
+            foreach (Game game in Tournaments)
             {
-                string Name = tournament.Name;
+                string Name = game.Name;
                 User[] users = RegisterManager.GetUsersByTournamentName(Name);
-                tournament.SetUsers(users);
+                game.SetUsers(users);
             }
         }
 
         public void Start()
         {
-            foreach (Game tournament in Tournaments)
+            foreach (Game game in Tournaments)
             {
                 try
                 {
-                    tournament.Start();
+                    game.Start();
                 }
                 catch (Exception ex)
                 {
@@ -41,9 +41,9 @@ namespace EVOChampions
         public override string ToString()
         {
             string result = "";
-            foreach (Game tournament in Tournaments)
+            foreach (Game game in Tournaments)
             {
-                result += string.Format("\n{0}\n", tournament.ToString());
+                result += string.Format("\n{0}\n", game.ToString());
             }
             return result;
         }

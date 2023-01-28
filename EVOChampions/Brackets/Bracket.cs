@@ -8,13 +8,13 @@ namespace EVOChampions.Brackets
         internal Node winnersFinalsNode;
         internal Node losersFinalsNode;
 
-        public Bracket(TournamentPlayer[] tournamentUsers)
+        public Bracket(TournamentPlayer[] gameUsers)
         {
-            if (tournamentUsers is null)
-                throw new ArgumentNullException(nameof(tournamentUsers));
+            if (gameUsers is null)
+                throw new ArgumentNullException(nameof(gameUsers));
 
-            InitialNodes(tournamentUsers.Length, out nodes!, out winnersFinalsNode, out losersFinalsNode);
-            InitialUsers(tournamentUsers, winnersFinalsNode!);
+            InitialNodes(gameUsers.Length, out nodes!, out winnersFinalsNode, out losersFinalsNode);
+            InitialUsers(gameUsers, winnersFinalsNode!);
         }
 
         public int NumberOfLevels => winnersFinalsNode.LevelNumber;
@@ -85,17 +85,17 @@ namespace EVOChampions.Brackets
             creator.Create(out nodes, out fianlNode, out losersFinalsNode);
         }
 
-        private void InitialUsers(TournamentPlayer[] tournamentUsers, Node fianl)
+        private void InitialUsers(TournamentPlayer[] gameUsers, Node fianl)
         {
-            if (tournamentUsers is null)
-                throw new ArgumentNullException(nameof(tournamentUsers));
+            if (gameUsers is null)
+                throw new ArgumentNullException(nameof(gameUsers));
 
             if (fianl is null)
                 throw new ArgumentNullException(nameof(fianl));
 
-            for (int i = 0; i < tournamentUsers.Length; i++)
+            for (int i = 0; i < gameUsers.Length; i++)
             {
-                fianl.Navigate(tournamentUsers[i]);
+                fianl.Navigate(gameUsers[i]);
             }
         }
 

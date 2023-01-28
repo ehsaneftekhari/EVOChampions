@@ -10,9 +10,9 @@ namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.TournamentRegist
 
         protected override string Name => "LowBalanceError";
 
-        protected override bool DoDetection(string tournamentNAME, long payed)
+        protected override bool DoDetection(string gameNAME, long payed)
         {
-            long salary = registerManager.GetTournamentSalary(tournamentNAME);
+            long salary = registerManager.GetTournamentSalary(gameNAME);
             if (payed != salary)
                 return true;
 

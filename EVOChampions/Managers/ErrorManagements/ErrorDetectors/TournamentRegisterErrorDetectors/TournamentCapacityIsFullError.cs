@@ -14,9 +14,9 @@ namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.TournamentRegist
 
         protected override string Name => "TournamentCapacityIsFullError";
 
-        protected override bool DoDetection(string tournamentNAME, long payed)
+        protected override bool DoDetection(string gameNAME, long payed)
         {
-            if (registerManager.IsTournamentFull(tournamentNAME))
+            if (registerManager.IsTournamentFull(gameNAME))
                 return true;
 
             return false;

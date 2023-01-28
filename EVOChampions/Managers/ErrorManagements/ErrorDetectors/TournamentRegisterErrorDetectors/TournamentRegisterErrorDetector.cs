@@ -8,16 +8,16 @@ namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.TournamentRegist
         {
         }
 
-        public bool Detect(string tournamentNAME, long payed)
+        public bool Detect(string gameName, long payed)
         {
-            if (tournamentNAME == null)
+            if (gameName == null)
             {
-                throw new ArgumentNullException(nameof(tournamentNAME));
+                throw new ArgumentNullException(nameof(gameName));
             }
 
-            if (tournamentNAME.Length == 0)
+            if (gameName.Length == 0)
             {
-                throw new Exception(nameof(tournamentNAME) + "can not be empty");
+                throw new Exception(nameof(gameName) + "can not be empty");
             }
 
             if (payed < 0)
@@ -25,9 +25,9 @@ namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.TournamentRegist
                 throw new Exception(nameof(payed) + "can not be less than 0");
             }
 
-            return DoDetection(tournamentNAME, payed);
+            return DoDetection(gameName, payed);
         }
 
-        protected abstract bool DoDetection(string tournamentNAME, long payed);
+        protected abstract bool DoDetection(string gameNAME, long payed);
     }
 }

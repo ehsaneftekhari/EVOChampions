@@ -2,17 +2,17 @@
 {
     public sealed class User : UserRegisterInfo
     {
-        char tournamentSeparator;
+        char gameSeparator;
         //protected User(User user) : base(user ,user) { }
 
-        public User(UserRegisterInfo person, int id, params string[] tournaments) : base(person)
+        public User(UserRegisterInfo person, int id, params string[] games) : base(person)
         {
             if (person == null)
                 throw new ArgumentNullException(nameof(person));
 
             Id = id;
-            tournamentSeparator = '$';
-            AddTournament(tournaments);
+            gameSeparator = '$';
+            AddTournament(games);
         }
         string? Tournaments { get; set; }
 
@@ -38,7 +38,7 @@
             if (Tournaments == null)
                 return new string[0];
 
-            string[] result = Tournaments.Split(tournamentSeparator);
+            string[] result = Tournaments.Split(gameSeparator);
             return result;
         }
 

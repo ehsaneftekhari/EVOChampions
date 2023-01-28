@@ -127,15 +127,15 @@ namespace EVOChampions.Brackets
             }
         }
 
-        public void Navigate(TournamentPlayer tournamentUser)
+        public void Navigate(TournamentPlayer gameUser)
         {
             if (LevelNumber == 1)
             {
-                MakeStarterBlock(tournamentUser);
+                MakeStarterBlock(gameUser);
             }
             else
             {
-                NavigateBack(tournamentUser);
+                NavigateBack(gameUser);
             }
 
             navigatedCount++;
@@ -173,55 +173,55 @@ namespace EVOChampions.Brackets
         }
 
 
-        private void NavigateBack(TournamentPlayer tournamentUser)
+        private void NavigateBack(TournamentPlayer gameUser)
         {
             int upNavigated = UpNode.navigatedCount;
             int downNavigated = DownNode.navigatedCount;
             switch ((upNavigated > downNavigated, upNavigated == downNavigated))
             {
                 case (true, false):
-                    NavigateDownBlock(tournamentUser);
+                    NavigateDownBlock(gameUser);
                     break;
                 case (false, true):
-                    RandomNavigateBack(tournamentUser);
+                    RandomNavigateBack(gameUser);
                     break;
                 case (false, false):
-                    NavigateUpBlock(tournamentUser);
+                    NavigateUpBlock(gameUser);
                     break;
             }
         }
 
-        private void RandomNavigateBack(TournamentPlayer tournamentUser)
+        private void RandomNavigateBack(TournamentPlayer gameUser)
         {
             Random random = new Random();
             int randNumber = random.Next(1, 3);
             if (randNumber == 1)
-                NavigateDownBlock(tournamentUser);
+                NavigateDownBlock(gameUser);
             else
-                NavigateUpBlock(tournamentUser);
+                NavigateUpBlock(gameUser);
         }
 
-        private void NavigateDownBlock(TournamentPlayer tournamentUser)
+        private void NavigateDownBlock(TournamentPlayer gameUser)
         {
             if (DownNode is null)
                 throw new Exception();
 
-            DownNode.Navigate(tournamentUser);
+            DownNode.Navigate(gameUser);
         }
 
-        private void NavigateUpBlock(TournamentPlayer tournamentUser)
+        private void NavigateUpBlock(TournamentPlayer gameUser)
         {
             if (UpNode is null)
                 throw new Exception();
 
-            UpNode.Navigate(tournamentUser);
+            UpNode.Navigate(gameUser);
         }
 
-        private void MakeStarterBlock(TournamentPlayer tournamentUser)
+        private void MakeStarterBlock(TournamentPlayer gameUser)
         {
             if (starterPlayer is null && UpNode is null && DownNode is null)
             {
-                Player = tournamentUser;
+                Player = gameUser;
                 navigatedCount = 1;
             }
             else
