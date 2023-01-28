@@ -5,9 +5,9 @@ namespace EVOChampions
     internal class GeneralManager
     {
         public RegisterManager RegisterManager { get; private set; }
-        public Tournament[] Tournaments { get; private set; }
+        public Game[] Tournaments { get; private set; }
 
-        public GeneralManager(params Tournament[] tournaments)
+        public GeneralManager(params Game[] tournaments)
         {
             Tournaments = tournaments;
             RegisterManager = new RegisterManager(Tournaments);
@@ -15,7 +15,7 @@ namespace EVOChampions
 
         public void FinishRegisteration()
         {
-            foreach (Tournament tournament in Tournaments)
+            foreach (Game tournament in Tournaments)
             {
                 string Name = tournament.Name;
                 User[] users = RegisterManager.GetUsersByTournamentName(Name);
@@ -25,7 +25,7 @@ namespace EVOChampions
 
         public void Start()
         {
-            foreach (Tournament tournament in Tournaments)
+            foreach (Game tournament in Tournaments)
             {
                 try
                 {
@@ -41,7 +41,7 @@ namespace EVOChampions
         public override string ToString()
         {
             string result = "";
-            foreach (Tournament tournament in Tournaments)
+            foreach (Game tournament in Tournaments)
             {
                 result += string.Format("\n{0}\n", tournament.ToString());
             }

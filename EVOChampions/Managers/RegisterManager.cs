@@ -9,7 +9,7 @@ namespace EVOChampions.Managers
         TournamentOfficial tournamentOfficial;
         int[] tournamentsRemainingCapacitys;
 
-        public RegisterManager(params Tournament[] tournaments)
+        public RegisterManager(params Game[] tournaments)
         {
             InitialIndexAndId(-1,1);
             InitialTournament(tournaments);
@@ -27,7 +27,7 @@ namespace EVOChampions.Managers
 
         public int PlayersCapacity { get; private set; }
 
-        public Tournament[] tournaments { get; private set; }
+        public Game[] tournaments { get; private set; }
 
         public User GetUserById(int Id)
         {
@@ -81,7 +81,7 @@ namespace EVOChampions.Managers
             else
             {
                 DecreaseTournamentRemainingCapacity(tournamentName);
-                Tournament tournament = GetTournament(tournamentName);
+                Game tournament = GetTournament(tournamentName);
                 user.AddTournament(tournament.Name);
                 return true;
             }
@@ -113,7 +113,7 @@ namespace EVOChampions.Managers
             if (tournamentName.Length == 0)
                 throw new ArgumentException(nameof(tournamentName));
 
-            foreach (Tournament tournament in tournaments)
+            foreach (Game tournament in tournaments)
             {
                 if (tournament.Name == tournamentName)
                     return true;
@@ -129,7 +129,7 @@ namespace EVOChampions.Managers
             if (tournamentName.Length == 0)
                 throw new ArgumentException(nameof(tournamentName));
 
-            foreach (Tournament tournament in tournaments)
+            foreach (Game tournament in tournaments)
             {
                 if (tournament.Name == tournamentName)
                     return tournament.Salary;
@@ -138,7 +138,7 @@ namespace EVOChampions.Managers
             return 0;
         }
 
-        internal Tournament GetTournament(string tournamentName)
+        internal Game GetTournament(string tournamentName)
         {
             int index = GetIndexOfTournament(tournamentName);
             return tournaments[index];
@@ -191,7 +191,7 @@ namespace EVOChampions.Managers
             this.UserIdStart = UserIdStart;
         }
 
-        private void Initialcapacities(Tournament[] tournaments)
+        private void Initialcapacities(Game[] tournaments)
         {
             var capacities = CalculateCapacities(tournaments);
             Users = new User[capacities.capacity];
@@ -200,9 +200,9 @@ namespace EVOChampions.Managers
 
         private void InitialTournamentOfficial(RegisterManager registerManager) => tournamentOfficial = new TournamentOfficial(registerManager);
 
-        private void InitialTournament(Tournament[] tournaments) => this.tournaments = tournaments;
+        private void InitialTournament(Game[] tournaments) => this.tournaments = tournaments;
 
-        private (int capacity, int[] tournamentsCapacitys) CalculateCapacities(Tournament[] tournaments)
+        private (int capacity, int[] tournamentsCapacitys) CalculateCapacities(Game[] tournaments)
         {
             int capacity = 0;
             tournamentsRemainingCapacitys = new int[tournaments.Length];

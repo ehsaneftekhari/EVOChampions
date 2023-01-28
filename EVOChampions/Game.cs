@@ -4,11 +4,11 @@ using EVOChampions.Managers;
 
 namespace EVOChampions
 {
-    public class Tournament
+    public class Game
     {
         GameAppCreator gameCreator;
         TournamentPlayer[] players;
-        public Tournament(string name, long salary, int playersCapacity, GameAppCreator gameCreator)
+        public Game(string name, long salary, int playersCapacity, GameAppCreator gameCreator)
         {
             if (name == null)
                 throw new ArgumentNullException(nameof(name));
