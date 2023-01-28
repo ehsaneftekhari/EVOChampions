@@ -1,6 +1,4 @@
-﻿using EVOChampions.Managers;
-
-namespace EVOChampions
+﻿namespace EVOChampions.Managers
 {
     public sealed class User : UserRegisterInfo
     {

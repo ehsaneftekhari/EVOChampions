@@ -1,5 +1,4 @@
-﻿using EVOChampions;
-using EVOChampions.Brackets;
+﻿using EVOChampions.Brackets;
 using EVOChampions.Games.GameApps.MortalCombat;
 using EVOChampions.Games.GameApps.StreetFighter;
 using EVOChampions.Games;

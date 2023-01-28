@@ -1,7 +1,7 @@
 ﻿using EVOChampions.Brackets;
 using EVOChampions.Games.GameApps;
 
-namespace EVOChampions
+namespace EVOChampions.Managers
 {
     internal class GameDirector
     {

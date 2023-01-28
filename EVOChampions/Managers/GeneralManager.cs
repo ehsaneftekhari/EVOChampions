@@ -1,7 +1,6 @@
 ﻿using EVOChampions.Games;
-using EVOChampions.Managers;
 
-namespace EVOChampions
+namespace EVOChampions.Managers
 {
     internal class GeneralManager
     {
