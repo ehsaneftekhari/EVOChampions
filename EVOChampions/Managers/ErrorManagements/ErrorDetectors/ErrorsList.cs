@@ -6,7 +6,7 @@
         {
         "DuplicateNationalIdError","the national Id you entered has registered before",
         "NationalIdFormatError","the national Id you entered is in the wrong format",
-        "DuplicateUsernameError","the Username Id you entered is in use",
+        "DuplicateUsernameError","the Username you entered is in use",
         "UsernameFormatError","the Username you entered is in the wrong format",
         "LowBalanceError","The Amount of your payment is more or less than value it should be",
         "InvalidGameError","the Game Name you entered is invalid",
