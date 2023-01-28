@@ -5,7 +5,7 @@
         GameAppCreator creator;
         int winnerRounds;
 
-        public GameApp(GamePlayer player1, GamePlayer player2, GameAppCreator creator, int winnerRounds)
+        public GameApp(GameAppPlayer player1, GameAppPlayer player2, GameAppCreator creator, int winnerRounds)
         {
             if (player1 == null)
                 throw new ArgumentNullException(nameof(player1));
@@ -28,13 +28,13 @@
 
         public abstract string Name { get; }
 
-        public GamePlayer player1 { get; private set; }
+        public GameAppPlayer player1 { get; private set; }
 
-        public GamePlayer player2 { get; private set; }
+        public GameAppPlayer player2 { get; private set; }
 
-        public GamePlayer? Winner { get; protected set; }
+        public GameAppPlayer? Winner { get; protected set; }
 
-        public GamePlayer? Loser
+        public GameAppPlayer? Loser
         {
             get
             {
@@ -63,7 +63,7 @@
 
         public Round[] Rounds { get; protected set; }
 
-        public GamePlayer Start()
+        public GameAppPlayer Start()
         {
             //for test 
             string user1Username = player1.UserName;

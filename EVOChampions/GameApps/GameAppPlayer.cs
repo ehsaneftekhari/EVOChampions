@@ -2,11 +2,11 @@
 
 namespace EVOChampions.GameApps
 {
-    public sealed class GamePlayer : ParentChildrenKeeper
+    public sealed class GameAppPlayer : ParentChildrenKeeper
     {
         public string UserName => ((TournamentPlayer)Parent!).UserName;
 
-        public GamePlayer(TournamentPlayer user) : base(user) { }
+        public GameAppPlayer(TournamentPlayer user) : base(user) { }
 
         public override string ToString()
         {

@@ -84,7 +84,7 @@ namespace EVOChampions.Brackets
                     return starterPlayer;
                 else
                 {
-                    GamePlayer? tempWinner = Game.Winner;
+                    GameAppPlayer? tempWinner = Game.Winner;
                     if (tempWinner != null && tempWinner.Parent != null)
                         return (TournamentPlayer)tempWinner.Parent!;
                     else

@@ -4,9 +4,9 @@ namespace EVOChampions.GameApps
 {
     public sealed class RoundPlayer : ParentChildrenKeeper
     {
-        public string UserName => ((GamePlayer)Parent!).UserName;
+        public string UserName => ((GameAppPlayer)Parent!).UserName;
 
-        public RoundPlayer(GamePlayer player) : base(player) => health = 100;
+        public RoundPlayer(GameAppPlayer player) : base(player) => health = 100;
 
         public int health { get; private set; }
 
