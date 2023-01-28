@@ -58,7 +58,7 @@ class Program
     public static UserRegisterInfo[] GenerateURE()
     {
         UserRegisterInfo[] array = new UserRegisterInfo[] {
-            new UserRegisterInfo(1000000000,  "Ehsan",   "Eftekhari", 1000, "Ehsan"),
+            new UserRegisterInfo(1000000000, "Ehsan",   "Eftekhari", 1000, "Ehsan"),
             new UserRegisterInfo(1000000001, "Mohamad", "Eftekhari", 1000, "Mohamad"),
             new UserRegisterInfo(1000000002, "Javad", "Eftekhari", 1000, "Javad"),
             new UserRegisterInfo(1000000003, "Reza", "Eftekhari", 1000, "Reza"),
