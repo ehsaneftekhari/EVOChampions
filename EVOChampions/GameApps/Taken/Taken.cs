@@ -1,4 +1,4 @@
-﻿namespace EVOChampions.Games.Taken
+﻿namespace EVOChampions.GameApps.Taken
 {
     internal class Taken : Game
     {

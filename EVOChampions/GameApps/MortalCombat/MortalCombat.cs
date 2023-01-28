@@ -1,4 +1,4 @@
-﻿namespace EVOChampions.Games.MortalCombat
+﻿namespace EVOChampions.GameApps.MortalCombat
 {
     internal class MortalCombat : Game
     {

@@ -1,4 +1,4 @@
-﻿namespace EVOChampions.Games
+﻿namespace EVOChampions.GameApps
 {
     public abstract class Game
     {

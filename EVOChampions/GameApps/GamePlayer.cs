@@ -1,6 +1,6 @@
 ﻿using EVOChampions.Managers;
 
-namespace EVOChampions.Games
+namespace EVOChampions.GameApps
 {
     public sealed class GamePlayer : ParentChildrenKeeper
     {

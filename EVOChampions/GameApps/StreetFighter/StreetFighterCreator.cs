@@ -1,6 +1,6 @@
 ﻿using EVOChampions.Managers;
 
-namespace EVOChampions.Games.StreetFighter
+namespace EVOChampions.GameApps.StreetFighter
 {
     internal class StreetFighterCreator : GameCreator
     {

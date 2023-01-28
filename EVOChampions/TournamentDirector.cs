@@ -1,5 +1,5 @@
 ﻿using EVOChampions.Brackets;
-using EVOChampions.Games;
+using EVOChampions.GameApps;
 
 namespace EVOChampions
 {
