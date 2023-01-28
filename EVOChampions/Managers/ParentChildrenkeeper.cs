@@ -1,8 +1,8 @@
 ﻿namespace EVOChampions.Managers
 {
-    public abstract class Account
+    public abstract class ParentChildrenKeeper
     {
-        public Account(Account? account)
+        public ParentChildrenKeeper(ParentChildrenKeeper? account)
         {
             if (account != null)
             {
@@ -11,11 +11,11 @@
             }
         }
 
-        public Account[]? Children { get; private set; }
+        public ParentChildrenKeeper[]? Children { get; private set; }
 
-        public Account? Parent { get; private set; }
+        public ParentChildrenKeeper? Parent { get; private set; }
 
-        protected static Account CheckNull(Account account)
+        protected static ParentChildrenKeeper CheckNull(ParentChildrenKeeper account)
         {
             if (account is null)
                 throw new ArgumentNullException(nameof(account));
@@ -23,11 +23,11 @@
             return account;
         }
 
-        protected void AddChild(Account account)
+        protected void AddChild(ParentChildrenKeeper account)
         {
             if (Children == null)
             {
-                Children = new Account[1];
+                Children = new ParentChildrenKeeper[1];
                 Children[0] = account;
             }
             else
@@ -37,9 +37,9 @@
             }
         }
 
-        private Account[] ExtendArray(Account[] array)
+        private ParentChildrenKeeper[] ExtendArray(ParentChildrenKeeper[] array)
         {
-            Account[] NeArray = new Account[array.Length + 1];
+            ParentChildrenKeeper[] NeArray = new ParentChildrenKeeper[array.Length + 1];
             for (int i = 0; i < array.Length; i++)
             {
                 NeArray[i] = array[i];

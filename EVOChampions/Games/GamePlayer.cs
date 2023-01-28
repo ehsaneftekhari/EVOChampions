@@ -2,7 +2,7 @@
 
 namespace EVOChampions.Games
 {
-    public sealed class GamePlayer : Account
+    public sealed class GamePlayer : ParentChildrenKeeper
     {
         public string UserName => ((TournamentPlayer)Parent!).UserName;
 
