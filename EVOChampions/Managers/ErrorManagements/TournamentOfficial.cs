@@ -1,5 +1,4 @@
-﻿using EVOChampions.Managers;
-using EVOChampions.Managers.ErrorManagements.ErrorDetectors;
+﻿using EVOChampions.Managers.ErrorManagements.ErrorDetectors;
 using EVOChampions.Managers.ErrorManagements.ErrorDetectors.GameRegisterErrorDetectors;
 using EVOChampions.Managers.ErrorManagements.ErrorDetectors.UserRegisterErrorDetectors;
 

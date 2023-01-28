@@ -1,4 +1,5 @@
-﻿using EVOChampions.Managers;
+﻿using EVOChampions.Games;
+using EVOChampions.Managers;
 
 namespace EVOChampions
 {

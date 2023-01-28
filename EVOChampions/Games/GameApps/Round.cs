@@ -1,4 +1,4 @@
-﻿namespace EVOChampions.GameApps
+﻿namespace EVOChampions.Games.GameApps
 {
     public abstract class Round
     {

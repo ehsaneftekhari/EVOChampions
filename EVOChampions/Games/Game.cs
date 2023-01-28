@@ -1,8 +1,7 @@
 ﻿using EVOChampions.Brackets;
-using EVOChampions.GameApps;
-using EVOChampions.Managers;
+using EVOChampions.Games.GameApps;
 
-namespace EVOChampions
+namespace EVOChampions.Games
 {
     public class Game
     {
@@ -21,7 +20,7 @@ namespace EVOChampions
 
             Name = name;
             Salary = salary;
-            this.PlayersCapacity = playersCapacity;
+            PlayersCapacity = playersCapacity;
             this.gameCreator = gameCreator;
         }
 

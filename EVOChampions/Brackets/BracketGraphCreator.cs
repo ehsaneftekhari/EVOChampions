@@ -1,4 +1,4 @@
-﻿using EVOChampions.Managers;
+﻿using EVOChampions.Games;
 
 namespace EVOChampions.Brackets
 {

@@ -1,6 +1,6 @@
-﻿using EVOChampions.Managers;
+﻿using EVOChampions.Games;
 
-namespace EVOChampions.GameApps.MortalCombat
+namespace EVOChampions.Games.GameApps.MortalCombat
 {
     internal class MortalCombatCreator : GameAppCreator
     {

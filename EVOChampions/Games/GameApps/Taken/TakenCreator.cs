@@ -1,6 +1,6 @@
-﻿using EVOChampions.Managers;
+﻿using EVOChampions.Games;
 
-namespace EVOChampions.GameApps.Taken
+namespace EVOChampions.Games.GameApps.Taken
 {
     internal class TakenCreator : GameAppCreator
     {

@@ -1,4 +1,4 @@
-﻿namespace EVOChampions.GameApps
+﻿namespace EVOChampions.Games.GameApps
 {
     public abstract class GameApp
     {
@@ -52,7 +52,7 @@
         {
             get
             {
-                for(int i = 0; i < Rounds.Length; i++)
+                for (int i = 0; i < Rounds.Length; i++)
                 {
                     if (Rounds[i] == null)
                         return i;

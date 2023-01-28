@@ -1,6 +1,4 @@
-﻿using EVOChampions.Managers;
-
-namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.UserRegisterErrorDetectors
+﻿namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.UserRegisterErrorDetectors
 {
     public sealed class DuplicateNationalIdError : UserRegisterErrorDetector
     {

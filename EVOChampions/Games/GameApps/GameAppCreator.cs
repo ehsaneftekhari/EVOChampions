@@ -1,6 +1,6 @@
-﻿using EVOChampions.Managers;
+﻿using EVOChampions.Games;
 
-namespace EVOChampions.GameApps
+namespace EVOChampions.Games.GameApps
 {
     public abstract class GameAppCreator
     {

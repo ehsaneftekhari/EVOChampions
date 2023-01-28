@@ -1,8 +1,9 @@
 ﻿using EVOChampions;
 using EVOChampions.Brackets;
-using EVOChampions.GameApps.MortalCombat;
-using EVOChampions.GameApps.StreetFighter;
-using EVOChampions.GameApps.Taken;
+using EVOChampions.Games.GameApps.MortalCombat;
+using EVOChampions.Games.GameApps.StreetFighter;
+using EVOChampions.Games;
+using EVOChampions.Games.GameApps.Taken;
 using EVOChampions.Managers;
 
 class Program

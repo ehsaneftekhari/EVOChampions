@@ -1,4 +1,4 @@
-﻿namespace EVOChampions.GameApps.StreetFighter
+﻿namespace EVOChampions.Games.GameApps.StreetFighter
 {
     internal class StreetFighterRound : Round
     {

@@ -1,4 +1,4 @@
-﻿namespace EVOChampions.GameApps.MortalCombat
+﻿namespace EVOChampions.Games.GameApps.MortalCombat
 {
     internal class MortalCombatRound : Round
     {
