@@ -134,7 +134,7 @@ namespace EVOChampions.Brackets
                 if (nodesIindex >= nodes.Length)
                     throw new IndexOutOfRangeException();
 
-                TournamentPlayer player = nodes[nodesIindex++].Player;
+                GamePlayer player = nodes[nodesIindex++].Player;
                 if (player == null)
                     return " ---";
                 else

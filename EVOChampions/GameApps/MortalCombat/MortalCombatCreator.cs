@@ -4,7 +4,7 @@ namespace EVOChampions.GameApps.MortalCombat
 {
     internal class MortalCombatCreator : GameAppCreator
     {
-        protected override MortalCombat CteateGame(TournamentPlayer user1, TournamentPlayer user2)
+        protected override MortalCombat CteateGame(GamePlayer user1, GamePlayer user2)
         {
             GameAppPlayer player1 = new GameAppPlayer(user1);
             GameAppPlayer player2 = new GameAppPlayer(user2);

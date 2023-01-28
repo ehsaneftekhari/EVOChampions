@@ -7,7 +7,7 @@ namespace EVOChampions
     public class Game
     {
         GameAppCreator gameCreator;
-        TournamentPlayer[] players;
+        GamePlayer[] players;
         public Game(string name, long salary, int playersCapacity, GameAppCreator gameCreator)
         {
             if (name == null)
@@ -75,13 +75,13 @@ namespace EVOChampions
 
         public void SetUsers(User[] registeredUsers)
         {
-            players = new TournamentPlayer[registeredUsers.Length];
+            players = new GamePlayer[registeredUsers.Length];
             for (int i = 0; i < registeredUsers.Length; i++)
             {
                 if (i >= PlayersCapacity)
                     throw new StackOverflowException("there is no enough space to add rest of the users in " + Name + "Tournament");
 
-                players[i] = new TournamentPlayer(registeredUsers[i]);
+                players[i] = new GamePlayer(registeredUsers[i]);
             }
         }
 
@@ -98,7 +98,7 @@ namespace EVOChampions
             return result;
         }
 
-        private User? GetParentOfPlayer(TournamentPlayer? player)
+        private User? GetParentOfPlayer(GamePlayer? player)
         {
             if (player == null)
                 return null;

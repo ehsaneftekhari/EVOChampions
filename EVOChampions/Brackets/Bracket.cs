@@ -8,7 +8,7 @@ namespace EVOChampions.Brackets
         internal Node winnersFinalsNode;
         internal Node losersFinalsNode;
 
-        public Bracket(TournamentPlayer[] gameUsers)
+        public Bracket(GamePlayer[] gameUsers)
         {
             if (gameUsers is null)
                 throw new ArgumentNullException(nameof(gameUsers));
@@ -19,9 +19,9 @@ namespace EVOChampions.Brackets
 
         public int NumberOfLevels => winnersFinalsNode.LevelNumber;
         public int NumberOfRounds => NumberOfLevels - 1;
-        public TournamentPlayer? Podium1 => winnersFinalsNode.Winner;
-        public TournamentPlayer? Podium2 => winnersFinalsNode.Loser;
-        public TournamentPlayer? Podium3 => losersFinalsNode.Winner;
+        public GamePlayer? Podium1 => winnersFinalsNode.Winner;
+        public GamePlayer? Podium2 => winnersFinalsNode.Loser;
+        public GamePlayer? Podium3 => losersFinalsNode.Winner;
 
         public Node[] GetNodesOfRound(int rundNumber) => GetNodesOfLevel(rundNumber + 1);
 
@@ -85,7 +85,7 @@ namespace EVOChampions.Brackets
             creator.Create(out nodes, out fianlNode, out losersFinalsNode);
         }
 
-        private void InitialUsers(TournamentPlayer[] gameUsers, Node fianl)
+        private void InitialUsers(GamePlayer[] gameUsers, Node fianl)
         {
             if (gameUsers is null)
                 throw new ArgumentNullException(nameof(gameUsers));

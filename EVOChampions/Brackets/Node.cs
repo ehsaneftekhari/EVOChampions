@@ -5,7 +5,7 @@ namespace EVOChampions.Brackets
 {
     public class Node
     {
-        private TournamentPlayer? starterPlayer;
+        private GamePlayer? starterPlayer;
         private GameApp? game;
         bool UpNodeGivsLoser;
         bool DownNodeGivsLoser;
@@ -58,12 +58,12 @@ namespace EVOChampions.Brackets
         public Node? WinnersNextNode { get; private set; }
         public Node? LoserNextNode { get; private set; }
 
-        public TournamentPlayer? Winner
+        public GamePlayer? Winner
         {
             get => Player;
         }
 
-        public TournamentPlayer? Loser
+        public GamePlayer? Loser
         {
             get
             {
@@ -76,7 +76,7 @@ namespace EVOChampions.Brackets
             }
         }
 
-        public TournamentPlayer? Player
+        public GamePlayer? Player
         {
             get
             {
@@ -86,7 +86,7 @@ namespace EVOChampions.Brackets
                 {
                     GameAppPlayer? tempWinner = Game.Winner;
                     if (tempWinner != null && tempWinner.Parent != null)
-                        return (TournamentPlayer)tempWinner.Parent!;
+                        return (GamePlayer)tempWinner.Parent!;
                     else
                         return null;
                 }
@@ -101,7 +101,7 @@ namespace EVOChampions.Brackets
             }
         }
 
-        public TournamentPlayer? Player1
+        public GamePlayer? Player1
         {
             get
             {
@@ -114,7 +114,7 @@ namespace EVOChampions.Brackets
             }
         }
 
-        public TournamentPlayer? Player2
+        public GamePlayer? Player2
         {
             get
             {
@@ -127,7 +127,7 @@ namespace EVOChampions.Brackets
             }
         }
 
-        public void Navigate(TournamentPlayer gameUser)
+        public void Navigate(GamePlayer gameUser)
         {
             if (LevelNumber == 1)
             {
@@ -164,7 +164,7 @@ namespace EVOChampions.Brackets
             result += "----------------------------------------/Node";
             return result;
 
-            string GetPlayerInString(TournamentPlayer? Player1)
+            string GetPlayerInString(GamePlayer? Player1)
             {
                 if (Player1 is null)
                     return "_";
@@ -173,7 +173,7 @@ namespace EVOChampions.Brackets
         }
 
 
-        private void NavigateBack(TournamentPlayer gameUser)
+        private void NavigateBack(GamePlayer gameUser)
         {
             int upNavigated = UpNode.navigatedCount;
             int downNavigated = DownNode.navigatedCount;
@@ -191,7 +191,7 @@ namespace EVOChampions.Brackets
             }
         }
 
-        private void RandomNavigateBack(TournamentPlayer gameUser)
+        private void RandomNavigateBack(GamePlayer gameUser)
         {
             Random random = new Random();
             int randNumber = random.Next(1, 3);
@@ -201,7 +201,7 @@ namespace EVOChampions.Brackets
                 NavigateUpBlock(gameUser);
         }
 
-        private void NavigateDownBlock(TournamentPlayer gameUser)
+        private void NavigateDownBlock(GamePlayer gameUser)
         {
             if (DownNode is null)
                 throw new Exception();
@@ -209,7 +209,7 @@ namespace EVOChampions.Brackets
             DownNode.Navigate(gameUser);
         }
 
-        private void NavigateUpBlock(TournamentPlayer gameUser)
+        private void NavigateUpBlock(GamePlayer gameUser)
         {
             if (UpNode is null)
                 throw new Exception();
@@ -217,7 +217,7 @@ namespace EVOChampions.Brackets
             UpNode.Navigate(gameUser);
         }
 
-        private void MakeStarterBlock(TournamentPlayer gameUser)
+        private void MakeStarterBlock(GamePlayer gameUser)
         {
             if (starterPlayer is null && UpNode is null && DownNode is null)
             {

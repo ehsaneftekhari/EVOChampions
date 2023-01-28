@@ -1,10 +1,10 @@
 ﻿namespace EVOChampions.Managers
 {
-    public sealed class TournamentPlayer : ParentChildrenKeeper
+    public sealed class GamePlayer : ParentChildrenKeeper
     {
         public string UserName => ((User)Parent!).UserName;
 
-        public TournamentPlayer(User user) : base(CheckNull(user)) { }
+        public GamePlayer(User user) : base(CheckNull(user)) { }
 
         public override string ToString()
         {

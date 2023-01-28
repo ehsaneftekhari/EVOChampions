@@ -93,13 +93,13 @@ class Program
         return users;
     }
 
-    private static TournamentPlayer[] CreateTP(UserRegisterInfo[] array)
+    private static GamePlayer[] CreateTP(UserRegisterInfo[] array)
     {
-        TournamentPlayer[] gameUsers = new TournamentPlayer[array.Length];
+        GamePlayer[] gameUsers = new GamePlayer[array.Length];
         for (int i = 0; i < gameUsers.Length; i++)
         {
             User user = new User(array[i], i);
-            gameUsers[i] = new TournamentPlayer(user);
+            gameUsers[i] = new GamePlayer(user);
         }
         return gameUsers;
     }
@@ -118,7 +118,7 @@ class Program
     public static void TestBracket()
     {
         UserRegisterInfo[] array = GenerateURE();
-        TournamentPlayer[] gameUsers = CreateTP(array);
+        GamePlayer[] gameUsers = CreateTP(array);
 
         Bracket bracket = new Bracket(gameUsers);
         int x = 0;
