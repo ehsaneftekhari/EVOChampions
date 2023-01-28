@@ -7,21 +7,13 @@ namespace EVOChampions.Managers
         public RegisterManager RegisterManager { get; private set; }
         public Game[] Games { get; private set; }
 
-        public GeneralManager(params Game[] games)
+        public GeneralManager(RegisterManager registerManager)
         {
-            Games = games;
-            RegisterManager = new RegisterManager(Games);
+            Games = registerManager.games;
+            RegisterManager = registerManager;
         }
 
-        public void FinishRegisteration()
-        {
-            foreach (Game game in Games)
-            {
-                string Name = game.Name;
-                User[] users = RegisterManager.GetUsersByGameName(Name);
-                game.SetUsers(users);
-            }
-        }
+        public void FinishRegisteration() => RegisterManager.FinishRegisteration();
 
         public void Start()
         {
@@ -33,19 +25,17 @@ namespace EVOChampions.Managers
                 }
                 catch (Exception ex)
                 {
-                    Program.PrintError(ex.Message);
+                    PrintError(ex.Message);
                 }
             }
         }
 
-        public override string ToString()
+        private void PrintError(string ErrorMessage)
         {
-            string result = "";
-            foreach (Game game in Games)
-            {
-                result += string.Format("\n{0}\n", game.ToString());
-            }
-            return result;
+            ConsoleColor lastColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(ErrorMessage);
+            Console.ForegroundColor = lastColor;
         }
     }
 }

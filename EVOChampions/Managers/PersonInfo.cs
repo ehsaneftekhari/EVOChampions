@@ -2,10 +2,10 @@
 
 namespace EVOChampions.Managers
 {
-    public class UserRegisterInfo : ParentChildrenKeeper
+    public class PersonInfo : ParentChildrenKeeper
     {
-        protected UserRegisterInfo(UserRegisterInfo person, ParentChildrenKeeper? account = null) : this(person.NationalId, person.FirstName, person.LastName, person.ZIPCode, person.UserName, account) { }
-        public UserRegisterInfo(long NationalId, string FirstName, string LastName, int ZIPCode, string userName, ParentChildrenKeeper? account = null) : base(account)
+        protected PersonInfo(PersonInfo person, ParentChildrenKeeper? account = null) : this(person.NationalId, person.FirstName, person.LastName, person.ZIPCode, person.UserName, account) { }
+        public PersonInfo(long NationalId, string FirstName, string LastName, int ZIPCode, string userName, ParentChildrenKeeper? account = null) : base(account)
         {
             this.NationalId = NationalId;
             this.FirstName = FirstName;

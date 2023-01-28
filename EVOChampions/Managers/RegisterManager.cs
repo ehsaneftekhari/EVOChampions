@@ -12,6 +12,11 @@ namespace EVOChampions.Managers
 
         public RegisterManager(params Game[] games)
         {
+            if (games is null)
+                throw new ArgumentNullException(nameof(games));
+            if (games.Length == 0)
+                throw new ArgumentException(nameof(games));
+
             InitialIndexAndId(-1,1);
             InitialGame(games);
             Initialcapacities(games);
@@ -56,7 +61,7 @@ namespace EVOChampions.Managers
             gamesRemainingCapacitys[index] -= 1;
         }
 
-        public User RegisterUser(UserRegisterInfo info, out User newUser)
+        public User RegisterUser(PersonInfo info, out User newUser)
         {
             newUser = CreateNextUser(info);
 
@@ -88,22 +93,14 @@ namespace EVOChampions.Managers
             }
         }
 
-        public User[] GetUsersByGameName(string gameName)
+        public void FinishRegisteration()
         {
-            int count = CountUsers(gameName);
-            User[] result = new User[count];
-            int index = 0;
-            foreach (User user in Users)
+            foreach (Game game in games)
             {
-                if (user is null)
-                    break;
-
-                if (user.HasGame(gameName))
-                {
-                    result[index++] = user;
-                }
+                string Name = game.Name;
+                User[] users = GetUsersByGameName(Name);
+                game.SetUsers(users);
             }
-            return result;
         }
 
         internal bool ContainsGame(string gameName)
@@ -145,6 +142,24 @@ namespace EVOChampions.Managers
             return games[index];
         }
 
+        private User[] GetUsersByGameName(string gameName)
+        {
+            int count = CountUsersPerGame(gameName);
+            User[] result = new User[count];
+            int index = 0;
+            foreach (User user in Users)
+            {
+                if (user is null)
+                    break;
+
+                if (user.HasGame(gameName))
+                {
+                    result[index++] = user;
+                }
+            }
+            return result;
+        }
+
         private int GetIndexOfGame(string gameName)
         {
             for(int i = 0; i < games.Length; i++)
@@ -155,7 +170,7 @@ namespace EVOChampions.Managers
             throw new Exception();
         }
 
-        private int CountUsers(string gameName)
+        private int CountUsersPerGame(string gameName)
         {
             int count = 0;
             foreach (User user in Users)
@@ -177,7 +192,7 @@ namespace EVOChampions.Managers
             Users[++userIndex] = user;
         }
 
-        private User CreateNextUser(UserRegisterInfo info)
+        private User CreateNextUser(PersonInfo info)
         {
             int id = NextId;
 

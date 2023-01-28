@@ -1,11 +1,11 @@
 ﻿namespace EVOChampions.Managers
 {
-    public sealed class User : UserRegisterInfo
+    public sealed class User : PersonInfo
     {
         char gameSeparator;
         //protected User(User user) : base(user ,user) { }
 
-        public User(UserRegisterInfo person, int id, params string[] games) : base(person)
+        public User(PersonInfo person, int id, params string[] games) : base(person)
         {
             if (person == null)
                 throw new ArgumentNullException(nameof(person));
