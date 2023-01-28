@@ -6,13 +6,13 @@ namespace EVOChampions.Games.GameApps
     {
         public string UserName => ((GameAppPlayer)Parent!).UserName;
 
-        public RoundPlayer(GameAppPlayer player) : base(player) => health = 100;
+        public RoundPlayer(GameAppPlayer player) : base(player) => Health = 100;
 
-        public int health { get; private set; }
+        public int Health { get; private set; }
 
         public override string ToString()
         {
-            return string.Format("{0} {1}", UserName, health);
+            return string.Format("{0} Health: {1}", UserName, Health);
         }
     }
 }
