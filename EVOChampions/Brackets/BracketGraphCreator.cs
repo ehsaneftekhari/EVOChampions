@@ -136,7 +136,7 @@ namespace EVOChampions.Brackets
 
                 TournamentPlayer player = nodes[nodesIindex++].Player;
                 if (player == null)
-                    return "_baypass";
+                    return " ---";
                 else
                     return player.UserName;
             }

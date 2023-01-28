@@ -16,9 +16,9 @@ class Program
 
     public static void Run()
     {
-        Tournament takenTournament = new("Taken", 20, 15, new TakenCreator());
-        Tournament mortalCombatTournament = new("Mortal Combat", 30, 15, new MortalCombatCreator());
-        Tournament streetFighter = new("Street Fighter", 20, 15, new StreetFighterCreator());
+        Tournament takenTournament = new("Taken", 20, 21, new TakenCreator());
+        Tournament mortalCombatTournament = new("Mortal Combat", 30, 21, new MortalCombatCreator());
+        Tournament streetFighter = new("Street Fighter", 20, 21, new StreetFighterCreator());
 
         GeneralManager generalManager = new GeneralManager(takenTournament, mortalCombatTournament, streetFighter);
 
@@ -34,7 +34,7 @@ class Program
                 registerManager.RegisterTournament(newUser, "Mortal Combat", 30);
                 registerManager.RegisterTournament(newUser, "Street Fighter", 20);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PrintError(ex.Message);
             }
@@ -57,23 +57,29 @@ class Program
 
     public static UserRegisterInfo[] GenerateURE()
     {
-        UserRegisterInfo[] array = new UserRegisterInfo[16];
-        array[0] = new UserRegisterInfo(1000000000, "Ehsan", "Eftekhari", 1000, "Ehsan");
-        array[1] = new UserRegisterInfo(1000000001, "Mohamad", "Eftekhari", 1000, "Mohamad");
-        array[2] = new UserRegisterInfo(1000000002, "Javad", "Eftekhari", 1000, "Javad");
-        array[3] = new UserRegisterInfo(1000000003, "Reza", "Eftekhari", 1000, "Reza");
-        array[4] = new UserRegisterInfo(1000000004, "Ariyan", "Eftekhari", 1000, "Ariyan");
-        array[5] = new UserRegisterInfo(1000000005, "Mohsen", "Eftekhari", 1000, "Mohsen");
-        array[6] = new UserRegisterInfo(1000000006, "Hasan", "Eftekhari", 1000, "Hasan");
-        array[7] = new UserRegisterInfo(1000000007, "Hasan", "Shahbazi", 1000, "Shahbazi");
-        array[8] = new UserRegisterInfo(1000000008, "Hesam", "Eftekhari", 1000, "Hasan2");
-        array[9] = new UserRegisterInfo(1000000009, "Hesam", "Eftekhari", 1000, "Hasan3");
-        array[10] = new UserRegisterInfo(10000000010, "Hesam", "Eftekhari", 1000, "Hasan4");
-        array[11] = new UserRegisterInfo(10000000011, "Hesam", "Eftekhari", 1000, "Hasan5");
-        array[12] = new UserRegisterInfo(10000000012, "Hesam", "Eftekhari", 1000, "Hasan6");
-        array[13] = new UserRegisterInfo(10000000013, "Hesam", "Eftekhari", 1000, "Hasan7");
-        array[14] = new UserRegisterInfo(10000000014, "Hesam", "Eftekhari", 1000, "Hasan8");
-        array[15] = new UserRegisterInfo(10000000015, "Hesam", "Eftekhari", 1000, "Hasan9");
+        UserRegisterInfo[] array = new UserRegisterInfo[] {
+            new UserRegisterInfo(1000000000,  "Ehsan",   "Eftekhari", 1000, "Ehsan"),
+            new UserRegisterInfo(1000000001, "Mohamad", "Eftekhari", 1000, "Mohamad"),
+            new UserRegisterInfo(1000000002, "Javad", "Eftekhari", 1000, "Javad"),
+            new UserRegisterInfo(1000000003, "Reza", "Eftekhari", 1000, "Reza"),
+            new UserRegisterInfo(1000000004, "Ariyan", "Eftekhari", 1000, "Ariyan"),
+            new UserRegisterInfo(1000000005, "Mohsen", "Eftekhari", 1000, "Mohsen"),
+            new UserRegisterInfo(1000000006, "Playe6_Name", "Playe6_LastName", 1000, "Playe6"),
+            new UserRegisterInfo(1000000007, "Playe7_Name", "Playe7_LastName", 1000, "Playe7"),
+            new UserRegisterInfo(1000000008, "Playe8_Name", "Playe8_LastName", 1000, "Playe8"),
+            new UserRegisterInfo(1000000009, "Playe9_Name", "Playe9_LastName", 1000, "Playe9"),
+            new UserRegisterInfo(10000000010, "Playe10_Name", "Playe10_LastName", 1000, "Playe10"),
+            new UserRegisterInfo(10000000010, "PlayeE1_Name", "PlayeE1_LastName", 1000, "PlayeE1"),
+            new UserRegisterInfo(10000000102, "PlayeE2_Name", "PlayeE2_LastName", 1000, "Mohsen"),
+            new UserRegisterInfo(10000000011, "Playe11_Name", "Playe11_LastName", 1000, "Playe11"),
+            new UserRegisterInfo(10000000012, "Playe12_Name", "Playe12_LastName", 1000, "Playe12"),
+            new UserRegisterInfo(10000000013, "Playe13_Name", "Playe13_LastName", 1000, "Playe13"),
+            new UserRegisterInfo(10000000014, "Playe14_Name", "Playe14_LastName", 1000, "Playe14"),
+            new UserRegisterInfo(10000000016, "Playe15_Name", "Playe15_LastName", 1000, "Playe15"),
+            new UserRegisterInfo(10000000017, "Playe16_Name", "Playe16_LastName", 1000, "Playe16"),
+            new UserRegisterInfo(10000000018, "Playe17_Name", "Playe17_LastName", 1000, "Playe17"),
+            new UserRegisterInfo(10000000103, "PlayeE3_Name", "PlayeE3_LastName", 1000, "PlayeE3"),
+        };
         return array;
     }
 
