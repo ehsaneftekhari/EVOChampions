@@ -69,7 +69,7 @@ namespace EVOChampions.Games
                 throw new Exception("There is no players to start the Game");
 
             Bracket = new Bracket(players);
-            GameDirector director = new GameDirector(Bracket, gameCreator);
+            TournamentDirector director = new TournamentDirector(Bracket, gameCreator);
             director.start();
         }
 

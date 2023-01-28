@@ -3,11 +3,11 @@ using EVOChampions.Games.GameApps;
 
 namespace EVOChampions.Managers
 {
-    internal class GameDirector
+    internal class TournamentDirector
     {
         Bracket bracket;
         GameAppCreator gameCreator;
-        public GameDirector(Bracket bracket, GameAppCreator gameCreator)
+        public TournamentDirector(Bracket bracket, GameAppCreator gameCreator)
         {
             if (bracket is null)
                 throw new ArgumentNullException(nameof(bracket));
