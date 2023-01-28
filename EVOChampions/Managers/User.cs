@@ -12,39 +12,39 @@
 
             Id = id;
             gameSeparator = '$';
-            AddTournament(games);
+            AddGame(games);
         }
-        string? Tournaments { get; set; }
+        string? Games { get; set; }
 
         public int Id { get; private set; }
 
-        public void AddTournament(params string[] games)
+        public void AddGame(params string[] games)
         {
             string sprator = "";
 
-            if (Tournaments != null)
+            if (Games != null)
                 sprator = "$";
 
             if (games != null)
                 foreach (string gameName in games)
                 {
-                    Tournaments += string.Format("{0}{1}", sprator, gameName);
+                    Games += string.Format("{0}{1}", sprator, gameName);
                     sprator = "$";
                 }
         }
 
-        public string[] GetTournaments()
+        public string[] GetGames()
         {
-            if (Tournaments == null)
+            if (Games == null)
                 return new string[0];
 
-            string[] result = Tournaments.Split(gameSeparator);
+            string[] result = Games.Split(gameSeparator);
             return result;
         }
 
-        public bool HasTournament(string game)
+        public bool HasGame(string game)
         {
-            string[] games = GetTournaments();
+            string[] games = GetGames();
             foreach (string name in games)
             {
                 if (name == game) return true;

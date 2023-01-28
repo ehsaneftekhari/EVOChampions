@@ -4,19 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.TournamentRegisterErrorDetectors
+namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.GameRegisterErrorDetectors
 {
-    internal class TournamentCapacityIsFullError : TournamentRegisterErrorDetector
+    internal class GameCapacityIsFullError : GameRegisterErrorDetector
     {
-        public TournamentCapacityIsFullError(RegisterManager registerManager) : base(registerManager)
+        public GameCapacityIsFullError(RegisterManager registerManager) : base(registerManager)
         {
         }
 
-        protected override string Name => "TournamentCapacityIsFullError";
+        protected override string Name => "GameCapacityIsFullError";
 
         protected override bool DoDetection(string gameNAME, long payed)
         {
-            if (registerManager.IsTournamentFull(gameNAME))
+            if (registerManager.IsGameFull(gameNAME))
                 return true;
 
             return false;

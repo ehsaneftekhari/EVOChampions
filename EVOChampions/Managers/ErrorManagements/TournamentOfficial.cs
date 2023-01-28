@@ -1,19 +1,19 @@
 ﻿using EVOChampions.Managers;
 using EVOChampions.Managers.ErrorManagements.ErrorDetectors;
-using EVOChampions.Managers.ErrorManagements.ErrorDetectors.TournamentRegisterErrorDetectors;
+using EVOChampions.Managers.ErrorManagements.ErrorDetectors.GameRegisterErrorDetectors;
 using EVOChampions.Managers.ErrorManagements.ErrorDetectors.UserRegisterErrorDetectors;
 
 namespace EVOChampions.Managers.ErrorManagements
 {
-    public class TournamentOfficial
+    public class GameOfficial
     {
         UserRegisterErrorDetector[] userRegisterError;
-        TournamentRegisterErrorDetector[] gameRegisterError;
+        GameRegisterErrorDetector[] gameRegisterError;
 
         string[] occurredErrorsMessages;
         int index;
 
-        public TournamentOfficial(RegisterManager registerManager)
+        public GameOfficial(RegisterManager registerManager)
         {
             userRegisterError = new UserRegisterErrorDetector[]{
                 new DuplicateNationalIdError(registerManager),
@@ -22,10 +22,10 @@ namespace EVOChampions.Managers.ErrorManagements
                 new NationalIdFormatError(registerManager)
             };
 
-            gameRegisterError = new TournamentRegisterErrorDetector[]{
-                new InvalidTournamentError(registerManager),
+            gameRegisterError = new GameRegisterErrorDetector[]{
+                new InvalidGameError(registerManager),
                 new LowBalanceError(registerManager),
-                new TournamentCapacityIsFullError(registerManager)
+                new GameCapacityIsFullError(registerManager)
             };
             InitialOccurredErrorsArray();
         }
@@ -45,10 +45,10 @@ namespace EVOChampions.Managers.ErrorManagements
             return result;
         }
 
-        public bool DitectTournamentRegisterError(string gameNAME, long payed)
+        public bool DitectGameRegisterError(string gameNAME, long payed)
         {
             bool result = false;
-            foreach (TournamentRegisterErrorDetector errorDetector in gameRegisterError)
+            foreach (GameRegisterErrorDetector errorDetector in gameRegisterError)
             {
                 bool tempResult = errorDetector.Detect(gameNAME, payed);
                 if (tempResult)

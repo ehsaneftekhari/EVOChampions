@@ -104,16 +104,16 @@
 
         public override string ToString()
         {
-            string result = "Game:++++++++++++++++++++++++++++++++++++++++\n";
+            string result = "Match:+++++++++++++++++++++++++++++++++++++++\n";
             if (Winner == null)
-                result += "Game didn`t started";
+                result += "Match didn`t started";
             else
             {
                 result += SummaryToString();
                 result += "\n";
                 result += RoundsDetailsToString();
             }
-            result += "++++++++++++++++++++++++++++++++++++++++/Game";
+            result += "+++++++++++++++++++++++++++++++++++++++/Match";
             return result;
         }
 

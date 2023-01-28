@@ -45,7 +45,7 @@ namespace EVOChampions.Brackets
             string result = "Bracket:=====================================\n";
             for (int i = 2; i <= NumberOfLevels; i++)
             {
-                result += string.Format("Round {0} Games:\n{1}\n", i - 1, LevelToString(i));
+                result += string.Format("Round {0} Matchs:\n{1}\n", i - 1, LevelToString(i));
             }
             result += "=====================================/Bracket";
             return result;

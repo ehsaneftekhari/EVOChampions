@@ -9,8 +9,8 @@
         "DuplicateUsernameError","the Username Id you entered is in use",
         "UsernameFormatError","the Username you entered is in the wrong format",
         "LowBalanceError","The Amount of your payment is more or less than value it should be",
-        "InvalidTournamentError","the Tournament Name you entered is invalid",
-        "TournamentCapacityIsFullError", "the Capacity of Tournament Is FullError"
+        "InvalidGameError","the Game Name you entered is invalid",
+        "GameCapacityIsFullError", "the Capacity of Game Is FullError"
         };
         public static int GetIndexByName(string name)
         {

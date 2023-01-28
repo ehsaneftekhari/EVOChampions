@@ -10,17 +10,17 @@ class Program
     static void Main()
     {
         //TestBracket();
-        //TestTournament();
+        //TestGame();
         Run();
     }
 
     public static void Run()
     {
-        Game takenTournament = new("Taken", 20, 21, new TakenCreator());
-        Game mortalCombatTournament = new("Mortal Combat", 30, 21, new MortalCombatCreator());
+        Game takenGame = new("Taken", 20, 21, new TakenCreator());
+        Game mortalCombatGame = new("Mortal Combat", 30, 21, new MortalCombatCreator());
         Game streetFighter = new("Street Fighter", 20, 21, new StreetFighterCreator());
 
-        GeneralManager generalManager = new GeneralManager(takenTournament, mortalCombatTournament, streetFighter);
+        GeneralManager generalManager = new GeneralManager(takenGame, mortalCombatGame, streetFighter);
 
         RegisterManager registerManager = generalManager.RegisterManager;
 
@@ -30,9 +30,9 @@ class Program
             try
             {
                 User newUser = registerManager.RegisterUser(userRegisterInfo, out newUser);
-                registerManager.RegisterTournament(newUser, "Taken", 20);
-                registerManager.RegisterTournament(newUser, "Mortal Combat", 30);
-                registerManager.RegisterTournament(newUser, "Street Fighter", 20);
+                registerManager.RegisterGame(newUser, "Taken", 20);
+                registerManager.RegisterGame(newUser, "Mortal Combat", 30);
+                registerManager.RegisterGame(newUser, "Street Fighter", 20);
             }
             catch (Exception ex)
             {
@@ -104,7 +104,7 @@ class Program
         return gameUsers;
     }
 
-    public static void TestTournament()
+    public static void TestGame()
     {
         UserRegisterInfo[] array = GenerateURE();
         User[] users = CreateUser(array);

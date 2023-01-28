@@ -6,15 +6,15 @@ namespace EVOChampions.Managers
     {
         int userIndex;
         int UserIdStart;
-        TournamentOfficial gameOfficial;
+        GameOfficial gameOfficial;
         int[] gamesRemainingCapacitys;
 
         public RegisterManager(params Game[] games)
         {
             InitialIndexAndId(-1,1);
-            InitialTournament(games);
+            InitialGame(games);
             Initialcapacities(games);
-            InitialTournamentOfficial(this);
+            InitialGameOfficial(this);
         }
 
         private int NextUserIndex => userIndex + 1;
@@ -37,21 +37,21 @@ namespace EVOChampions.Managers
             return Users[Id - UserIdStart];
         }
 
-        public bool IsTournamentFull(string gameName)
+        public bool IsGameFull(string gameName)
         {
-            int Capacity = GetTournamentRemainingCapacity(gameName);
+            int Capacity = GetGameRemainingCapacity(gameName);
             return Capacity <= 0;
         }
 
-        private int GetTournamentRemainingCapacity(string gameName)
+        private int GetGameRemainingCapacity(string gameName)
         {
-            int index = GetIndexOfTournament(gameName);
+            int index = GetIndexOfGame(gameName);
             return gamesRemainingCapacitys[index];
         }
 
-        private void DecreaseTournamentRemainingCapacity(string gameName)
+        private void DecreaseGameRemainingCapacity(string gameName)
         {
-            int index = GetIndexOfTournament(gameName);
+            int index = GetIndexOfGame(gameName);
             gamesRemainingCapacitys[index] -= 1;
         }
 
@@ -70,9 +70,9 @@ namespace EVOChampions.Managers
             }
         }
 
-        public bool RegisterTournament(User user, string gameName, long payed)
+        public bool RegisterGame(User user, string gameName, long payed)
         {
-            if (gameOfficial.DitectTournamentRegisterError(gameName, payed))
+            if (gameOfficial.DitectGameRegisterError(gameName, payed))
             {
                 gameOfficial.PrintErrors();
                 gameOfficial.InitialOccurredErrorsArray();
@@ -80,14 +80,14 @@ namespace EVOChampions.Managers
             }
             else
             {
-                DecreaseTournamentRemainingCapacity(gameName);
-                Game game = GetTournament(gameName);
-                user.AddTournament(game.Name);
+                DecreaseGameRemainingCapacity(gameName);
+                Game game = GetGame(gameName);
+                user.AddGame(game.Name);
                 return true;
             }
         }
 
-        public User[] GetUsersByTournamentName(string gameName)
+        public User[] GetUsersByGameName(string gameName)
         {
             int count = CountUsers(gameName);
             User[] result = new User[count];
@@ -97,7 +97,7 @@ namespace EVOChampions.Managers
                 if (user is null)
                     break;
 
-                if (user.HasTournament(gameName))
+                if (user.HasGame(gameName))
                 {
                     result[index++] = user;
                 }
@@ -105,7 +105,7 @@ namespace EVOChampions.Managers
             return result;
         }
 
-        internal bool ContainsTournament(string gameName)
+        internal bool ContainsGame(string gameName)
         {
             if (gameName is null)
                 throw new ArgumentNullException(nameof(gameName));
@@ -121,7 +121,7 @@ namespace EVOChampions.Managers
             return false;
         }
 
-        internal long GetTournamentSalary(string gameName)
+        internal long GetGameSalary(string gameName)
         {
             if (gameName is null)
                 throw new ArgumentNullException(nameof(gameName));
@@ -138,13 +138,13 @@ namespace EVOChampions.Managers
             return 0;
         }
 
-        internal Game GetTournament(string gameName)
+        internal Game GetGame(string gameName)
         {
-            int index = GetIndexOfTournament(gameName);
+            int index = GetIndexOfGame(gameName);
             return games[index];
         }
 
-        private int GetIndexOfTournament(string gameName)
+        private int GetIndexOfGame(string gameName)
         {
             for(int i = 0; i < games.Length; i++)
             {
@@ -162,7 +162,7 @@ namespace EVOChampions.Managers
                 if (user is null)
                     break;
 
-                if (user.HasTournament(gameName))
+                if (user.HasGame(gameName))
                     count++;
             }
             return count;
@@ -198,9 +198,9 @@ namespace EVOChampions.Managers
             gamesRemainingCapacitys = capacities.gamesCapacitys;
         }
 
-        private void InitialTournamentOfficial(RegisterManager registerManager) => gameOfficial = new TournamentOfficial(registerManager);
+        private void InitialGameOfficial(RegisterManager registerManager) => gameOfficial = new GameOfficial(registerManager);
 
-        private void InitialTournament(Game[] games) => this.games = games;
+        private void InitialGame(Game[] games) => this.games = games;
 
         private (int capacity, int[] gamesCapacitys) CalculateCapacities(Game[] games)
         {

@@ -1,18 +1,18 @@
 ﻿using EVOChampions.Managers;
 
-namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.TournamentRegisterErrorDetectors
+namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.GameRegisterErrorDetectors
 {
-    public sealed class InvalidTournamentError : TournamentRegisterErrorDetector
+    public sealed class InvalidGameError : GameRegisterErrorDetector
     {
-        public InvalidTournamentError(RegisterManager registerManager) : base(registerManager)
+        public InvalidGameError(RegisterManager registerManager) : base(registerManager)
         {
         }
 
-        protected override string Name => "InvalidTournamentError";
+        protected override string Name => "InvalidGameError";
 
         protected override bool DoDetection(string gameNAME, long payed)
         {
-            if (!registerManager.ContainsTournament(gameNAME))
+            if (!registerManager.ContainsGame(gameNAME))
                 return true;
             else
                 return false;

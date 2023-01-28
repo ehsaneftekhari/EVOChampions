@@ -1,10 +1,10 @@
 ﻿using EVOChampions.Managers;
 
-namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.TournamentRegisterErrorDetectors
+namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.GameRegisterErrorDetectors
 {
-    public abstract class TournamentRegisterErrorDetector : ErrorDetector
+    public abstract class GameRegisterErrorDetector : ErrorDetector
     {
-        protected TournamentRegisterErrorDetector(RegisterManager registerManager) : base(registerManager)
+        protected GameRegisterErrorDetector(RegisterManager registerManager) : base(registerManager)
         {
         }
 

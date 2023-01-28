@@ -66,10 +66,10 @@ namespace EVOChampions
         public void Start()
         {
             if (players is null || players.Length == 0)
-                throw new Exception("There is no players to start the Tournament");
+                throw new Exception("There is no players to start the Game");
 
             Bracket = new Bracket(players);
-            TournamentDirector director = new TournamentDirector(Bracket, gameCreator);
+            GameDirector director = new GameDirector(Bracket, gameCreator);
             director.start();
         }
 
@@ -79,7 +79,7 @@ namespace EVOChampions
             for (int i = 0; i < registeredUsers.Length; i++)
             {
                 if (i >= PlayersCapacity)
-                    throw new StackOverflowException("there is no enough space to add rest of the users in " + Name + "Tournament");
+                    throw new StackOverflowException("there is no enough space to add rest of the users in " + Name + "Game");
 
                 players[i] = new GamePlayer(registeredUsers[i]);
             }
@@ -87,14 +87,14 @@ namespace EVOChampions
 
         public override string ToString()
         {
-            string result = "Tournament:----------------------------------\n";
+            string result = "Game:----------------------------------------\n";
             if (Gold != null)
             {
-                result += string.Format("TournamentName: {0}\nPodiums:\n1.Gold:   {1}\n2.Silver: {2}\n3.Bronze: {3}\n", Name, Gold, Silver, Bronze);
+                result += string.Format("GameName: {0}\nPodiums:\n1.Gold:   {1}\n2.Silver: {2}\n3.Bronze: {3}\n", Name, Gold, Silver, Bronze);
                 result += Bracket.GraphToString();
                 result += string.Format("Bracket:\n{0}\n", Bracket.ToString());
             }
-            result += "----------------------------------/Tournament\n";
+            result += "----------------------------------------/Game\n";
             return result;
         }
 

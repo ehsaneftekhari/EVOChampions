@@ -1,8 +1,8 @@
 ﻿using EVOChampions.Managers;
 
-namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.TournamentRegisterErrorDetectors
+namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.GameRegisterErrorDetectors
 {
-    public sealed class LowBalanceError : TournamentRegisterErrorDetector
+    public sealed class LowBalanceError : GameRegisterErrorDetector
     {
         public LowBalanceError(RegisterManager registerManager) : base(registerManager)
         {
@@ -12,7 +12,7 @@ namespace EVOChampions.Managers.ErrorManagements.ErrorDetectors.TournamentRegist
 
         protected override bool DoDetection(string gameNAME, long payed)
         {
-            long salary = registerManager.GetTournamentSalary(gameNAME);
+            long salary = registerManager.GetGameSalary(gameNAME);
             if (payed != salary)
                 return true;
 
