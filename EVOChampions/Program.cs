@@ -18,9 +18,9 @@ class Program
     {
         Game takenGame = new("Taken", 20, 21, new TakenCreator());
         Game mortalCombatGame = new("Mortal Combat", 30, 21, new MortalCombatCreator());
-        Game streetFighter = new("Street Fighter", 20, 21, new StreetFighterCreator());
+        Game streetFighterGame = new("Street Fighter", 20, 10, new StreetFighterCreator());
 
-        GeneralManager generalManager = new GeneralManager(takenGame, mortalCombatGame, streetFighter);
+        GeneralManager generalManager = new GeneralManager(takenGame, mortalCombatGame, streetFighterGame);
 
         RegisterManager registerManager = generalManager.RegisterManager;
 
@@ -31,7 +31,10 @@ class Program
             {
                 User newUser = registerManager.RegisterUser(userRegisterInfo, out newUser);
                 registerManager.RegisterGame(newUser, "Taken", 20);
-                registerManager.RegisterGame(newUser, "Mortal Combat", 30);
+                if(newUser.UserName != "PlayerE3")
+                    registerManager.RegisterGame(newUser, "Mortal Combat", 30);
+                else
+                    registerManager.RegisterGame(newUser, "Mortal Combat", 20);
                 registerManager.RegisterGame(newUser, "Street Fighter", 20);
             }
             catch (Exception ex)
