@@ -52,12 +52,13 @@
         {
             get
             {
-                for (int i = 0; i < Rounds.Length; i++)
+                int i = 0;
+                for (; i < Rounds.Length; i++)
                 {
                     if (Rounds[i] == null)
-                        return i;
+                        break;
                 }
-                return 0;
+                return i;
             }
         }
 

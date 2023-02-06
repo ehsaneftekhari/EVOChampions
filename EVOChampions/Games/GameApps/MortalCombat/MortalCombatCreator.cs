@@ -14,7 +14,7 @@ namespace EVOChampions.Games.GameApps.MortalCombat
         protected override MortalCombatRound CteateRound(GameAppPlayer player1, GameAppPlayer player2)
         {
             RoundPlayer character1 = new RoundPlayer(player1);
-            RoundPlayer character2 = new RoundPlayer(player1);
+            RoundPlayer character2 = new RoundPlayer(player2);
             return new MortalCombatRound(character1, character2);
         }
     }
