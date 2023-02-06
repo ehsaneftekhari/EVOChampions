@@ -17,15 +17,13 @@ class Program
 
     public static void Run()
     {
-        Game takenGame = new("Taken", 20, 21, new TakenCreator());
-        Game mortalCombatGame = new("Mortal Combat", 30, 21, new MortalCombatCreator());
+        Game takenGame = new("Taken", 20, 17, new TakenCreator());
+        Game mortalCombatGame = new("Mortal Combat", 30, 17, new MortalCombatCreator());
         Game streetFighterGame = new("Street Fighter", 20, 10, new StreetFighterCreator());
 
         RegisterManager registerManager = new (takenGame, mortalCombatGame, streetFighterGame);
 
-        Tournament tournament = new(registerManager);
-
-        PersonInfo[] personInfos = GeneratePersonInfos();
+        PersonInfo[] personInfos = GeneratePersonsInfos();
 
         foreach (PersonInfo personInfo in personInfos)
         {
@@ -47,10 +45,12 @@ class Program
             }
         }
 
+        Tournament tournament = new(registerManager);
+
         tournament.Start();
     }
 
-    public static PersonInfo[] GeneratePersonInfos()
+    public static PersonInfo[] GeneratePersonsInfos()
     {
         PersonInfo[] array = new PersonInfo[] {
             new PersonInfo(1000000000, "Ehsan",   "Eftekhari", 1000, "Ehsan"),
@@ -101,7 +101,7 @@ class Program
 
     public static void TestGame()
     {
-        PersonInfo[] array = GeneratePersonInfos();
+        PersonInfo[] array = GeneratePersonsInfos();
         User[] users = CreateUser(array);
         TakenCreator takenCreator = new TakenCreator();
         Game TestTaken = new Game("TestTaken", 1000, 16, takenCreator);
@@ -112,7 +112,7 @@ class Program
 
     public static void TestBracket()
     {
-        PersonInfo[] array = GeneratePersonInfos();
+        PersonInfo[] array = GeneratePersonsInfos();
         GamePlayer[] gameUsers = CreateTP(array);
 
         Bracket bracket = new Bracket(gameUsers);
